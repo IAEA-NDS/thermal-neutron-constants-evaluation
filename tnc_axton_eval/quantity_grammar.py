@@ -44,14 +44,11 @@ class CalculateTree(Transformer):
     def func(self, funcname, *args):
         if not self._funcs.is_valid(funcname):
             raise ValueError(f'invalid function name {funcname}')
-        return getattr(self._funcs, funcname)(*[int(arg) for arg in args])
+        ret = getattr(self._funcs, funcname)(*[int(arg) for arg in args])
+        return ret
 
 
-import numpy as np
-funcs = prepare_funcs(lambda x, y: np.full(3, 1.5))
-trafo = CalculateTree(funcs)
-
-
-parser = Lark(calc_grammar, parser='lalr', transformer=trafo)
-parser.parse('(3+ABS(3))/5')
-
+def prepare_propagator(funcs):
+    trafo = CalculateTree(funcs)
+    parser = Lark(calc_grammar, parser='lalr', transformer=trafo)
+    return parser.parse

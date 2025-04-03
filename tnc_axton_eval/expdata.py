@@ -1215,7 +1215,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'HOPKINS',
         'Reference': '1963(1)',
-        'MeasureFunc': '1963(1)',  
+        'MeasureFunc': 'NUB(33)/NUB(52)',  
         'Notes': '5',
         'InputValue': 6.5483e-1,
         'Uncertainty': .895,
