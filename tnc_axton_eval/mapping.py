@@ -1,4 +1,5 @@
 import tensorflow as tf
+import tensorflow_probability as tfp
 import pandas as pd
 import numpy as np
 from expdata import exp_dt
@@ -7,19 +8,30 @@ from quantities import prepare_funcs
 from utils import timeit
 
 
+# tuple_combis = tuple(
+#     (x, y) for x in ('SCA', 'SCR', 'ABS', 'FIS', 'NUB', 'WGA', 'WGF')
+#     for y in (33, 35, 39, 41)
+# )
 tuple_combis = tuple(
     (x, y) for x in ('SCA', 'SCR', 'ABS', 'FIS', 'NUB', 'WGA', 'WGF')
     for y in (33, 35, 39, 41)
 )
 tuple_combis += (('NUB', 52),)
-tuple_combis += (('HLF', 33),)
-tuple_combis += (('HLF', 39),)
+# tuple_combis += (('WGF', 33),)
+# tuple_combis += (('WGF', 35),)
+# tuple_combis += (('WGF', 39),)
+# tuple_combis += (('WGF', 41),)
+# tuple_combis += (('WGA', 33),)
+# tuple_combis += (('WGA', 35),)
+# tuple_combis += (('WGA', 39),)
+
+# for debugging
 
 reac_map = {
     n: i for i, n in enumerate(tuple_combis)
 }
 
-prior_mesh = tf.constant(np.arange(len(tuple_combis)), dtype=tf.float64) 
+prior_mesh = tf.constant(np.arange(len(tuple_combis))[::-1], dtype=tf.float64)
 
 def get_numpy_el(x, y):
     idx = reac_map[(x,y)]
@@ -49,11 +61,12 @@ for i, row in exp_dt.iterrows():
 # ['FLEM', 'CAP(34)', 'FFH(39,39)', 'FFH(39,39)/FFH(34,35)', 'FFH(39,39)/FFH(33,33)', 'FFH(39,39)/FFH(33,35)', 'F1BIG', 'FH1(39,39)', 'FH1(34,35)', 'FH1(34,35)', 'FH1(39,39)', 'FH1(39,39)/FH1(34,35)',
 #  'FH1(39,39) / FH1(34,35)', 'F1CAB', 'F2CAB', 'F3CAB', 'F4CAB', 'F5CAB', 'CA(40)', 'CA(42)', 'GC116(39)', 'GC116(40)', 'GC116(41)', 'GC116(42)', 'GA116(39)', 'GA116(41)']
 
+
 red_exp_dt = exp_dt.loc[selected_exp_idx].reset_index(drop=True)
 
 
 def propagate(params):
-    getter = lambda x, y: params[reac_map[(x,y)]] 
+    getter = lambda x, y: params[reac_map[(x,y)]]
     funcs = prepare_funcs(getter)
     propfun = prepare_propagator(funcs)
     tf_results = []
@@ -71,16 +84,32 @@ def jacobian(params):
 
 params = tf.Variable(prior_mesh+10)
 
-propfun = propagate
-jacfun = jacobian
-
 # optimization
 
+try:
+    startvals_map
+except NameError:
+    startvals_map = {}
+
+
+np.random.seed(48)
+startvals = np.random.uniform(0.1, 2, len(reac_map))
+for k, idx in reac_map.items():
+    if k in startvals_map:
+        startvals[idx] = startvals_map[k]
+
+startvals = tf.constant(startvals, dtype=tf.float64)
+startpreds = propagate(startvals)
+
+
+myprop = lambda x: propagate(tf.square(x))
+
+
 def chisquare(params):
-    propvals = propfun(params)
+    propvals = myprop(params)
     expvals = tf.constant(red_exp_dt['InputValue'], dtype=tf.float64)
     uncs = tf.constant(red_exp_dt['Uncertainty']/100, dtype=tf.float64)
-    absuncs = uncs*propvals
+    absuncs = uncs * expvals
     diff = (0.5) * tf.square(expvals - propvals) / tf.square(absuncs)
     return tf.reduce_sum(diff)
 
@@ -92,7 +121,7 @@ def chisquare_gradient(params):
     return tape.gradient(y, params)
 
 
-def func_and_grad(params):
+def chisquare_and_gradient(params):
     with tf.GradientTape() as tape:
         tape.watch(params)
         y = chisquare(params)
@@ -116,23 +145,37 @@ def chisquare_hessian(params):
     return h
 
 
-approx_neg_chisquare_hessian_tf = tf.function(approx_neg_chisquare_hessian)
-res = timeit(approx_neg_chisquare_hessian_tf)(params)
-
+chisquare_hessian_tf = tf.function(chisquare_hessian)
+res = timeit(chisquare_hessian_tf)(params)
 
 
 from gmapy.tf_uq.inference import determine_MAP_estimate
 
 
-func_and_grad_tf = tf.function(func_and_grad)
+func_and_grad_tf = tf.function(chisquare_and_gradient)
 func_hessian_tf = tf.function(chisquare_hessian)
 
-optres = determine_MAP_estimate(params, func_and_grad_tf, func_hessian_tf, ret_optres=True)
+optres1 = determine_MAP_estimate(startvals, func_and_grad_tf, func_hessian_tf, ret_optres=True)
+optres2 = tfp.optimizer.bfgs_minimize(func_and_grad_tf, params)
+np.max(optres1.position - optres2.position)
 
-optres.position.numpy()
+
+opt_params = np.square(optres1.position.numpy())
 
 pd.DataFrame({
     'NAME': [f'{x} {y}' for x, y in tuple_combis],
-    'POST': optres.position.numpy()
+    'POST': opt_params
 })
+red_exp_dt['PRED'] = propagate(opt_params)
+red_exp_dt['RES'] = (red_exp_dt['PRED'] - red_exp_dt['InputValue']) / red_exp_dt['InputValue'] / (red_exp_dt['Uncertainty']/100)
+red_exp_dt
+
+
+# startvals_map = {k: optres1.position.numpy()[idx] for k, idx in reac_map.items()}
+startvals_map.update({k: optres1.position.numpy()[idx] for k, idx in reac_map.items()})
+# startvals_map[('WGF', 33)] = 1.0
+# startvals_map[('WGF', 35)] = 1.0
+# startvals_map[('WGF', 39)] = 1.0
+# startvals_map[('WGF', 41)] = 1.0
+# startvals_map[('FIS', 41)] = np.sqrt(1011.0)
 
