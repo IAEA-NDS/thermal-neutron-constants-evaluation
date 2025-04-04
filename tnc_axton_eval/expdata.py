@@ -5,7 +5,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'LAPONCHE',
         'Reference': '1972(2)',
-        'MeasureFunc': 'FA(39) / FA(35)',  
+        'MeasureFunc': 'FA(39) / FA(35)',
         'Notes': '7',
         'InputValue': 1.6491,
         'Uncertainty': .583,
@@ -15,7 +15,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'CORNISH',
         'Reference': '1956(2)',
-        'MeasureFunc': 'CAP(39)',  
+        'MeasureFunc': 'CAP(39)',
         'Notes': '8',
         'InputValue': 3.1200e2,
         'Uncertainty': 4.490,
@@ -25,7 +25,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'HALPERIN',
         'Reference': '1956(2)',
-        'MeasureFunc': 'CAP(33)',  
+        'MeasureFunc': 'CAP(33)',
         'Notes': '10',
         'InputValue': 4.9530e1,
         'Uncertainty': 6.400,
@@ -35,7 +35,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'CABELL',
         'Reference': '1971(2)',
-        'MeasureFunc': 'FLEM',  
+        'MeasureFunc': 'FLEM',
         'Notes': '11',
         'InputValue': 9.8270e-2,
         'Uncertainty': 3.348,
@@ -45,7 +45,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'LEMMEL',
         'Reference': '1982(1)',
-        'MeasureFunc': 'CAP(34)',  
+        'MeasureFunc': 'CAP(34)',
         'Notes': '3',
         'InputValue': 9.5900e1,
         'Uncertainty': 2.086,
@@ -55,7 +55,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'POPOVIC',
         'Reference': '1953(2)',
-        'MeasureFunc': 'FF(35)',  
+        'MeasureFunc': 'FF(35)',
         'Notes': '13',
         'InputValue': 5.7110e2,
         'Uncertainty': 2.211,
@@ -65,7 +65,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'POPOVIC',
         'Reference': '1955(2)',
-        'MeasureFunc': 'FFH(33,33)',  
+        'MeasureFunc': 'FFH(33,33)',
         'Notes': '13',
         'InputValue': 8.4472e2,
         'Uncertainty': 3.147,
@@ -75,7 +75,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'KEITH',
         'Reference': '1968(2)',
-        'MeasureFunc': 'FFH(33,33)',  
+        'MeasureFunc': 'FFH(33,33)',
         'Notes': '14',
         'InputValue': 8.3415e2,
         'Uncertainty': 1.371,
@@ -85,7 +85,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'KEITH',
         'Reference': '1968(2)',
-        'MeasureFunc': 'FFH(33,35)',  
+        'MeasureFunc': 'FFH(33,35)',
         'Notes': '14',
         'InputValue': 8.8901e2,
         'Uncertainty': 1.446,
@@ -95,7 +95,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'KEITH',
         'Reference': '1968(2)',
-        'MeasureFunc': 'FFH(39,39)',  
+        'MeasureFunc': 'FFH(39,39)',
         'Notes': '14',
         'InputValue': 1.8844e3,
         'Uncertainty': .949,
@@ -105,7 +105,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'BIGHAM',
         'Reference': '1975(2)',
-        'MeasureFunc': 'FFH(33,33)',  
+        'MeasureFunc': 'FFH(33,33)',
         'Notes': '15',
         'InputValue': 8.3520e2,
         'Uncertainty': .659,
@@ -115,7 +115,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'JAFFEY',
         'Reference': '1955(2)',
-        'MeasureFunc': 'FF(41)',  
+        'MeasureFunc': 'FF(41)/FF(39)',
         'Notes': '17',
         'InputValue': 1.3552e0,
         'Uncertainty': 1.424,
@@ -125,7 +125,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'WHITE',
         'Reference': '1967(2)',
-        'MeasureFunc': 'FF(39)/FF(35)',  
+        'MeasureFunc': 'FF(39)/FF(35)',
         'Notes': '18',
         'InputValue': 1.3583,
         'Uncertainty': 2.139,
@@ -135,7 +135,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'WHITE',
         'Reference': '1967(2)',
-        'MeasureFunc': 'FF(41)/FF(35)',  
+        'MeasureFunc': 'FF(41)/FF(35)',
         'Notes': '18',
         'InputValue': 1.8806,
         'Uncertainty': 2.802,
@@ -145,7 +145,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'VIDAL',
         'Reference': '1970(2)',
-        'MeasureFunc': 'FF(33)/FF(35)',  
+        'MeasureFunc': 'FF(33)/FF(35)',
         'Notes': '2',
         'InputValue': 9.3200e-1,
         'Uncertainty': .966,
@@ -155,7 +155,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'BIGHAM',
         'Reference': '1975(2)',
-        'MeasureFunc': 'FF(33)/FF(35)',  
+        'MeasureFunc': 'FF(33)/FF(35)',
         'Notes': '15',
         'InputValue': 9.3230e-1,
         'Uncertainty': .450,
@@ -165,7 +165,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'SWEET',
         'Reference': '1973(2)',
-        'MeasureFunc': 'FFH(39,39)/FFH(34,35)',  
+        'MeasureFunc': 'FFH(39,39)/FFH(34,35)',
         'Notes': '2',
         'InputValue': 1.3544,
         'Uncertainty': 1.414,
@@ -175,7 +175,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'BIGHAM',
         'Reference': '1975(2)',
-        'MeasureFunc': 'FFH(39,39)/FFH(33,33)',  
+        'MeasureFunc': 'FFH(39,39)/FFH(33,33)',
         'Notes': '15',
         'InputValue': 2.2796,
         'Uncertainty': .669,
@@ -185,7 +185,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'BIGHAM',
         'Reference': '1975(2)',
-        'MeasureFunc': 'FFH(39,39)/FFH(33,35)',  
+        'MeasureFunc': 'FFH(39,39)/FFH(33,35)',
         'Notes': '15',
         'InputValue': 2.1239,
         'Uncertainty': .709,
@@ -195,7 +195,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'BIGHAM',
         'Reference': '1975(2)',
-        'MeasureFunc': 'F1BIG',  
+        'MeasureFunc': 'F1BIG',
         'Notes': '15',
         'InputValue': 5.5270e-1,
         'Uncertainty': .562,
@@ -205,7 +205,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'LOUNSBURY',
         'Reference': '1970(1)',
-        'MeasureFunc': 'CA(33)/FIS(33)',  
+        'MeasureFunc': 'CA(33)/FIS(33)',
         'Notes': '19',
         'InputValue': 8.6100e-2,
         'Uncertainty': 2.239,
@@ -215,7 +215,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'LOUNSBURY',
         'Reference': '1970(1)',
-        'MeasureFunc': 'CA(35)/FIS(35)',  
+        'MeasureFunc': 'CA(35)/FIS(35)',
         'Notes': '19',
         'InputValue': 1.6970e-1,
         'Uncertainty': 1.709,
@@ -225,7 +225,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'LOUNSBURY',
         'Reference': '1970(1)',
-        'MeasureFunc': 'CA(39)/FIS(39)',  
+        'MeasureFunc': 'CA(39)/FIS(39)',
         'Notes': '19',
         'InputValue': 3.5550e-1,
         'Uncertainty': 1.603,
@@ -235,7 +235,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'INGHRAM',
         'Reference': '1956(2)',
-        'MeasureFunc': 'CAP(33)/FF(33)',  
+        'MeasureFunc': 'CAP(33)/FF(33)',
         'Notes': '2',
         'InputValue': 9.4030e-2,
         'Uncertainty': 3.190,
@@ -245,7 +245,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'CORNISH',
         'Reference': '1960(2)',
-        'MeasureFunc': 'CAP(35)/FF(35)',  
+        'MeasureFunc': 'CAP(35)/FF(35)',
         'Notes': '2',
         'InputValue': 1.8800e-1,
         'Uncertainty': 7.447,
@@ -255,7 +255,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'OKAZAKI',
         'Reference': '1964(2)',
-        'MeasureFunc': 'CAP(33)/FF(33)',  
+        'MeasureFunc': 'CAP(33)/FF(33)',
         'Notes': '20',
         'InputValue': 9.0200e-2,
         'Uncertainty': 1.731,
@@ -265,7 +265,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'OKAZAKI',
         'Reference': '1964(2)',
-        'MeasureFunc': 'CAP(35)/FF(35)',  
+        'MeasureFunc': 'CAP(35)/FF(35)',
         'Notes': '20',
         'InputValue': 1.7050e-1,
         'Uncertainty': 1.056,
@@ -275,7 +275,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'LISMAN',
         'Reference': '1967(2)',
-        'MeasureFunc': 'CAP(33)/FF(33)',  
+        'MeasureFunc': 'CAP(33)/FF(33)',
         'Notes': '21',
         'InputValue': 9.3000e-2,
         'Uncertainty': 2.128,
@@ -285,7 +285,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'LISMAN',
         'Reference': '1967(2)',
-        'MeasureFunc': 'CAP(35)/FF(35)',  
+        'MeasureFunc': 'CAP(35)/FF(35)',
         'Notes': '21',
         'InputValue': 1.7120e-1,
         'Uncertainty': .886,
@@ -295,7 +295,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'CONWAY',
         'Reference': '1967(2)',
-        'MeasureFunc': 'CAP(33)/FF(33)',  
+        'MeasureFunc': 'CAP(33)/FF(33)',
         'Notes': '21',
         'InputValue': 8.5100e-2,
         'Uncertainty': 4.935,
@@ -305,7 +305,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'CONWAY',
         'Reference': '1967(2)',
-        'MeasureFunc': 'CAP(35)/FF(35)',  
+        'MeasureFunc': 'CAP(35)/FF(35)',
         'Notes': '21',
         'InputValue': 1.7050e-1,
         'Uncertainty': 4.223,
@@ -315,7 +315,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'DURHAM',
         'Reference': '1967(2)',
-        'MeasureFunc': 'CAP(35)/FF(35)',  
+        'MeasureFunc': 'CAP(35)/FF(35)',
         'Notes': '22',
         'InputValue': 1.7460e-1,
         'Uncertainty': 1.145,
@@ -325,7 +325,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'DURHAM',
         'Reference': '1967(2)',
-        'MeasureFunc': 'CAP(39)/FF(39)',  
+        'MeasureFunc': 'CAP(39)/FF(39)',
         'Notes': '22',
         'InputValue': 3.8820e-1,
         'Uncertainty': 1.520,
@@ -335,7 +335,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'CABELL',
         'Reference': '1971(2)',
-        'MeasureFunc': 'CAP(33)/FF(33)',  
+        'MeasureFunc': 'CAP(33)/FF(33)',
         'Notes': '23',
         'InputValue': 8.5700e-2,
         'Uncertainty': 3.048,
@@ -345,7 +345,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'CABELL',
         'Reference': '1971(2)',
-        'MeasureFunc': 'CAP(35)/FF(35)',  
+        'MeasureFunc': 'CAP(35)/FF(35)',
         'Notes': '23',
         'InputValue': 1.6960e-1,
         'Uncertainty': 1.759,
@@ -355,7 +355,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'CABELL',
         'Reference': '1971(2)',
-        'MeasureFunc': 'CAP(39)/FF(39)',  
+        'MeasureFunc': 'CAP(39)/FF(39)',
         'Notes': '23',
         'InputValue': 3.8120e-1,
         'Uncertainty': 4.808,
@@ -365,7 +365,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'DEBOISBLANC',
         'Reference': '1961(2)',
-        'MeasureFunc': 'F1ETA(33)/F1ETA(35)',  
+        'MeasureFunc': 'F1ETA(33)/F1ETA(35)',
         'Notes': '24',
         'InputValue': 1.1150,
         'Uncertainty': .717,
@@ -375,7 +375,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'FAST',
         'Reference': '1960(2)',
-        'MeasureFunc': 'F1ETA(39)/F1ETA(35)',  
+        'MeasureFunc': 'F1ETA(39)/F1ETA(35)',
         'Notes': '25',
         'InputValue': 9.9700e-1,
         'Uncertainty': 1.625,
@@ -385,7 +385,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'FAST',
         'Reference': '1960(2)',
-        'MeasureFunc': 'F1ETA(41)/F1ETA(35)',  
+        'MeasureFunc': 'F1ETA(41)/F1ETA(35)',
         'Notes': '25',
         'InputValue': 1.0528,
         'Uncertainty': 1.653,
@@ -395,7 +395,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'CABELL',
         'Reference': '1965(2)',
-        'MeasureFunc': 'F3ETA(33) / F3ETA(35)',  
+        'MeasureFunc': 'F3ETA(33) / F3ETA(35)',
         'Notes': '26',
         'InputValue': 1.0461,
         'Uncertainty': 2.357,
@@ -405,7 +405,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'CABELL',
         'Reference': '1965(2)',
-        'MeasureFunc': 'F3ETA(39)/F3ETA(35)',  
+        'MeasureFunc': 'F3ETA(39)/F3ETA(35)',
         'Notes': '26',
         'InputValue': 1.6079,
         'Uncertainty': 2.403,
@@ -415,7 +415,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'CABELL',
         'Reference': '1965(2)',
-        'MeasureFunc': 'F3ETA(33)/F3ETA(35)',  
+        'MeasureFunc': 'F3ETA(33)/F3ETA(35)',
         'Notes': '26',
         'InputValue': 1.0309,
         'Uncertainty': 3.919,
@@ -425,7 +425,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'CABELL',
         'Reference': '1965(2)',
-        'MeasureFunc': 'F3ETA(39) / F3ETA(35)',  
+        'MeasureFunc': 'F3ETA(39) / F3ETA(35)',
         'Notes': '26',
         'InputValue': 1.6223,
         'Uncertainty': 4.161,
@@ -435,7 +435,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'GWIN',
         'Reference': '1962(2)',
-        'MeasureFunc': 'F2ETA(33)/F2ETA(35)',  
+        'MeasureFunc': 'F2ETA(33)/F2ETA(35)',
         'Notes': '27',
         'InputValue': 9.5300e-1,
         'Uncertainty': 1.414,
@@ -445,7 +445,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'GWIN',
         'Reference': '1962(2)',
-        'MeasureFunc': 'F2ETA(39)/F2ETA(35)',  
+        'MeasureFunc': 'F2ETA(39)/F2ETA(35)',
         'Notes': '27',
         'InputValue': 1.6310,
         'Uncertainty': 1.414,
@@ -455,7 +455,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'GWIN',
         'Reference': 'A1962(2)',
-        'MeasureFunc': 'F3ETA(33)',  
+        'MeasureFunc': 'F3ETA(33)',
         'Notes': '28*',
         'InputValue': 7.4470e2,
         'Uncertainty': .537,
@@ -465,7 +465,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'GWIN',
         'Reference': 'A1962(2)',
-        'MeasureFunc': 'F3ETA(35)',  
+        'MeasureFunc': 'F3ETA(35)',
         'Notes': '28',
         'InputValue': 7.2270e2,
         'Uncertainty': .540,
@@ -475,7 +475,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'LAPONCHE',
         'Reference': '1972(2)',
-        'MeasureFunc': 'F3ETA(39)/F3ETA(35)',  
+        'MeasureFunc': 'F3ETA(39)/F3ETA(35)',
         'Notes': '7',
         'InputValue': 1.6058,
         'Uncertainty': 1.107,
@@ -485,7 +485,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'LAPONCHE',
         'Reference': '1972(2)',
-        'MeasureFunc': 'F3ETA(41)/F3ETA(39)',  
+        'MeasureFunc': 'F3ETA(41)/F3ETA(39)',
         'Notes': '7',
         'InputValue': 1.4687,
         'Uncertainty': 3.580,
@@ -495,7 +495,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'ALIKHANOV',
         'Reference': '1956(2)',
-        'MeasureFunc': 'F3ETA(33)/F3ETA(35)',  
+        'MeasureFunc': 'F3ETA(33)/F3ETA(35)',
         'Notes': '29',
         'InputValue': 1.0390,
         'Uncertainty': 3.561,
@@ -505,7 +505,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'ALIKHANOV',
         'Reference': '1956(2)',
-        'MeasureFunc': 'F3ETA(39)/F3ETA(35)',  
+        'MeasureFunc': 'F3ETA(39)/F3ETA(35)',
         'Notes': '29',
         'InputValue': 1.5650,
         'Uncertainty': 6.709,
@@ -515,7 +515,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'MUELHAUS',
         'Reference': '1959(2)',
-        'MeasureFunc': 'F3ETA(33) / F3ETA(35)',  
+        'MeasureFunc': 'F3ETA(33) / F3ETA(35)',
         'Notes': '30',
         'InputValue': 1.0221,
         'Uncertainty': 1.811,
@@ -525,7 +525,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'MUELHAUS',
         'Reference': '1959(2)',
-        'MeasureFunc': 'F3ETA(39)/F3ETA(35)',  
+        'MeasureFunc': 'F3ETA(39)/F3ETA(35)',
         'Notes': '30',
         'InputValue': 1.6043,
         'Uncertainty': 2.271,
@@ -535,7 +535,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'DIVADEENAM',
         'Reference': '1984(2)',
-        'MeasureFunc': 'WGA(33)',  
+        'MeasureFunc': 'WGA(33)',
         'Notes': '4',
         'InputValue': 9.9884e-1,
         'Uncertainty': .120,
@@ -545,7 +545,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'DIVADEENAM',
         'Reference': '1984(2)',
-        'MeasureFunc': 'WGA(35)',  
+        'MeasureFunc': 'WGA(35)',
         'Notes': '4',
         'InputValue': 9.7870e-1,
         'Uncertainty': .092,
@@ -565,7 +565,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'DIVADEENAM',
         'Reference': '1984(2)',
-        'MeasureFunc': 'WGA(41)',  
+        'MeasureFunc': 'WGA(41)',
         'Notes': '4',
         'InputValue': 1.0444,
         'Uncertainty': .191,
@@ -575,7 +575,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'DIVADEENAM',
         'Reference': '1984(2)',
-        'MeasureFunc': 'WGA(33)',  
+        'MeasureFunc': 'WGA(33)',
         'Notes': '4',
         'InputValue': 9.9664e-1,
         'Uncertainty': .201,
@@ -585,7 +585,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'DERUYTTER',
         'Reference': '1985(3)',
-        'MeasureFunc': 'WGF(35)',  
+        'MeasureFunc': 'WGF(35)',
         'Notes': '4',
         'InputValue': 9.7780e-1,
         'Uncertainty': .092,
@@ -595,7 +595,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'DIVADEENAM',
         'Reference': '1984(2)',
-        'MeasureFunc': 'WGF(39)',  
+        'MeasureFunc': 'WGF(39)',
         'Notes': '4',
         'InputValue': 1.0562,
         'Uncertainty': .275,
@@ -605,7 +605,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'DIVADEENAM',
         'Reference': '1984(2)',
-        'MeasureFunc': 'WGF(41)',  
+        'MeasureFunc': 'WGF(41)',
         'Notes': '4',
         'InputValue': 1.0452,
         'Uncertainty': .670,
@@ -615,7 +615,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'EGELSTAFF',
         'Reference': '1954(1)',
-        'MeasureFunc': 'ABS(35)+SCR(35)',  
+        'MeasureFunc': 'ABS(35)+SCR(35)',
         'Notes': '5',
         'InputValue': 7.2433e2,
         'Uncertainty': 3.590,
@@ -625,7 +625,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'MELKONIAN',
         'Reference': '1953(1)',
-        'MeasureFunc': 'ABS(35)+SCR(35)',  
+        'MeasureFunc': 'ABS(35)+SCR(35)',
         'Notes': '5',
         'InputValue': 6.9432e2,
         'Uncertainty': 2.016,
@@ -635,7 +635,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'PALEVSKY',
         'Reference': '1954(1)',
-        'MeasureFunc': 'ABS(35) + SCR(35)',  
+        'MeasureFunc': 'ABS(35) + SCR(35)',
         'Notes': '5',
         'InputValue': 7.0032e2,
         'Uncertainty': 1.428,
@@ -645,7 +645,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'NITIKIN',
         'Reference': '1955(1)',
-        'MeasureFunc': 'ABS(35)+SCA(35)',  
+        'MeasureFunc': 'ABS(35)+SCA(35)',
         'Notes': '5',
         'InputValue': 7.1032e2,
         'Uncertainty': 2.956,
@@ -655,7 +655,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'SIMPSON',
         'Reference': '1960(1)',
-        'MeasureFunc': 'ABS(35)+SCR(35)',  
+        'MeasureFunc': 'ABS(35)+SCR(35)',
         'Notes': '5',
         'InputValue': 6.9032e2,
         'Uncertainty': 1.391,
@@ -665,7 +665,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'SAFFORD',
         'Reference': '1959(1)',
-        'MeasureFunc': 'ABS(35)+SCA(35)',  
+        'MeasureFunc': 'ABS(35)+SCA(35)',
         'Notes': '5',
         'InputValue': 6.9632e2,
         'Uncertainty': .359,
@@ -675,7 +675,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'SAFFORD',
         'Reference': '1959(1)',
-        'MeasureFunc': 'ABS(35)+SCR(35)',  
+        'MeasureFunc': 'ABS(35)+SCR(35)',
         'Notes': '5',
         'InputValue': 6.9832e2,
         'Uncertainty': .730,
@@ -685,7 +685,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'BLOCK',
         'Reference': '1960(1)',
-        'MeasureFunc': 'ABS(35)+SCR(35)',  
+        'MeasureFunc': 'ABS(35)+SCR(35)',
         'Notes': '5',
         'InputValue': 6.9332e2,
         'Uncertainty': .721,
@@ -695,7 +695,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'SAPLAKOGLU',
         'Reference': '1961(1)',
-        'MeasureFunc': 'ABS(35)+SCR(35)',  
+        'MeasureFunc': 'ABS(35)+SCR(35)',
         'Notes': '35',
         'InputValue': 6.9632e2 ,
         'Uncertainty': .359,
@@ -705,7 +705,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'GERASIMOV',
         'Reference': '1962(1)',
-        'MeasureFunc': 'ABS(35)',  
+        'MeasureFunc': 'ABS(35)',
         'Notes': '5',
         'InputValue': 6.7031e2,
         'Uncertainty': 2.089,
@@ -715,7 +715,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'ZIMMERMANN',
         'Reference': '1955(1)',
-        'MeasureFunc': 'ABS(39)+SCR(39)',  
+        'MeasureFunc': 'ABS(39)+SCR(39)',
         'Notes': '5',
         'InputValue': 1.0225e3,
         'Uncertainty': 1.271,
@@ -725,7 +725,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'NITIKIN',
         'Reference': '1955(1)',
-        'MeasureFunc': 'ABS(39)+SCA(39)',  
+        'MeasureFunc': 'ABS(39)+SCA(39)',
         'Notes': '5',
         'InputValue': 1.0405e3,
         'Uncertainty': 2.979,
@@ -735,7 +735,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'BOLLINGER',
         'Reference': '1958(1)',
-        'MeasureFunc': 'ABS(39)+SCR(39)',  
+        'MeasureFunc': 'ABS(39)+SCR(39)',
         'Notes': '5',
         'InputValue': 1.0225e3,
         'Uncertainty': 1.369,
@@ -745,7 +745,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'PATTENDEN',
         'Reference': 'A1956(1)',
-        'MeasureFunc': 'ABS(39)+SCR(39)',  
+        'MeasureFunc': 'ABS(39)+SCR(39)',
         'Notes': '5',
         'InputValue': 1.0125e3,
         'Uncertainty': 3.003,
@@ -755,7 +755,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'SAFFORD',
         'Reference': '1961(1)',
-        'MeasureFunc': 'ABS(39)+SCR(39)',  
+        'MeasureFunc': 'ABS(39)+SCR(39)',
         'Notes': '5',
         'InputValue': 1.0185e3,
         'Uncertainty': .727,
@@ -765,7 +765,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'MUETHER',
         'Reference': '1954(1)',
-        'MeasureFunc': 'ABS(33)+SCR(33)',  
+        'MeasureFunc': 'ABS(33)+SCR(33)',
         'Notes': '5',
         'InputValue': 5.9727e2,
         'Uncertainty': 2.344,
@@ -775,7 +775,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'NITIKIN',
         'Reference': '1955(1)',
-        'MeasureFunc': 'ABS(33)+SCR(33)',  
+        'MeasureFunc': 'ABS(33)+SCR(33)',
         'Notes': '5',
         'InputValue': 5.7726e2,
         'Uncertainty': 3.638,
@@ -785,7 +785,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'PATTENDEN',
         'Reference': '1956(1)',
-        'MeasureFunc': 'ABS(33)+SCR(33)',  
+        'MeasureFunc': 'ABS(33)+SCR(33)',
         'Notes': '5',
         'InputValue': 5.9627e2,
         'Uncertainty': 3.019,
@@ -795,7 +795,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'GREEN',
         'Reference': '1957(1)',
-        'MeasureFunc': 'ABS(33)',  
+        'MeasureFunc': 'ABS(33)',
         'Notes': '5',
         'InputValue': 5.7426e2,
         'Uncertainty': 3.483,
@@ -805,7 +805,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'SIMPSON',
         'Reference': '1960(1)',
-        'MeasureFunc': 'ABS(33)+SCR(33)',  
+        'MeasureFunc': 'ABS(33)+SCR(33)',
         'Notes': '5',
         'InputValue': 5.8727e2,
         'Uncertainty': .800,
@@ -815,7 +815,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'SAFFORD',
         'Reference': '1960(1)',
-        'MeasureFunc': 'ABS(33)+SCA(33)',  
+        'MeasureFunc': 'ABS(33)+SCA(33)',
         'Notes': '5',
         'InputValue': 5.8577e2,
         'Uncertainty': .990,
@@ -825,7 +825,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'SAFFORD',
         'Reference': '1960(1)',
-        'MeasureFunc': 'ABS(33)+SCR(33)',  
+        'MeasureFunc': 'ABS(33)+SCR(33)',
         'Notes': '5',
         'InputValue': 5.8567e2,
         'Uncertainty': .410,
@@ -835,7 +835,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'BLOCK',
         'Reference': '1960(1)',
-        'MeasureFunc': 'ABS(33)+SCR(33)',  
+        'MeasureFunc': 'ABS(33)+SCR(33)',
         'Notes': '5',
         'InputValue': 5.8727e2,
         'Uncertainty': .511,
@@ -845,7 +845,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'SIMPSON',
         'Reference': '1961(1)',
-        'MeasureFunc': 'ABS(41)+SCA(41)',  
+        'MeasureFunc': 'ABS(41)+SCA(41)',
         'Notes': '5',
         'InputValue': 1.3866e3,
         'Uncertainty': 3.606,
@@ -855,7 +855,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'CRAIG',
         'Reference': '1964(1)',
-        'MeasureFunc': 'ABS(41)+SCA(41)',  
+        'MeasureFunc': 'ABS(41)+SCA(41)',
         'Notes': '5',
         'InputValue': 1.3806e3,
         'Uncertainty': 2.897,
@@ -865,7 +865,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'SMITH',
         'Reference': '1984(3)',
-        'MeasureFunc': 'ABS(41)+SCR(41)',  
+        'MeasureFunc': 'ABS(41)+SCR(41)',
         'Notes': '31',
         'InputValue': 1.3956e3,
         'Uncertainty': 1.433,
@@ -875,7 +875,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'LEMMEL',
         'Reference': '1982(1)',
-        'MeasureFunc': 'SCA(33)',  
+        'MeasureFunc': 'SCA(33)',
         'Notes': '3',
         'InputValue': 1.2306e1,
         'Uncertainty': 5.688,
@@ -885,7 +885,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'LEMMEL',
         'Reference': '1982(1)',
-        'MeasureFunc': 'SCA(33)-SCR(33)',  
+        'MeasureFunc': 'SCA(33)-SCR(33)',
         'Notes': '3',
         'InputValue': 1.2006,
         'Uncertainty': 49.977,
@@ -895,7 +895,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'LEMMEL',
         'Reference': '1982(1)',
-        'MeasureFunc': 'SCA(35)',  
+        'MeasureFunc': 'SCA(35)',
         'Notes': '3',
         'InputValue': 1.6508e1,
         'Uncertainty': 7.875,
@@ -905,7 +905,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'LEMMEL',
         'Reference': '1982(1)',
-        'MeasureFunc': 'SCA(35)-SCR(35)',  
+        'MeasureFunc': 'SCA(35)-SCR(35)',
         'Notes': '3',
         'InputValue': 1.7008,
         'Uncertainty': 44.097,
@@ -915,7 +915,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'LEMMEL',
         'Reference': '1982(1)',
-        'MeasureFunc': 'SCA(39)',  
+        'MeasureFunc': 'SCA(39)',
         'Notes': '3',
         'InputValue': 8.0037,
         'Uncertainty': 12.494,
@@ -925,7 +925,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'LEMMEL',
         'Reference': '1982(1)',
-        'MeasureFunc': 'SCA(39)-SCR(39)',  
+        'MeasureFunc': 'SCA(39)-SCR(39)',
         'Notes': '3',
         'InputValue': 8.0037e-1,
         'Uncertainty': 137.437,
@@ -935,7 +935,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'LEMMEL',
         'Reference': '1982(1)',
-        'MeasureFunc': 'SCA(41)',  
+        'MeasureFunc': 'SCA(41)',
         'Notes': '3',
         'InputValue': 1.2006e1,
         'Uncertainty': 21.567,
@@ -945,7 +945,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'LEMMEL',
         'Reference': '1982(1)',
-        'MeasureFunc': 'SCA(41)-SCR(41)',  
+        'MeasureFunc': 'SCA(41)-SCR(41)',
         'Notes': '3',
         'InputValue': 1.2006,
         'Uncertainty': 249.886,
@@ -955,9 +955,9 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'DERUYTTER',
         'Reference': '1974(1)',
-        'MeasureFunc': 'FH1(39,39)',  
+        'MeasureFunc': 'FH1(39,39)',
         'Notes': '5',
-        'InputValue': 1.812e3,
+        'InputValue': 1.8121e3,
         'Uncertainty': .454,
         'WeightedResidual': 1.165,
         'No': 96,
@@ -965,7 +965,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'DERUYTTER',
         'Reference': '1973(1)',
-        'MeasureFunc': 'FH1(34,35)',  
+        'MeasureFunc': 'FH1(34,35)',
         'Notes': '5',
         'InputValue': 1.4391e3,
         'Uncertainty': .445,
@@ -975,7 +975,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'DERUYTTER',
         'Reference': '1961(1)',
-        'MeasureFunc': 'FIS(35)',  
+        'MeasureFunc': 'FIS(35)',
         'Notes': '5',
         'InputValue': 5.8937e2,
         'Uncertainty': 1.325,
@@ -985,7 +985,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'WHITE',
         'Reference': '1967(1)',
-        'MeasureFunc': 'FIS(39)/FIS(35)',  
+        'MeasureFunc': 'FIS(39)/FIS(35)',
         'Notes': '18',
         'InputValue': 1.253,
         'Uncertainty': 1.800,
@@ -995,7 +995,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'WHITE',
         'Reference': '1967(1)',
-        'MeasureFunc': 'FIS(41)/FIS(35)',  
+        'MeasureFunc': 'FIS(41)/FIS(35)',
         'Notes': '18',
         'InputValue': 1.763,
         'Uncertainty': 2.751,
@@ -1005,7 +1005,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'BERCEANO',
         'Reference': '1977(1)',
-        'MeasureFunc': 'FH1(34,35)',  
+        'MeasureFunc': 'FH1(34,35)',
         'Notes': '5',
         'InputValue': 1.443e3,
         'Uncertainty': .791,
@@ -1015,7 +1015,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'RAFFLE',
         'Reference': '1959(1)',
-        'MeasureFunc': 'FH1(33,33)',  
+        'MeasureFunc': 'FH1(33,33)',
         'Notes': '5',
         'InputValue': 8.3426e2,
         'Uncertainty': 3.302,
@@ -1025,7 +1025,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'RAFFLE',
         'Reference': '1959(1)',
-        'MeasureFunc': 'FIS(35)',  
+        'MeasureFunc': 'FIS(35)',
         'Notes': '5',
         'InputValue': 5.8197e2,
         'Uncertainty': 3.092,
@@ -1035,7 +1035,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'RAFFLE',
         'Reference': '1959(1)',
-        'MeasureFunc': 'FH1(39,39)',  
+        'MeasureFunc': 'FH1(39,39)',
         'Notes': '5',
         'InputValue': 1.7148e3,
         'Uncertainty': 2.843,
@@ -1045,7 +1045,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'RAFFLE',
         'Reference': '1956(1)',
-        'MeasureFunc': 'FIS(41)/FIS(39)',  
+        'MeasureFunc': 'FIS(41)/FIS(39)',
         'Notes': '5',
         'InputValue': 1.3319,
         'Uncertainty': 6.000,
@@ -1055,7 +1055,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'MASLIN',
         'Reference': '1965(1)',
-        'MeasureFunc': 'FIS(35)',  
+        'MeasureFunc': 'FIS(35)',
         'Notes': '5',
         'InputValue': 5.8371e2,
         'Uncertainty': 1.449,
@@ -1065,7 +1065,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'SAPLAKOGLU',
         'Reference': '1959(1)',
-        'MeasureFunc': 'FIS(35)',  
+        'MeasureFunc': 'FIS(35)',
         'Notes': '5',
         'InputValue': 5.9317e2,
         'Uncertainty': 2.232,
@@ -1075,7 +1075,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'WATANBE',
         'Reference': '1964(1)',
-        'MeasureFunc': 'FIS(41)',  
+        'MeasureFunc': 'FIS(41)',
         'Notes': '5',
         'InputValue': 9.8545e2,
         'Uncertainty': 4.569,
@@ -1085,7 +1085,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'FRAYSSE',
         'Reference': '1965(1)',
-        'MeasureFunc': 'FH1(39,39)/FH1(34,35)',  
+        'MeasureFunc': 'FH1(39,39)/FH1(34,35)',
         'Notes': '5',
         'InputValue': 1.2425,
         'Uncertainty': 1.557,
@@ -1095,7 +1095,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'BORCEA',
         'Reference': '1970(1)',
-        'MeasureFunc': 'FH1(39,39) / FH1(34,35)',  
+        'MeasureFunc': 'FH1(39,39) / FH1(34,35)',
         'Notes': '5',
         'InputValue': 1.2578,
         'Uncertainty': 1.624,
@@ -1105,7 +1105,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'BOLDEMAN',
         'Reference': '1977(1)',
-        'MeasureFunc': 'NUB(52)',  
+        'MeasureFunc': 'NUB(52)',
         'Notes': '5',
         'InputValue': 3.7549,
         'Uncertainty': .431,
@@ -1115,7 +1115,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'BOLDEMAN',
         'Reference': '1980(1)',
-        'MeasureFunc': 'NUB(33)/NUB(52)',  
+        'MeasureFunc': 'NUB(33)/NUB(52)',
         'Notes': '5',
         'InputValue': 6.6049e-1,
         'Uncertainty': .255,
@@ -1125,7 +1125,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'BOLDEMAN',
         'Reference': '1980(1)',
-        'MeasureFunc': 'NUB(35)/NUB(52)',  
+        'MeasureFunc': 'NUB(35)/NUB(52)',
         'Notes': '5',
         'InputValue': 6.4318e-1,
         'Uncertainty': .255,
@@ -1135,7 +1135,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'BOLDEMAN',
         'Reference': '1980(1)',
-        'MeasureFunc': 'NUB(39)/NUB(52)',  
+        'MeasureFunc': 'NUB(39)/NUB(52)',
         'Notes': '5',
         'InputValue': 7.6614e-1,
         'Uncertainty': .243,
@@ -1145,7 +1145,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'BOLDEMAN',
         'Reference': '1980(1)',
-        'MeasureFunc': 'NUB(41)/NUB(52)',  
+        'MeasureFunc': 'NUB(41)/NUB(52)',
         'Notes': '5',
         'InputValue': 7.8028e-1,
         'Uncertainty': .231,
@@ -1155,7 +1155,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'SPENCER',
         'Reference': '1982(1)',
-        'MeasureFunc': 'NUB(52)',  
+        'MeasureFunc': 'NUB(52)',
         'Notes': '5',
         'InputValue': 3.7831,
         'Uncertainty': .221,
@@ -1165,7 +1165,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'GWIN',
         'Reference': '1984(1)',
-        'MeasureFunc': 'NUB(33)/NUB(52)',  
+        'MeasureFunc': 'NUB(33)/NUB(52)',
         'Notes': '32',
         'InputValue': 6.5996e-1,
         'Uncertainty': .340,
@@ -1175,7 +1175,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'GWIN',
         'Reference': '1984(1)',
-        'MeasureFunc': 'NUB(35)/NUB(52)',  
+        'MeasureFunc': 'NUB(35)/NUB(52)',
         'Notes': '32',
         'InputValue': 6.4701e-1,
         'Uncertainty': .265,
@@ -1185,7 +1185,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'GWIN',
         'Reference': '1984(1)',
-        'MeasureFunc': 'NUB(39)/NUB(52)',  
+        'MeasureFunc': 'NUB(39)/NUB(52)',
         'Notes': '32',
         'InputValue': 7.6530e-1,
         'Uncertainty': .257,
@@ -1195,7 +1195,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'GWIN',
         'Reference': '1984(1)',
-        'MeasureFunc': 'NUB(41)/NUB(52)',  
+        'MeasureFunc': 'NUB(41)/NUB(52)',
         'Notes': '32',
         'InputValue': 7.8423e-1,
         'Uncertainty': .290,
@@ -1205,7 +1205,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'HOPKINS',
         'Reference': '1963(1)',
-        'MeasureFunc': 'NUB(52)',  
+        'MeasureFunc': 'NUB(52)',
         'Notes': '5',
         'InputValue': 3.7767,
         'Uncertainty': .838,
@@ -1215,7 +1215,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'HOPKINS',
         'Reference': '1963(1)',
-        'MeasureFunc': 'NUB(33)/NUB(52)',  
+        'MeasureFunc': 'NUB(33)/NUB(52)',
         'Notes': '5',
         'InputValue': 6.5483e-1,
         'Uncertainty': .895,
@@ -1225,7 +1225,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'HOPKINS',
         'Reference': '1963(1)',
-        'MeasureFunc': 'NUB(35)/NUB(52)',  
+        'MeasureFunc': 'NUB(35)/NUB(52)',
         'Notes': '5',
         'InputValue': 6.4587e-1,
         'Uncertainty': .838,
@@ -1235,7 +1235,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'HOPKINS',
         'Reference': '1963(1)',
-        'MeasureFunc': 'NUB(39)/NUB(52)',  
+        'MeasureFunc': 'NUB(39)/NUB(52)',
         'Notes': '5',
         'InputValue': 7.5047e-1,
         'Uncertainty': .996,
@@ -1255,7 +1255,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'CONDE',
         'Reference': '1965(1)',
-        'MeasureFunc': 'NUB(35)/NUB(52)',  
+        'MeasureFunc': 'NUB(35)/NUB(52)',
         'Notes': '5',
         'InputValue': 6.4222e-1,
         'Uncertainty': .847,
@@ -1265,7 +1265,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'WHITE',
         'Reference': '1968(1)',
-        'MeasureFunc': 'NUB(52)',  
+        'MeasureFunc': 'NUB(52)',
         'Notes': '33*',
         'InputValue': 3.8194,
         'Uncertainty': 1.033,
@@ -1275,7 +1275,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'AXTON',
         'Reference': 'A1985(3)',
-        'MeasureFunc': 'NUB(52)',  
+        'MeasureFunc': 'NUB(52)',
         'Notes': '33*',
         'InputValue': 3.7547,
         'Uncertainty': .300,
@@ -1285,7 +1285,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'COLV/AXT',
         'Reference': '1966(1)',
-        'MeasureFunc': 'NUB(52)',  
+        'MeasureFunc': 'NUB(52)',
         'Notes': '33*',
         'InputValue': 3.7299,
         'Uncertainty': .806,
@@ -1295,7 +1295,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'COLV/ULL',
         'Reference': '1965(1)',
-        'MeasureFunc': 'NUB(52)',  
+        'MeasureFunc': 'NUB(52)',
         'Notes': '5',
         'InputValue': 3.7405,
         'Uncertainty': .438,
@@ -1305,7 +1305,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'COLVIN',
         'Reference': '1965(1)',
-        'MeasureFunc': 'NUB(33)/NUB(35)',  
+        'MeasureFunc': 'NUB(33)/NUB(35)',
         'Notes': '5',
         'InputValue': 1.0204,
         'Uncertainty': .587,
@@ -1315,7 +1315,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'COLVIN',
         'Reference': '1965(1)',
-        'MeasureFunc': 'NUB(39)/NUB(35)',  
+        'MeasureFunc': 'NUB(39)/NUB(35)',
         'Notes': '5',
         'InputValue': 1.1835,
         'Uncertainty': .675,
@@ -1325,7 +1325,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'COLVIN',
         'Reference': '1965(1)',
-        'MeasureFunc': 'NUB(41)/NUB(35)',  
+        'MeasureFunc': 'NUB(41)/NUB(35)',
         'Notes': '5',
         'InputValue': 1.2102,
         'Uncertainty': .905,
@@ -1335,7 +1335,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'COLVIN',
         'Reference': '1965(1)',
-        'MeasureFunc': 'NUB(35)/NUB(52)',  
+        'MeasureFunc': 'NUB(35)/NUB(52)',
         'Notes': '5',
         'InputValue': 6.4334e-1,
         'Uncertainty': .472,
@@ -1345,7 +1345,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'MATHER',
         'Reference': '1964(1)',
-        'MeasureFunc': 'NUB(33)/NUB(52)',  
+        'MeasureFunc': 'NUB(33)/NUB(52)',
         'Notes': '5',
         'InputValue': 6.7093e-1,
         'Uncertainty': 1.235,
@@ -1355,7 +1355,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'MATHER',
         'Reference': '1964(1)',
-        'MeasureFunc': 'NUB(35)/NUB(52)',  
+        'MeasureFunc': 'NUB(35)/NUB(52)',
         'Notes': '5',
         'InputValue': 6.4145e-1,
         'Uncertainty': .537,
@@ -1365,7 +1365,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'MATHER',
         'Reference': '1964(1)',
-        'MeasureFunc': 'NUB(39)/NUB(52)',  
+        'MeasureFunc': 'NUB(39)/NUB(52)',
         'Notes': '5',
         'InputValue': 7.7307e-1,
         'Uncertainty': 1.122,
@@ -1375,7 +1375,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'ALEK-ROV',
         'Reference': '1981(1)',
-        'MeasureFunc': 'NUB(52)',  
+        'MeasureFunc': 'NUB(52)',
         'Notes': '33*',
         'InputValue': 3.7618,
         'Uncertainty': .483,
@@ -1385,7 +1385,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'SMITH',
         'Reference': '1984(1)',
-        'MeasureFunc': 'NUB(52)',  
+        'MeasureFunc': 'NUB(52)',
         'Notes': '33*',
         'InputValue': 3.7678,
         'Uncertainty': .303,
@@ -1395,7 +1395,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'EDWARDS',
         'Reference': '1982(1)',
-        'MeasureFunc': 'NUB(52)',  
+        'MeasureFunc': 'NUB(52)',
         'Notes': '33*',
         'InputValue': 3.7641,
         'Uncertainty': .711,
@@ -1405,7 +1405,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'BOZ-NESH',
         'Reference': '1977(1)',
-        'MeasureFunc': 'NUB(52)',  
+        'MeasureFunc': 'NUB(52)',
         'Notes': '33',
         'InputValue': 3.7475,
         'Uncertainty': .580,
@@ -1415,7 +1415,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'DEVOLPI',
         'Reference': '1972(1)',
-        'MeasureFunc': 'NUB(52)',  
+        'MeasureFunc': 'NUB(52)',
         'Notes': '33*',
         'InputValue': 3.7507,
         'Uncertainty': .463,
@@ -1425,7 +1425,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'ZHANG',
         'Reference': '1981(1)',
-        'MeasureFunc': 'NUB(52)',  
+        'MeasureFunc': 'NUB(52)',
         'Notes': '5',
         'InputValue': 3.7534,
         'Uncertainty': .490,
@@ -1435,7 +1435,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'SPIEGEL',
         'Reference': '1981(1)',
-        'MeasureFunc': 'NUB(52)',  
+        'MeasureFunc': 'NUB(52)',
         'Notes': '33',
         'InputValue': 3.7828,
         'Uncertainty': .759,
@@ -1445,7 +1445,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'SMITH',
         'Reference': '1984(1)',
-        'MeasureFunc': 'ETA(33)',  
+        'MeasureFunc': 'ETA(33)',
         'Notes': '5',
         'InputValue': 2.2972,
         'Uncertainty': .350,
@@ -1455,7 +1455,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'SMITH',
         'Reference': '1984(1)',
-        'MeasureFunc': 'ETA(35)',  
+        'MeasureFunc': 'ETA(35)',
         'Notes': '5',
         'InputValue': 2.0842,
         'Uncertainty': .386,
@@ -1465,7 +1465,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'SMITH',
         'Reference': '1984(1)',
-        'MeasureFunc': 'ETA(39)',  
+        'MeasureFunc': 'ETA(39)',
         'Notes': '5',
         'InputValue': 2.1120,
         'Uncertainty': .380,
@@ -1475,7 +1475,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'SMITH',
         'Reference': '1984(1)',
-        'MeasureFunc': 'ETA(41)',  
+        'MeasureFunc': 'ETA(41)',
         'Notes': '5',
         'InputValue': 2.169,
         'Uncertainty': .419,
@@ -1485,7 +1485,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'MACKLIN',
         'Reference': '1960(1)',
-        'MeasureFunc': 'ETA(33)',  
+        'MeasureFunc': 'ETA(33)',
         'Notes': '5',
         'InputValue': 2.3121,
         'Uncertainty': .375,
@@ -1495,7 +1495,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'MACKLIN',
         'Reference': '1960(1)',
-        'MeasureFunc': 'ETA(35)',  
+        'MeasureFunc': 'ETA(35)',
         'Notes': '5',
         'InputValue': 2.0757,
         'Uncertainty': .382,
@@ -1505,7 +1505,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'MACKLIN',
         'Reference': '1962(1)',
-        'MeasureFunc': 'ETA(39)',  
+        'MeasureFunc': 'ETA(39)',
         'Notes': '5',
         'InputValue': 2.1163,
         'Uncertainty': .851,
@@ -1515,7 +1515,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'CABELL',
         'Reference': '1968(1)',
-        'MeasureFunc': 'F1CAB',  
+        'MeasureFunc': 'F1CAB',
         'Notes': '35',
         'InputValue': 2.7384e2,
         'Uncertainty': 4.960,
@@ -1525,7 +1525,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'CABELL',
         'Reference': '1968(1)',
-        'MeasureFunc': 'F2CAB',  
+        'MeasureFunc': 'F2CAB',
         'Notes': '35',
         'InputValue': 1.1719e3,
         'Uncertainty': 3.176,
@@ -1535,7 +1535,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'CABELL',
         'Reference': '1968(1)',
-        'MeasureFunc': 'F3CAB',  
+        'MeasureFunc': 'F3CAB',
         'Notes': '35',
         'InputValue': 3.2690,
         'Uncertainty': 2.776,
@@ -1545,7 +1545,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'F4CAB',
         'Reference': '1968(1)',
-        'MeasureFunc': 'F4CAB',  
+        'MeasureFunc': 'F4CAB',
         'Notes': '35',
         'InputValue': 3.0339e2,
         'Uncertainty': 5.836,
@@ -1555,7 +1555,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'CABELL',
         'Reference': '1968(1)',
-        'MeasureFunc': 'F5CAB',  
+        'MeasureFunc': 'F5CAB',
         'Notes': '35',
         'InputValue': 3.8710,
         'Uncertainty': 1.602,
@@ -1565,7 +1565,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'BNL 325',
         'Reference': '1973(1)',
-        'MeasureFunc': 'CA(40)',  
+        'MeasureFunc': 'CA(40)',
         'Notes': '36',
         'InputValue': 2.8950e2,
         'Uncertainty': .484,
@@ -1575,7 +1575,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'BNL325',
         'Reference': '1973(1)',
-        'MeasureFunc': 'CA(42)',  
+        'MeasureFunc': 'CA(42)',
         'Notes': '36',
         'InputValue': 1.8500e1,
         'Uncertainty': 2.162,
@@ -1585,7 +1585,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'BNL325',
         'Reference': '1973(1)',
-        'MeasureFunc': 'GC116(39)',  
+        'MeasureFunc': 'GC116(39)',
         'Notes': '37',
         'InputValue': 1.3265,
         'Uncertainty': 6.056,
@@ -1595,7 +1595,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'WESTCOTT',
         'Reference': '1960(1)',
-        'MeasureFunc': 'GC116(40)',  
+        'MeasureFunc': 'GC116(40)',
         'Notes': '37',
         'InputValue': 1.0860,
         'Uncertainty': 2.000,
@@ -1605,7 +1605,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'BNL325',
         'Reference': '1973(1)',
-        'MeasureFunc': 'GC116(41)',  
+        'MeasureFunc': 'GC116(41)',
         'Notes': '37',
         'InputValue': 1.1085,
         'Uncertainty': 2.457,
@@ -1615,7 +1615,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'WESTCOTT',
         'Reference': '1960(1)',
-        'MeasureFunc': 'GC116(42)',  
+        'MeasureFunc': 'GC116(42)',
         'Notes': '37',
         'InputValue': 1.1335,
         'Uncertainty': 2.670,
@@ -1625,7 +1625,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'BNL325',
         'Reference': '1973(1)',
-        'MeasureFunc': 'GA116(39)',  
+        'MeasureFunc': 'GA116(39)',
         'Notes': '37',
         'InputValue': 1.1846,
         'Uncertainty': 1.521,
@@ -1635,7 +1635,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'WESTCOTT',
         'Reference': '1960(1)',
-        'MeasureFunc': 'GA116(41)',  
+        'MeasureFunc': 'GA116(41)',
         'Notes': '37',
         'InputValue': 1.1073,
         'Uncertainty': .819,
@@ -1645,7 +1645,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'LLOYD',
         'Reference': '1982(1)',
-        'MeasureFunc': 'ETA(39)/FIS(39)',  
+        'MeasureFunc': 'ETA(39)/FIS(39)',
         'Notes': '4',
         'InputValue': 2.7820e-3,
         'Uncertainty': 2.072,
@@ -1655,7 +1655,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'SPENCER',
         'Reference': '1985(3)',
-        'MeasureFunc': 'ABS(35)+SCR(35)',  
+        'MeasureFunc': 'ABS(35)+SCR(35)',
         'Notes': '*',
         'InputValue': 6.900e2,
         'Uncertainty': 1.000,
@@ -1665,7 +1665,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'SPENCER',
         'Reference': '1985(3)',
-        'MeasureFunc': 'ABS(39)+SCR(39)',  
+        'MeasureFunc': 'ABS(39)+SCR(39)',
         'Notes': '*',
         'InputValue': 1.0258e3,
         'Uncertainty': 1.000,
