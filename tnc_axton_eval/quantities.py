@@ -7,6 +7,10 @@ class Bunch(object):
         self._varnames.add(name)
         super().__setattr__(name, value)
 
+    def __delattr__(self, name):
+        self._varnames.remove(name)
+        super().__delattr__(name)
+
     def is_valid(self, name):
         return name in self._varnames
 
