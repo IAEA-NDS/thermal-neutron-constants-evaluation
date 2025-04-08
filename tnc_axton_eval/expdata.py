@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 
 
 exp_dt = pd.DataFrame.from_records([
@@ -1674,3 +1675,51 @@ exp_dt = pd.DataFrame.from_records([
      },
 ])
 
+
+# pseudo data for fixed parameters
+
+pseudo_exp_dt = pd.DataFrame.from_records([
+    {
+        'Author': 'Reich (eval)',
+        'Reference': '1985',
+        'MeasureFunc': 'HLF(33)',
+        'Notes': 'NA',
+        'InputValue': 1.592,  # times 1e5
+        'Uncertainty': 0.1256,
+        'WeightedResidual': np.nan,
+        'No': 168,
+     },
+    {
+        'Author': 'Reich (eval)',
+        'Reference': '1985',
+        'MeasureFunc': 'HLF(34)',
+        'Notes': 'NA',
+        'InputValue': 2.457,  # times 1e5
+        'Uncertainty': 0.1221,
+        'WeightedResidual': np.nan,
+        'No': 169,
+     },
+    {
+        'Author': 'Reich (eval)',
+        'Reference': '1985',
+        'MeasureFunc': 'HLF(39)',
+        'Notes': 'NA',
+        'InputValue': 2.411,  # times 1e4
+        'Uncertainty': 0.1244,
+        'WeightedResidual': np.nan,
+        'No': 170,
+     },
+    {
+        'Author': 'Reich (eval)',
+        'Reference': '1985',
+        'MeasureFunc': 'HLF(41)',
+        'Notes': 'NA',
+        'InputValue': 14.35,
+         'Uncertainty': 0.6969,
+        'WeightedResidual': np.nan,
+        'No': 171,
+     },
+])
+
+
+all_exp_dt = pd.concat([exp_dt, pseudo_exp_dt], ignore_index=True) 

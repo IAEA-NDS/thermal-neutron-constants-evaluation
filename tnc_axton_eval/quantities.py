@@ -47,5 +47,5 @@ def prepare_funcs(getter, override=None):
     f.F1BIG = lambda: f.FF(41) / (f.FFH(39, 39) * f.F3HLF())
     f.F1HLF = lambda: 1 + 0.12966 * (f.HLF(41) - 14.05)
     f.F2HLF = lambda: 1 + 0.0225 * (f.HLF(41) - 14.05)
-    f.F3HLF = lambda: 1 + 0.00395 * (14.5 - f.HLF(41)) / (14.5-12.9)
+    f.F3HLF = lambda: 1 + 0.00395 * (14.5 - f.HLF(41)) / (14.5-12.9)  # Is this correct?
     return f
