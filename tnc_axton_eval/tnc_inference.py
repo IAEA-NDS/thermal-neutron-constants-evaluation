@@ -2,6 +2,7 @@ import tensorflow as tf
 import tensorflow_probability as tfp
 import pandas as pd
 import numpy as np
+import scipy as scp
 from utils import timeit
 import logging
 import sys
@@ -30,7 +31,11 @@ from optim_prep import (
 from expdata import (
     all_exp_dt as exp_dt
 )
-from gmapy.tf_uq.inference import determine_MAP_estimate
+from gmapy.tf_uq.inference import (
+    determine_MAP_estimate,
+    generate_MCMC_chain,
+)
+from gmapy.mcmc_inference import compute_effective_sample_size
 
 
 # NOTE: directly starting with UNC_MODE='scale_by_propvals'
@@ -71,41 +76,11 @@ assign_startvals(startvals, startvals_map, reac_map)
 startvals_tf = tf.constant(np.sqrt(np.abs(startvals)), dtype=tf.float64)
 
 expvals = red_exp_dt['InputValue'].to_numpy()
+
+# preapre the relative covariance matrix
 # relcov_linop = tf.linalg.LinearOperatorDiag(
 #     np.square(red_exp_dt['Uncertainty'] / 100.0), is_positive_definite=True
 # )
-
-
-trafo = tf.square
-chisquare = prepare_chisquare(propagate, expvals, relcov_linop, trafo=trafo)
-chisquare_and_gradient = prepare_chisquare_and_gradient(chisquare)
-chisquare_hessian = prepare_chisquare_hessian(chisquare)
-
-func_and_grad_tf = tf.function(chisquare_and_gradient)
-func_hessian_tf = tf.function(chisquare_hessian)
-
-optres = determine_MAP_estimate(startvals_tf, func_and_grad_tf, func_hessian_tf, ret_optres=True)
-opt_params = (trafo(optres.position)).numpy()
-
-
-if 'res_list' not in globals():
-    res_list = []
-
-res_list.append(pd.DataFrame({
-    'NAME': [f'{x} {y}' for x, y in tuple_combis],
-    'POST': opt_params,
-    'SEED': seed,
-}))
-
-
-res_list[-1]
-
-# comparison with experiments
-# red_exp_dt['PRED'] = propagate(opt_params)
-# red_exp_dt['RES'] = (red_exp_dt['PRED'] - red_exp_dt['InputValue']) / red_exp_dt['InputValue'] / (red_exp_dt['Uncertainty']/100)
-# red_exp_dt
-
-
 
 ags_index = np.loadtxt('tnc_cov_data/thermalcst.mic')
 cov_info = np.loadtxt('tnc_cov_data/ags.mic')
@@ -127,4 +102,89 @@ full_covmat[np.ix_(idcs, idcs)] = rel_covmat[np.ix_(sel, sel)]
 
 relcov_linop = tf.linalg.LinearOperatorFullMatrix(full_covmat, is_positive_definite=True, is_square=True)
 
+# prepare the fit quantities
+trafo = tf.square
+chisquare = prepare_chisquare(propagate, expvals, relcov_linop, trafo=trafo)
+chisquare_and_gradient = prepare_chisquare_and_gradient(chisquare)
+chisquare_hessian = prepare_chisquare_hessian(chisquare)
 
+func_and_grad_tf = tf.function(chisquare_and_gradient)
+func_hessian_tf = tf.function(chisquare_hessian)
+
+# do a MAP
+optres = determine_MAP_estimate(startvals_tf, func_and_grad_tf, func_hessian_tf, ret_optres=True)
+opt_params = (trafo(optres.position)).numpy()
+
+# do MCMC
+log_prob = lambda x: (-chisquare(x))
+# chain, _ = generate_MCMC_chain(startvals_tf, log_prob, chisquare_hessian, num_leapfrog_steps=3, step_size=0.1, num_results=20000)
+opt_params_mcmc = np.mean(trafo(chain).numpy(), axis=0)
+
+
+if 'res_list' not in globals():
+    res_list = []
+
+post_df = pd.DataFrame({
+    'NAME': [f'{x} {y}' for x, y in tuple_combis],
+    'POST': opt_params,
+    'POST_MCMC': opt_params_mcmc,
+    'SEED': seed,
+})
+
+
+# method 1
+chisquare_notrafo = prepare_chisquare(propagate, expvals, relcov_linop)
+chisquare_hessian_notrafo = prepare_chisquare_hessian(chisquare_notrafo)
+invpostcov = chisquare_hessian_notrafo(tf.constant(opt_params))
+postcov = np.linalg.inv(invpostcov)
+postuncs = np.sqrt(postcov.diagonal())
+post_df['RELUNC1'] = postuncs / post_df['POST'] * 100
+
+# method 2
+propfun = prepare_propagate(reac_map, red_exp_dt)
+propvals = propfun(opt_params).numpy()
+jacfun = prepare_jacobian(propfun)
+J = jacfun(tf.constant(opt_params))
+expcov = relcov_linop.to_dense().numpy() * (propvals.reshape(-1, 1) @ propvals.reshape(1,-1))
+inv_expcov = np.linalg.inv(expcov)
+postcov = np.linalg.inv(J.numpy().T @ inv_expcov @ J.numpy())
+postuncs = np.sqrt(postcov.diagonal())
+post_df['RELUNC2'] = postuncs / post_df['POST'] * 100
+
+# method 3
+postuncs_mcmc = np.std(trafo(chain).numpy(), axis=0)
+post_df['RELUNC_MCMC'] = postuncs_mcmc / post_df['POST_MCMC'] * 100
+
+
+import matplotlib.pyplot as plt
+curchain = trafo(chain[:,14]).numpy()
+scp.stats.skew(curchain)
+scp.stats.kurtosis(curchain)
+compute_effective_sample_size(curchain)
+plt.hist(curchain, bins=50)
+plt.show()
+
+fis_df = post_df[post_df['NAME'].str.startswith('FIS')].reset_index(drop=True)
+abs_df = post_df[post_df['NAME'].str.startswith('ABS')].reset_index(drop=True)
+cap_df = fis_df.copy()
+cap_df['NAME'] = cap_df['NAME'].str.replace('FIS', 'CA')
+cap_df['POST'] = abs_df['POST'] - fis_df['POST']
+cap_df['POST_MCMC'] = abs_df['POST_MCMC'] - fis_df['POST_MCMC']
+
+red_post_df = post_df[~post_df['NAME'].str.startswith('ABS') & ~post_df['NAME'].str.startswith('HLF')]
+red_post_df = pd.concat([red_post_df, cap_df], axis=0, ignore_index=True)
+red_post_df
+
+
+# comparison with experiments
+# red_exp_dt['PRED'] = propagate(opt_params)
+# red_exp_dt['RES'] = (red_exp_dt['PRED'] - red_exp_dt['InputValue']) / red_exp_dt['InputValue'] / (red_exp_dt['Uncertainty']/100)
+# red_exp_dt
+
+idcs = post_df[post_df.NAME.str.startswith('FIS')].index
+for idx in idcs:
+    curchain = trafo(chain[:,idx]).numpy()
+    curskew = scp.stats.skew(curchain)
+    post_df.loc[idx, 'SKEW'] = curskew
+    curkurt = scp.stats.kurtosis(curchain)
+    post_df.loc[idx, 'KURT'] = curkurt
