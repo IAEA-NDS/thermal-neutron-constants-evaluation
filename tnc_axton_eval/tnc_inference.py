@@ -3,6 +3,11 @@ import tensorflow_probability as tfp
 import pandas as pd
 import numpy as np
 from utils import timeit
+import logging
+import sys
+
+logging.basicConfig(level=logging.WARNING, stream=sys.stdout, format='%(asctime)s - %(levelname)s - %(message)s')
+optim_prep_logger.setLevel(logging.INFO)
 
 from prior_prep import (
     tuple_combis_mic as tuple_combis,
@@ -14,21 +19,30 @@ from propagate_prep import (
     prepare_propagate,
     prepare_jacobian,
 )
+import optim_prep
 from optim_prep import (
     prepare_chisquare,
     prepare_chisquare_gradient,
     prepare_chisquare_and_gradient,
     prepare_chisquare_hessian,
+    logger as optim_prep_logger,
 )
 from expdata import (
-    exp_dt
+    all_exp_dt as exp_dt
 )
 from gmapy.tf_uq.inference import determine_MAP_estimate
 
 
+# NOTE: directly starting with UNC_MODE='scale_by_propvals'
+#       would not give nice results (formally converged yes, but weird numbers).
+#       First, good values should be found with UNC_MODE='scale_by_expvals',
+#       and the result as starting values in the fit with UNC_MODE='scale_by_propvals'
+
+optim_prep.UNC_MODE = 'scale_by_propvals'
+
 seed = np.random.randint(0, 1000, 1).item()
 np.random.seed(seed)
-startvals = np.random.uniform(1, 2, len(tuple_combis))
+# startvals = np.random.uniform(1, 2, len(tuple_combis))
 
 # select experimental datasets
 failure_reacs = []
@@ -54,7 +68,7 @@ red_exp_dt = exp_dt.loc[selected_exp_idx].reset_index(drop=True)
 propagate = prepare_propagate(reac_map, red_exp_dt)
 jacobian = prepare_jacobian(propagate)
 assign_startvals(startvals, startvals_map, reac_map)
-startvals_tf = tf.constant(startvals, dtype=tf.float64)
+startvals_tf = tf.constant(np.sqrt(np.abs(startvals)), dtype=tf.float64)
 
 trafo = tf.square
 chisquare = prepare_chisquare(propagate, red_exp_dt, trafo=trafo) 
@@ -67,7 +81,10 @@ func_hessian_tf = tf.function(chisquare_hessian)
 optres = determine_MAP_estimate(startvals, func_and_grad_tf, func_hessian_tf, ret_optres=True)
 opt_params = (trafo(optres.position)).numpy()
 
-# res_list = []
+
+if 'res_list' not in globals():
+    res_list = []
+
 res_list.append(pd.DataFrame({
     'NAME': [f'{x} {y}' for x, y in tuple_combis],
     'POST': opt_params,
