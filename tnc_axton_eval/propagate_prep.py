@@ -39,6 +39,7 @@ def prepare_propagate(reac_map, exp_dt):
 def prepare_jacobian(propagate_fun):
     def jacobian(params):
         with tf.GradientTape(persistent=False) as tape:
-            result = propagate(params)
+            tape.watch(params)
+            result = propagate_fun(params)
         return tape.jacobian(result, params, experimental_use_pfor=True)
     return jacobian
