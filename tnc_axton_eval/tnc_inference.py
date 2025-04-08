@@ -37,7 +37,7 @@ post_df['RELUNC1'] = postuncs / post_df['POST'] * 100
 
 # method 2 (sandwhich, analytic)
 propfun = prep.prepare_propagate(prep.reac_map, prep.red_exp_dt)
-propvals = prep.propfun(opt_params).numpy()
+propvals = propfun(opt_params).numpy()
 jacfun = prep.prepare_jacobian(propfun)
 J = jacfun(tf.constant(opt_params))
 expcov = prep.relcov_linop.to_dense().numpy() * (propvals.reshape(-1, 1) @ propvals.reshape(1,-1))
