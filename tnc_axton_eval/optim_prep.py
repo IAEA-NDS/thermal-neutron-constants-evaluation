@@ -1,10 +1,11 @@
 import tensorflow as tf
+import logging
+
+
+logger = logging.getLogger(__name__)
 
 
 UNC_MODE = 'scale_by_expvals'
-
-
-myprop = lambda x: propagate(tf.square(x))
 
 
 def prepare_chisquare(propagate_fun, exp_dt, trafo=None):
@@ -15,9 +16,11 @@ def prepare_chisquare(propagate_fun, exp_dt, trafo=None):
         expvals = tf.constant(exp_dt['InputValue'], dtype=tf.float64)
         uncs = tf.constant(exp_dt['Uncertainty']/100, dtype=tf.float64)
         if UNC_MODE == 'scale_by_expvals':
+            logger.info('scale by expvals')
             absuncs = uncs * expvals
         else:
             absuncs = uncs * propvals
+            logger.info('scale by propvals')
         diff = (0.5) * tf.square(expvals - propvals) / tf.square(absuncs)
         return tf.reduce_sum(diff)
     return chisquare
