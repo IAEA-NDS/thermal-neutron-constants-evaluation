@@ -8,21 +8,29 @@ logger = logging.getLogger(__name__)
 UNC_MODE = 'scale_by_expvals'
 
 
-def prepare_chisquare(propagate_fun, exp_dt, trafo=None):
+def prepare_chisquare(propagate_fun, expvals, relcov_linop, trafo=None):
     def chisquare(params):
         if trafo is not None:
             params = tf.square(params)
         propvals = propagate_fun(params)
-        expvals = tf.constant(exp_dt['InputValue'], dtype=tf.float64)
-        uncs = tf.constant(exp_dt['Uncertainty']/100, dtype=tf.float64)
         if UNC_MODE == 'scale_by_expvals':
             logger.info('scale by expvals')
-            absuncs = uncs * expvals
+            scale_op = tf.linalg.LinearOperatorDiag(
+                expvals, is_positive_definite=True
+            )
         else:
-            absuncs = uncs * propvals
             logger.info('scale by propvals')
-        diff = (0.5) * tf.square(expvals - propvals) / tf.square(absuncs)
-        return tf.reduce_sum(diff)
+            scale_op = tf.linalg.LinearOperatorDiag(
+                propvals, is_positive_definite=True
+            )
+
+        cov_linop = tf.linalg.LinearOperatorComposition(
+            [scale_op, relcov_linop, scale_op],
+            is_positive_definite=True, is_non_singular=True,
+            is_self_adjoint=True, is_square=True
+        )
+        absdiff = expvals - propvals
+        return tf.reduce_sum(absdiff * cov_linop.solvevec(absdiff))
     return chisquare
 
 
