@@ -1714,7 +1714,7 @@ pseudo_exp_dt = pd.DataFrame.from_records([
         'Reference': '1985',
         'MeasureFunc': 'HLF(41)',
         'Notes': 'NA',
-        'InputValue': 14.35,
+        'InputValue': 1.435,  # times 10
          'Uncertainty': 0.6969,
         'WeightedResidual': np.nan,
         'No': 171,
