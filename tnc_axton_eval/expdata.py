@@ -1721,5 +1721,116 @@ pseudo_exp_dt = pd.DataFrame.from_records([
      },
 ])
 
+# datasets
+
+gma_exp_dt = pd.DataFrame.from_records([
+    # 8026
+    {
+        'Author': 'Adamchuck',
+        'Reference': '1988',
+        'MeasureFunc': 'CA(35) / FIS(35) ',
+        'Notes': 'NA',
+        'InputValue': 0.169,
+        'Uncertainty': 2.1,
+        'WeightedResidual': np.nan,
+        'No': 172,
+    },
+    # 1918
+    {
+        'Author': 'Arif',
+        'Reference': '2004',
+        'MeasureFunc': 'SCA(35)',
+        'Notes': 'NA',
+        'InputValue': 14.0,
+        'Uncertainty': 1.6,
+        'WeightedResidual': np.nan,
+        'No': 173,
+    },
+    # 1915
+    {
+        'Author': 'Reed',
+        'Reference': '2004',
+        'MeasureFunc': 'NUB(33)',
+        'Notes': 'NA',
+        'InputValue': 2.511,
+        'Uncertainty': 5.2,
+        'WeightedResidual': np.nan,
+        'No': 174,
+    },
+    # 1921
+    {
+        'Author': 'Reed',
+        'Reference': '2004',
+        'MeasureFunc': 'NUB(35)',
+        'Notes': 'NA',
+        'InputValue': 2.445,
+        'Uncertainty': 5.2,
+        'WeightedResidual': np.nan,
+        'No': 175,
+        # TODO: Include correlation
+    },
+    # 602
+    {
+        'Author': 'Meadows',
+        'Reference': '1983',
+        'MeasureFunc': 'FIS(39)/FIS(35)',
+        'Notes': 'NA',
+        'InputValue': 1.293,
+        'Uncertainty': 0.8774,  # TOCHECK: Correlation necessary?
+        'WeightedResidual': np.nan,
+        'No': 176,
+    },
+    # 631
+    {
+        'Author': 'Zhuravlev',
+        'Reference': '1977',
+        'MeasureFunc': 'FIS(39)/FIS(35)',
+        'Notes': 'NA',
+        'InputValue': 1.274,
+        'Uncertainty': 5.2234 ,
+        'WeightedResidual': np.nan,
+        'No': 177,
+    },
+    # 8029
+    {
+        'Author': 'Tovesson',
+        'Reference': '2010',
+        'MeasureFunc': 'FIS(39)/FIS(35)',
+        'Notes': 'NA',
+        'InputValue': 1.2969 ,
+        'Uncertainty': 2.0,
+        'WeightedResidual': np.nan,
+        'No': 178,
+    },
+    # 8028
+    {
+        'Author': 'Tovesson',
+        'Reference': '2010',
+        'MeasureFunc': 'FIS(41)/FIS(35)',
+        'Notes': 'NA',
+        'InputValue': 1.7255 ,
+        'Uncertainty': 3.0,
+        'WeightedResidual': np.nan,
+        'No': 179,
+    },
+    # 8027
+    {
+        'Author': 'Calviani',
+        'Reference': '2009',
+        'MeasureFunc': 'FIS(33)/FIS(35)',
+        'Notes': 'NA',
+        'InputValue': 0.9142,
+        'Uncertainty': 2.6,
+        'WeightedResidual': np.nan,
+        'No': 180,
+    },
+])
+
 
 all_exp_dt = pd.concat([exp_dt, pseudo_exp_dt], ignore_index=True) 
+
+
+# TODO: Remove 910 - 934 TNC Axton
+#       Remove Lounsbury 8099, 8098, 8097
+
+
