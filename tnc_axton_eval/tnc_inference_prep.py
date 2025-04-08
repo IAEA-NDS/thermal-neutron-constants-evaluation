@@ -1,3 +1,4 @@
+from pathlib import Path
 import tensorflow as tf
 import tensorflow_probability as tfp
 import pandas as pd
@@ -28,6 +29,8 @@ from optim_prep import (
 from expdata import (
     all_exp_dt as exp_dt
 )
+
+basepath = Path(__file__).resolve().parent
 
 logging.basicConfig(level=logging.WARNING, stream=sys.stdout, format='%(asctime)s - %(levelname)s - %(message)s')
 optim_prep_logger.setLevel(logging.INFO)
@@ -76,8 +79,8 @@ expvals = red_exp_dt['InputValue'].to_numpy()
 #     np.square(red_exp_dt['Uncertainty'] / 100.0), is_positive_definite=True
 # )
 
-ags_index = np.loadtxt('tnc_cov_data/thermalcst.mic')
-cov_info = np.loadtxt('tnc_cov_data/ags.mic')
+ags_index = np.loadtxt(basepath / 'tnc_cov_data/thermalcst.mic')
+cov_info = np.loadtxt(basepath / 'tnc_cov_data/ags.mic')
 assert np.all(ags_index[:,0] == cov_info[:,0])
 
 no_gilles = ags_index[:,0].astype(int).tolist()
