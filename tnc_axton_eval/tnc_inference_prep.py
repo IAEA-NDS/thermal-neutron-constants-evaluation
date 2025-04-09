@@ -110,16 +110,7 @@ func_and_grad_tf = tf.function(chisquare_and_gradient)
 func_hessian_tf = tf.function(chisquare_hessian)
 
 
-class AxtonChiSquareDist(BaseDistribution):
-
-    def log_prob(self, x):
-        return (-0.5)*chisquare(x)
-
-    def log_prob_hessian(self, x):
-        return (-0.5)*chisquare_hessian(x)
-
-
-gma_axt_dict = {
+gma_to_axt_map = {
     'MT:1-R1:8': 'FIS(35)',
     'MT:1-R1:9': 'FIS(39)',
     'MT:1-R1:11': 'WGA(33)',
@@ -154,4 +145,89 @@ gma_axt_dict = {
 }
 
 
-axt_gma_dict = {v: k for k, v in gma_axt_dict.items()}
+axt_to_gma_map = {v: k for k, v in gma_to_axt_map.items()}
+
+
+def prepare_distribute_params(gma_reacs, axt_reacs, reacs, axt_to_gma_map=None):
+    def distribute_params(params_tf):
+        reacs_t = reacs
+        if axt_to_gma_map is not None:
+            reacs_t = [axt_to_gma_map.get(r, r) for r in reacs]
+        src_idcs1 = [i for i, r in enumerate(reacs_t) if r in gma_reacs]
+        src_idcs2 = [i for i, r in enumerate(reacs) if r in axt_reacs]
+        gather1 = tf.gather(params_tf, src_idcs1)
+        gather2 = tf.gather(params_tf, src_idcs2)
+        reacs_gather1 = [reacs_t[idx] for idx in src_idcs1]
+        reacs_gather2 = [reacs[idx] for idx in src_idcs2]
+        tar_idcs1 = [[gma_reacs.index(r)] for r in reacs_gather1]
+        tar_idcs2 = [[axt_reacs.index(r)] for r in reacs_gather2]
+        scatter1 = tf.scatter_nd(tar_idcs1, gather1, [len(gma_reacs)])
+        scatter2 = tf.scatter_nd(tar_idcs2, gather2, [len(axt_reacs)])
+        return scatter1, scatter2
+    return distribute_params
+
+
+def prepare_combine_hessians(gma_reacs, axt_reacs, reacs, axt_to_gma_map=None):
+    def combine_hessians(gma_hess, axt_hess):
+        reacs_t = reacs
+        if axt_to_gma_map is not None:
+            reacs_t = [axt_to_gma_map.get(r, r) for r in reacs]
+        idcs1 = [reacs_t.index(r) for r in gma_reacs]
+        idcs1_2d = [(i1, i2) for i1 in idcs1 for i2 in idcs1]
+        exp_gma_hess = tf.scatter_nd(idcs1_2d, tf.reshape(gma_hess, [-1]), [len(reacs)]*2)
+        idcs2 = [reacs.index(r) for r in axt_reacs]
+        idcs2_2d = [(i1, i2) for i1 in idcs2 for i2 in idcs2]
+        exp_axt_hess = tf.scatter_nd(idcs2_2d, tf.reshape(axt_hess, [-1]), [len(reacs)]*2)
+        return exp_gma_hess + exp_axt_hess
+    return combine_hessians
+
+
+class AxtonChiSquareDist(BaseDistribution):
+
+    def log_prob(self, x):
+        return (-0.5)*chisquare(x)
+
+    def log_prob_hessian(self, x):
+        return (-0.5)*chisquare_hessian(x)
+
+
+class GmaAxtDist(BaseDistribution):
+    def __init__(self, gma_reacs, gma_dist, axt_reacs, axt_dist, reacs):
+        assert len(np.unique(reacs)) == len(reacs)
+        reacs_t = [axt_to_gma_map.get(r,r) for r in reacs]
+        assert all(r in reacs_t for r in gma_reacs)
+        assert all(r in reacs for r in axt_reacs)
+        self._gma_dist = gma_dist
+        self._axt_dist = axt_dist
+        self._distribute_params = self._prepare_distribute_params(gma_reacs, axt_reacs, reacs, axt_to_gma_map)
+        self._combine_hessians = prepare_combine_hessians(gma_reacs, axt_reacs, reacs, axt_to_gma_map)
+
+    def log_prob(self, x):
+        gma_inp, axt_inp = self._distribute_params(x)
+        gma_log_prob = self._gma_dist.log_prob(gma_inp)
+        axt_log_prob = self._axt_dist.log_prob(axt_inp)
+        return gma_log_prob + axt_log_prob
+
+    def log_prob_hessian(self, x):
+        gma_inp, axt_inp = self._distribute_params(x)
+        gma_hess = self._gma_dist.log_prob_hessian(gma_inp)
+        axt_hess = self._axt_dist.log_prob_hessian(axt_inp)
+        return self._combine_hessian(gma_hess, axt_hess)
+
+
+# FOR AD-HOC TESTING
+# axt_to_gma_map = {'b': 'u'}
+#
+# reacs1 = ('a', 'u', 'c', 'd')
+# reacs2 = ('c', 'd', 'e', 'f')
+# reacs = ('a', 'b', 'c', 'd', 'e', 'f')
+# params_tf = tf.range(len(reacs))
+#
+# distribute_params = prepare_distribute_params(reacs1, reacs2, reacs, axt_to_gma_map)
+# distribute_params(params_tf)
+#
+# hess1 = tf.constant([[i*4+j for j in range(4)] for i in range(4)])
+# hess2 = tf.constant([[i*4+j for j in range(4)] for i in range(4)])
+#
+# combine_hessians = prepare_combine_hessians(reacs1, reacs2, reacs, axt_to_gma_map)
+# combine_hessians(hess1, hess2)
