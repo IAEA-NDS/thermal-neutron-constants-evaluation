@@ -29,6 +29,7 @@ from optim_prep import (
 from expdata import (
     all_exp_dt as exp_dt
 )
+from gmapy.tf_uq.custom_distributions import BaseDistribution
 
 basepath = Path(__file__).resolve().parent
 
@@ -107,3 +108,12 @@ chisquare_hessian = prepare_chisquare_hessian(chisquare)
 
 func_and_grad_tf = tf.function(chisquare_and_gradient)
 func_hessian_tf = tf.function(chisquare_hessian)
+
+
+class AxtonChiSquareDist(BaseDistribution):
+
+    def log_prob(self, x):
+        return (-0.5)*chisquare(x)
+
+    def log_prob_hessian(self, x):
+        return (-0.5)*chisquare_hessian(x)

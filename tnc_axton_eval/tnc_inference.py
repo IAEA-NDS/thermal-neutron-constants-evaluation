@@ -52,12 +52,12 @@ post_df['RELUNC_MCMC'] = postuncs_mcmc / post_df['POST_MCMC'] * 100
 
 
 import matplotlib.pyplot as plt
-curchain = prep.trafo(chain[:,14]).numpy()
-scp.stats.skew(curchain)
-scp.stats.kurtosis(curchain)
-compute_effective_sample_size(curchain)
-plt.hist(curchain, bins=50)
-plt.show()
+# curchain = prep.trafo(chain[:,14]).numpy()
+# scp.stats.skew(curchain)
+# scp.stats.kurtosis(curchain)
+# compute_effective_sample_size(curchain)
+# plt.hist(curchain, bins=50)
+# plt.show()
 
 fis_df = post_df[post_df['NAME'].str.startswith('FIS')].reset_index(drop=True)
 abs_df = post_df[post_df['NAME'].str.startswith('ABS')].reset_index(drop=True)
