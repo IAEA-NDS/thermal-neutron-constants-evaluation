@@ -117,3 +117,41 @@ class AxtonChiSquareDist(BaseDistribution):
 
     def log_prob_hessian(self, x):
         return (-0.5)*chisquare_hessian(x)
+
+
+gma_axt_dict = {
+    'MT:1-R1:8': 'FIS(35)',
+    'MT:1-R1:9': 'FIS(39)',
+    'MT:1-R1:11': 'WGA(33)',
+    'MT:1-R1:12': 'WGF(33)',
+    'MT:1-R1:13': 'SCA(33)',
+    'MT:1-R1:14': 'FIS(33)',
+    'MT:1-R1:15': 'CA(33)',
+    'MT:1-R1:16': 'NUB(33)',
+    'MT:1-R1:17': 'WGA(35)',
+    'MT:1-R1:18': 'WGF(35)',
+    'MT:1-R1:19': 'SCA(35)',
+    'MT:1-R1:20': 'CA(35)',
+    'MT:1-R1:21': 'NUB(35)',
+    'MT:1-R1:22': 'WGA(39)',
+    'MT:1-R1:23': 'WGF(39)',
+    'MT:1-R1:24': 'SCA(39)',
+    'MT:1-R1:25': 'CA(39)',
+    'MT:1-R1:26': 'NUB(39)',
+    'MT:1-R1:27': 'WGA(41)',
+    'MT:1-R1:28': 'WGF(41)',
+    'MT:1-R1:29': 'SCA(41)',
+    'MT:1-R1:30': 'FIS(41)',
+    'MT:1-R1:31': 'CA(41)',
+    'MT:1-R1:32': 'NUB(41)',
+    'MT:1-R1:33': 'NUB(52)',
+    'MT:3-R1:9-R2:8': 'FIS(39)/FIS(35)',
+    'MT:3-R1:30-R2:8': 'FIS(41)/FIS(35)',
+    'MT:3-R1:14-R2:8': 'FIS(33)/FIS(35)',
+    'MT:3-R1:15-R2:14': 'CA(33)/FIS(33)',
+    'MT:3-R1:20-R2:8': 'CA(35)/FIS(35)',
+    'MT:3-R1:25-R2:9': 'CA(39)/FIS(39)',
+}
+
+
+axt_gma_dict = {v: k for k, v in gma_axt_dict.items()}
