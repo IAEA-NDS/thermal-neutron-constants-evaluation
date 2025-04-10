@@ -196,7 +196,6 @@ class AxtonChiSquareDist(BaseDistribution):
 
 class GmaAxtDist(BaseDistribution):
     def __init__(self, gma_reacs, gma_dist, axt_reacs, axt_dist, reacs):
-        assert len(np.unique(reacs)) == len(reacs)
         assert all(r in reacs for r in gma_reacs)
         assert all(r in reacs for r in axt_reacs)
         self._gma_dist = gma_dist
