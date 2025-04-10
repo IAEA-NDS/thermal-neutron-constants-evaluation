@@ -200,7 +200,7 @@ class GmaAxtDist(BaseDistribution):
         assert all(r in reacs for r in axt_reacs)
         self._gma_dist = gma_dist
         self._axt_dist = axt_dist
-        self._distribute_params = self._prepare_distribute_params(gma_reacs, axt_reacs)
+        self._distribute_params = prepare_distribute_params(gma_reacs, axt_reacs, reacs)
         self._combine_hessians = prepare_combine_hessians(gma_reacs, axt_reacs, reacs)
 
     def log_prob(self, x):
