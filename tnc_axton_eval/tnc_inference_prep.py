@@ -182,8 +182,13 @@ def prepare_combine_hessians(gma_reacs, axt_reacs, reacs, axt_to_gma_map=None):
     return combine_hessians
 
 
-
 axt_prior_reacs = [f'{s}({t})' for s, t in tuple_combis]
+axt_priortable = pd.DataFrame({
+    'NODE': 'axton_prior',
+    'REAC': axt_prior_reacs,
+    'ENERGY': 2.53e-8,
+    'PRIOR': startvals,
+})
 
 
 class AxtonChiSquareDist(BaseDistribution):
