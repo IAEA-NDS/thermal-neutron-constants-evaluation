@@ -182,6 +182,10 @@ def prepare_combine_hessians(gma_reacs, axt_reacs, reacs, axt_to_gma_map=None):
     return combine_hessians
 
 
+
+axt_prior_reacs = [f'{s}({t})' for s, t in tuple_combis]
+
+
 class AxtonChiSquareDist(BaseDistribution):
 
     def log_prob(self, x):
