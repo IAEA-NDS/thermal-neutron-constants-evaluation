@@ -148,19 +148,22 @@ gma_to_axt_map = {
 axt_to_gma_map = {v: k for k, v in gma_to_axt_map.items()}
 
 
+# FIX: For some reason, if using the neg_log_prob_and_gradient
+#      function, bfgs_minimize fails if the func distribute_params
+#      relies directly on tf.gather even though normal forward propagation
+#      and gradient coputation seem to work fine otherwise.
+def gather_elements_manual(x, idcs):
+    gathered_elements = [x[i] for i in idcs]
+    return tf.stack(gathered_elements)
+
+
 def prepare_distribute_params(gma_reacs, axt_reacs, reacs):
     def distribute_params(params_tf):
-        src_idcs1 = [i for i, r in enumerate(reacs) if r in gma_reacs]
-        src_idcs2 = [i for i, r in enumerate(reacs) if r in axt_reacs]
-        gather1 = tf.gather(params_tf, src_idcs1)
-        gather2 = tf.gather(params_tf, src_idcs2)
-        reacs_gather1 = [reacs[idx] for idx in src_idcs1]
-        reacs_gather2 = [reacs[idx] for idx in src_idcs2]
-        tar_idcs1 = [[gma_reacs.index(r)] for r in reacs_gather1]
-        tar_idcs2 = [[axt_reacs.index(r)] for r in reacs_gather2]
-        scatter1 = tf.scatter_nd(tar_idcs1, gather1, [len(gma_reacs)])
-        scatter2 = tf.scatter_nd(tar_idcs2, gather2, [len(axt_reacs)])
-        return scatter1, scatter2
+        src_idcs1 = [reacs.index(r) for r in gma_reacs]
+        src_idcs2 = [reacs.index(r) for r in axt_reacs]
+        gather1 = gather_elements_manual(params_tf, src_idcs1)
+        gather2 = gather_elements_manual(params_tf, src_idcs2)
+        return gather1, gather2
     return distribute_params
 
 
@@ -202,18 +205,21 @@ class GmaAxtDist(BaseDistribution):
         self._axt_dist = axt_dist
         self._distribute_params = prepare_distribute_params(gma_reacs, axt_reacs, reacs)
         self._combine_hessians = prepare_combine_hessians(gma_reacs, axt_reacs, reacs)
+        self._reacs = reacs
+        self._axt_reacs = axt_reacs
 
     def log_prob(self, x):
         gma_inp, axt_inp = self._distribute_params(x)
+        gma_inp = tf.square(gma_inp)  # because axt_inp parameters are also squared by axt_dist
         gma_log_prob = self._gma_dist.log_prob(gma_inp)
         axt_log_prob = self._axt_dist.log_prob(axt_inp)
-        return gma_log_prob + axt_log_prob
+        return axt_log_prob + gma_log_prob
 
     def log_prob_hessian(self, x):
         gma_inp, axt_inp = self._distribute_params(x)
         gma_hess = self._gma_dist.log_prob_hessian(gma_inp)
         axt_hess = self._axt_dist.log_prob_hessian(axt_inp)
-        return self._combine_hessian(gma_hess, axt_hess)
+        return tf.convert_to_tensor(self._combine_hessians(gma_hess, axt_hess))
 
 
 # FOR AD-HOC TESTING
