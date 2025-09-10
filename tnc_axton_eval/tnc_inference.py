@@ -15,16 +15,55 @@ opt_params = (prep.trafo(optres.position)).numpy()
 
 # do MCMC
 log_prob = lambda x: (-prep.chisquare(x))
-chain, _ = generate_MCMC_chain(prep.startvals_tf, log_prob, prep.chisquare_hessian, num_leapfrog_steps=3, step_size=0.1, num_results=1000)
+chain, _ = generate_MCMC_chain(
+    optres.position, log_prob, prep.chisquare_hessian,
+    num_leapfrog_steps=3, step_size=0.001, num_burnin_steps=5000,  num_results=20000
+)
 opt_params_mcmc = np.mean(prep.trafo(chain).numpy(), axis=0)
+opt_params_mcmc_uncs = np.std(prep.trafo(chain).numpy(), axis=0)
 
 
 post_df = pd.DataFrame({
     'NAME': [f'{x} {y}' for x, y in prep.tuple_combis],
+    'START': np.square(prep.startvals_tf),
     'POST': opt_params,
     'POST_MCMC': opt_params_mcmc,
+    'POST_MCMC_UNC': opt_params_mcmc_uncs,
     'SEED': prep.seed,
 })
+
+#
+# To compute capture CA (capture) cross sections
+#
+# t0 = post_df[post_df.NAME.str.match('ABS')].reset_index(drop=True)
+# t0['NAME'] = t0['NAME'].str.replace('ABS', 'CA')
+# t1 = post_df[post_df.NAME.str.match('ABS')].reset_index(drop=True)
+# t2 = post_df[post_df.NAME.str.match('FIS')].reset_index(drop=True)
+# t0['START'] = t1['START'] - t2['START']
+# t0['POST'] = t1['POST'] - t2['POST_MCMC']
+# t0['POST'] = t1['POST'] - t2['POST_MCMC']
+# post_df = pd.concat([post_df, t0], ignore_index=True)
+
+#
+# To compute CA uncertainty (ad-hoc)
+#
+# np.std(prep.trafo(chain[:,9]).numpy() - prep.trafo(chain[:,13]).numpy())
+# plt.hist(prep.trafo(chain[:,9]).numpy() - prep.trafo(chain[:,13]).numpy(), bins=30)
+# plt.show()
+
+#
+# To plot posterior distribution
+#
+# import matplotlib.pyplot as plt
+# for idx in range(26):
+#     plt.title(post_df.loc[idx, 'NAME'])
+#     plt.hist(np.square(chain.numpy()[:,idx]), bins=200)
+#     plt.axvline(post_df.at[idx, 'START'], c='b')
+#     plt.axvline(post_df.at[idx, 'POST'], c='r')
+#     plt.axvline(post_df.at[idx, 'POST_MCMC'], c='g')
+#     # plt.xlim(14.51, 14.58)
+#     print(post_df.loc[idx])
+#     plt.show()
 
 
 # method 1 (exact, analytic)

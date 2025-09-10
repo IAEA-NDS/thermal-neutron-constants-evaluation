@@ -41,11 +41,41 @@ optim_prep_logger.setLevel(logging.INFO)
 #       First, good values should be found with UNC_MODE='scale_by_expvals',
 #       and the result as starting values in the fit with UNC_MODE='scale_by_propvals'
 
-optim_prep.UNC_MODE = 'scale_by_expvals'
+optim_prep.UNC_MODE = 'scale_by_propvals'
 
 seed = np.random.randint(0, 1000, 1).item()
 np.random.seed(seed)
 startvals = np.random.uniform(1, 2, len(tuple_combis))
+
+startvals = np.array([    # Set start values by hand
+    12.3204,              # 0   SCA 33  12.3204
+    16.2388,              # 1   SCA 35  16.2388
+    7.8966,               # 2   SCA 39  7.8966
+    11.9740,              # 3   SCA 41  11.9740
+    11.1480,              # 4   SCR 33  11.1480
+    14.5259,              # 5   SCR 35  14.5259
+    6.8131,               # 6   SCR 39  6.8131
+    10.8285,              # 7   SCR 41  10.8285
+    575.2391,             # 8   ABS 33  575.2391
+    681.1651,             # 9   ABS 35  681.1651
+    1018.8813,            # 10  ABS 39  1018.8813
+    1382.1872,            # 11  ABS 41  1382.1872
+    533.2694,             # 12  FIS 33  533.2694
+    96.1049,              # 13  FIS 35  96.1049
+    748.5181,             # 14  FIS 39  748.5181
+    1020.5836,            # 15  FIS 41  1020.5836
+    2.4856,               # 16  NUB 33  2.4856
+    2.4261,               # 17  NUB 35  2.4261
+    2.8794,               # 18  NUB 39  2.8794
+    2.9406,               # 19  NUB 41  2.9406
+    3.7644,               # 20  NUB 52  3.7644
+    1.592,                # 21  HLF 33  1.592
+    2.457,                # 22  HLF 34  2.457
+    2.411,                # 23  HLF 39  2.411
+    14.35,                # 24  HLF 41  14.35
+    9.590000e+01,         # 25  CAP 34  9.590000e+01
+])
+
 
 # select experimental datasets
 failure_reacs = []
