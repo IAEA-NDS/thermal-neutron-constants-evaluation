@@ -40,8 +40,8 @@ post_df = pd.DataFrame({
 # t1 = post_df[post_df.NAME.str.match('ABS')].reset_index(drop=True)
 # t2 = post_df[post_df.NAME.str.match('FIS')].reset_index(drop=True)
 # t0['START'] = t1['START'] - t2['START']
-# t0['POST'] = t1['POST'] - t2['POST_MCMC']
-# t0['POST'] = t1['POST'] - t2['POST_MCMC']
+# t0['POST'] = t1['POST'] - t2['POST']
+# t0['POST_MCMC'] = t1['POST_MCMC'] - t2['POST_MCMC']
 # post_df = pd.concat([post_df, t0], ignore_index=True)
 
 #
