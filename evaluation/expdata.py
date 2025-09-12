@@ -1443,6 +1443,27 @@ exp_dt = pd.DataFrame.from_records([
         'WeightedResidual': .003,
         'No': 167,
      },
+    # WALLNER capture data
+    {
+        'Author': 'WALLNER',
+        'Reference': '2015 PRL 112',
+        'MeasureFunc': 'CA',
+        'Notes': '?',
+        'InputValue': 99.5,
+        'Uncertainty': 2.,
+        'WeightedResidual': np.nan,
+        'No': 181,
+    },
+    {
+        'Author': 'WALLNER',
+        'Reference': '2015 PRL 112',
+        'MeasureFunc': 'CA',
+        'Notes': '?',
+        'InputValue': 101.5,
+        'Uncertainty': 2.,
+        'WeightedResidual': np.nan,
+        'No': 182,
+    },
 ])
 
 
