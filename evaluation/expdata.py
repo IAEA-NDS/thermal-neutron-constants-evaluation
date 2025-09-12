@@ -1473,7 +1473,7 @@ pseudo_exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'Reich (eval)',
         'Reference': '1985',
-        'MeasureFunc': 'HLF(34)',
+        'MeasureFunc': 'HLF(33)',
         'Notes': 'NA',
         'InputValue': 1.592, # same as ENSDF(2025), Axton value: 1.592, # times 1e5
         'Uncertainty': 1e-3,  # Axton value: 0.1256,
