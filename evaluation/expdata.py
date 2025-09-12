@@ -1615,6 +1615,40 @@ gma_exp_dt = pd.DataFrame.from_records([
         'WeightedResidual': np.nan,
         'No': 180,
     },
+    # 8099
+    {
+        'Author': 'Lounsbury',
+        'Reference': 'EPJ WoC 146, 2017 New fit... (original 1970)',
+        'MeasureFunc': 'CA(33)/FIS(33)',
+        'Notes': 'NA',
+        'InputValue': 0.0861,
+        'Uncertainty': 2.44,
+        'WeightedResidual': np.nan,
+        'No': 180,  # TODO: change ID
+    },
+    # 8098
+    {
+        'Author': 'Lounsbury',
+        'Reference': 'EPJ WoC 146, 2017 New fit... (original 1970)',
+        'MeasureFunc': 'CA(35)/FIS(35)',
+        'Notes': 'NA',
+        'InputValue': 0.1697,
+        'Uncertainty': 1.7,
+        'WeightedResidual': np.nan,
+        'No': 180,  # TODO: change ID
+    },
+    # 8097
+    {
+        'Author': 'Lounsbury',
+        'Reference': 'EPJ WoC 146, 2017 New fit... (original 1970)',
+        'MeasureFunc': 'CA(39)/FIS(39)',
+        'Notes': 'NA',
+        'InputValue': 0.3558,
+        'Uncertainty': 1.7,
+        'WeightedResidual': np.nan,
+        'No': 180,  # TODO: change ID
+    },
+
 ])
 
 
