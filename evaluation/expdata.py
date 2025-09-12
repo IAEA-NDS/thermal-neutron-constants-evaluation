@@ -854,16 +854,6 @@ exp_dt = pd.DataFrame.from_records([
         'No': 94,
      },
     {
-        'Author': 'LEMMEL',
-        'Reference': '1982(1)',
-        'MeasureFunc': 'SCA(41)-SCR(41)',
-        'Notes': '3',
-        'InputValue': 1.2006,
-        'Uncertainty': 249.886,
-        'WeightedResidual': 0.061,
-        'No': 95,
-     },
-    {
         'Author': 'DERUYTTER',
         'Reference': '1974(1)',
         'MeasureFunc': 'FH1(39,39)',
