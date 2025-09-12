@@ -1476,7 +1476,7 @@ pseudo_exp_dt = pd.DataFrame.from_records([
         'MeasureFunc': 'HLF(33)',
         'Notes': 'NA',
         'InputValue': 1.59190, # same as ENSDF(2025), Axton value: 1.592, # times 1e5
-        'Uncertainty': 1e-3,  # Axton value: 0.1256,
+        'Uncertainty': 1e-6,  # Axton value: 0.1256,
         'WeightedResidual': np.nan,
         'No': 168,
      },
@@ -1486,7 +1486,7 @@ pseudo_exp_dt = pd.DataFrame.from_records([
         'MeasureFunc': 'HLF(34)',
         'Notes': 'NA',
         'InputValue': 2.455, # from ENSDF2025, Axton value: 2.457,  # times 1e5
-        'Uncertainty': 1e-3,  # ENSDF: 0.24, Axton: 0.1221,
+        'Uncertainty': 1e-6,  # ENSDF: 0.24, Axton: 0.1221,
         'WeightedResidual': np.nan,
         'No': 169,
      },
@@ -1496,7 +1496,7 @@ pseudo_exp_dt = pd.DataFrame.from_records([
         'MeasureFunc': 'HLF(39)',
         'Notes': 'NA',
         'InputValue': 2.411, # from LNHMB, Axton: 2.411,  # times 1e4
-        'Uncertainty': 1e-3,  # LNHB: 0.045, Axton: 0.1244,
+        'Uncertainty': 1e-6,  # LNHB: 0.045, Axton: 0.1244,
         'WeightedResidual': np.nan,
         'No': 170,
      },
@@ -1506,7 +1506,7 @@ pseudo_exp_dt = pd.DataFrame.from_records([
         'MeasureFunc': 'HLF(41)',
         'Notes': 'NA',
         'InputValue': 1.4329, # from LNHB, Axton: 1.435,  # times 10
-        'Uncertainty': 1e-3, # LNHB: 0.279, Axton: 0.6969,
+        'Uncertainty': 1e-6, # LNHB: 0.279, Axton: 0.6969,
         'WeightedResidual': np.nan,
         'No': 171,
      },
