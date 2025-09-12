@@ -1560,28 +1560,6 @@ gma_exp_dt = pd.DataFrame.from_records([
         'No': 175,
         # TODO: Include correlation
     },
-    # 602
-    {
-        'Author': 'Meadows',
-        'Reference': '1983',
-        'MeasureFunc': 'FIS(39)/FIS(35)',
-        'Notes': 'NA',
-        'InputValue': 1.293,
-        'Uncertainty': 0.8774,  # TOCHECK: Correlation necessary?
-        'WeightedResidual': np.nan,
-        'No': 176,
-    },
-    # 631
-    {
-        'Author': 'Zhuravlev',
-        'Reference': '1977',
-        'MeasureFunc': 'FIS(39)/FIS(35)',
-        'Notes': 'NA',
-        'InputValue': 1.274,
-        'Uncertainty': 5.2234 ,
-        'WeightedResidual': np.nan,
-        'No': 177,
-    },
     # 8029
     {
         'Author': 'Tovesson',
