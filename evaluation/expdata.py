@@ -1600,7 +1600,12 @@ gma_exp_dt = pd.DataFrame.from_records([
 all_exp_dt = pd.concat([gma_exp_dt, exp_dt, pseudo_exp_dt], ignore_index=True)
 
 
-# TODO: Remove 910 - 934 TNC Axton
-#       Remove Lounsbury 8099, 8098, 8097
+# TNC Database checks:
+# 8028 an 8029 not present because deleted intentionally
+# 6027 and 6098 from GMA database not present but should be
+# 8097, 8099 Lounsbury data added
+# 1918, 1921, 1915 data added
 
-
+# GMA Database checks:
+# Axton TNC data with dataset numbers 910-934 need to be removed
+# Lounsbury datasets with numbers 8097, 8098, 8099 need to be removed
