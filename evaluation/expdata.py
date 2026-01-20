@@ -1569,7 +1569,7 @@ gma_exp_dt = pd.DataFrame.from_records([
         'InputValue': 0.0861,
         'Uncertainty': 2.44,
         'WeightedResidual': np.nan,
-        'No': 180,  # TODO: change ID
+        'No': 176,
     },
     # 8098
     {
@@ -1580,7 +1580,7 @@ gma_exp_dt = pd.DataFrame.from_records([
         'InputValue': 0.1697,
         'Uncertainty': 1.7,
         'WeightedResidual': np.nan,
-        'No': 180,  # TODO: change ID
+        'No': 177,
     },
     # 8097
     {
@@ -1591,7 +1591,7 @@ gma_exp_dt = pd.DataFrame.from_records([
         'InputValue': 0.3558,
         'Uncertainty': 1.7,
         'WeightedResidual': np.nan,
-        'No': 180,  # TODO: change ID
+        'No': 178,
     },
 
 ])
