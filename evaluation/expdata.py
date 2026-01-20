@@ -204,36 +204,6 @@ exp_dt = pd.DataFrame.from_records([
         'No': 20,
      },
     {
-        'Author': 'LOUNSBURY',
-        'Reference': '1970(1)',
-        'MeasureFunc': 'CA(33)/FIS(33)',
-        'Notes': '19',
-        'InputValue': 8.6100e-2,
-        'Uncertainty': 2.239,
-        'WeightedResidual': .167,
-        'No': 21,
-     },
-    {
-        'Author': 'LOUNSBURY',
-        'Reference': '1970(1)',
-        'MeasureFunc': 'CA(35)/FIS(35)',
-        'Notes': '19',
-        'InputValue': 1.6970e-1,
-        'Uncertainty': 1.709,
-        'WeightedResidual': -.088,
-        'No': 22,
-     },
-    {
-        'Author': 'LOUNSBURY',
-        'Reference': '1970(1)',
-        'MeasureFunc': 'CA(39)/FIS(39)',
-        'Notes': '19',
-        'InputValue': 3.5550e-1,
-        'Uncertainty': 1.603,
-        'WeightedResidual': -1.305,
-        'No': 23,
-     },
-    {
         'Author': 'INGHRAM',
         'Reference': '1956(2)',
         'MeasureFunc': 'CAP(33)/FF(33)',
@@ -558,18 +528,18 @@ exp_dt = pd.DataFrame.from_records([
         'Reference': '1954(1)',
         'MeasureFunc': 'ABS(35) + SCR(35)',
         'Notes': '5',
-        'InputValue': 7.0032e2,
-        'Uncertainty': 1.428,
+        'InputValue': 7.00e2,
+        'Uncertainty': 0.7,
         'WeightedResidual': .428,
         'No': 64,
      },
     {
         'Author': 'NITIKIN',
         'Reference': '1955(1)',
-        'MeasureFunc': 'ABS(35)+SCA(35)',
+        'MeasureFunc': 'ABS(35)+SCR(35)',
         'Notes': '5',
-        'InputValue': 7.1032e2,
-        'Uncertainty': 2.956,
+        'InputValue': 7.10e2,
+        'Uncertainty': 2.8,
         'WeightedResidual': .596,
         'No': 65,
      },
@@ -578,28 +548,18 @@ exp_dt = pd.DataFrame.from_records([
         'Reference': '1960(1)',
         'MeasureFunc': 'ABS(35)+SCR(35)',
         'Notes': '5',
-        'InputValue': 6.9032e2,
-        'Uncertainty': 1.391,
+        'InputValue': 6.90e2,
+        'Uncertainty': 1.4,
         'WeightedResidual': -0.596,
         'No': 66,
      },
     {
         'Author': 'SAFFORD',
         'Reference': '1959(1)',
-        'MeasureFunc': 'ABS(35)+SCA(35)',
-        'Notes': '5',
-        'InputValue': 6.9632e2,
-        'Uncertainty': .359,
-        'WeightedResidual': -0.598,
-        'No': 67,
-     },
-    {
-        'Author': 'SAFFORD',
-        'Reference': '1959(1)',
         'MeasureFunc': 'ABS(35)+SCR(35)',
         'Notes': '5',
-        'InputValue': 6.9832e2,
-        'Uncertainty': .730,
+        'InputValue': 6.983e2,
+        'Uncertainty': .3,
         'WeightedResidual': .448,
         'No': 68,
      },
@@ -618,8 +578,8 @@ exp_dt = pd.DataFrame.from_records([
         'Reference': '1961(1)',
         'MeasureFunc': 'ABS(35)+SCR(35)',
         'Notes': '35',
-        'InputValue': 6.9632e2 ,
-        'Uncertainty': .359,
+        'InputValue': 6.94e2 ,
+        'Uncertainty': .7,
         'WeightedResidual': .112,
         'No': 70,
      },
@@ -646,7 +606,7 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'NITIKIN',
         'Reference': '1955(1)',
-        'MeasureFunc': 'ABS(39)+SCA(39)',
+        'MeasureFunc': 'ABS(39)+SCR(39)',
         'Notes': '5',
         'InputValue': 1.0405e3,
         'Uncertainty': 2.979,
@@ -658,8 +618,8 @@ exp_dt = pd.DataFrame.from_records([
         'Reference': '1958(1)',
         'MeasureFunc': 'ABS(39)+SCR(39)',
         'Notes': '5',
-        'InputValue': 1.0225e3,
-        'Uncertainty': 1.369,
+        'InputValue': 1.030e3,
+        'Uncertainty': 1.0,
         'WeightedResidual': -0.236,
         'No': 74,
      },
@@ -672,16 +632,6 @@ exp_dt = pd.DataFrame.from_records([
         'Uncertainty': 3.003,
         'WeightedResidual': -0.438,
         'No': 75,
-     },
-    {
-        'Author': 'SAFFORD',
-        'Reference': '1961(1)',
-        'MeasureFunc': 'ABS(39)+SCR(39)',
-        'Notes': '5',
-        'InputValue': 1.0185e3,
-        'Uncertainty': .727,
-        'WeightedResidual': -0.985,
-        'No': 76,
      },
     {
         'Author': 'MUETHER',
@@ -698,7 +648,7 @@ exp_dt = pd.DataFrame.from_records([
         'Reference': '1955(1)',
         'MeasureFunc': 'ABS(33)+SCR(33)',
         'Notes': '5',
-        'InputValue': 5.7726e2,
+        'InputValue': 5.80e2,
         'Uncertainty': 3.638,
         'WeightedResidual': -0.470,
         'No': 78,
@@ -708,8 +658,8 @@ exp_dt = pd.DataFrame.from_records([
         'Reference': '1956(1)',
         'MeasureFunc': 'ABS(33)+SCR(33)',
         'Notes': '5',
-        'InputValue': 5.9627e2,
-        'Uncertainty': 3.019,
+        'InputValue': 5.90e2,
+        'Uncertainty': 2.5,
         'WeightedResidual': .508,
         'No': 79,
      },
@@ -736,20 +686,10 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'SAFFORD',
         'Reference': '1960(1)',
-        'MeasureFunc': 'ABS(33)+SCA(33)',
-        'Notes': '5',
-        'InputValue': 5.8577e2,
-        'Uncertainty': .990,
-        'WeightedResidual': -.454,
-        'No': 82,
-     },
-    {
-        'Author': 'SAFFORD',
-        'Reference': '1960(1)',
         'MeasureFunc': 'ABS(33)+SCR(33)',
         'Notes': '5',
-        'InputValue': 5.8567e2,
-        'Uncertainty': .410,
+        'InputValue': 5.87e2,
+        'Uncertainty': .85,
         'WeightedResidual': -0.611,
         'No': 83,
      },
@@ -758,15 +698,15 @@ exp_dt = pd.DataFrame.from_records([
         'Reference': '1960(1)',
         'MeasureFunc': 'ABS(33)+SCR(33)',
         'Notes': '5',
-        'InputValue': 5.8727e2,
-        'Uncertainty': .511,
+        'InputValue': 5.87e2,
+        'Uncertainty': .5,
         'WeightedResidual': .045,
         'No': 84,
      },
     {
         'Author': 'SIMPSON',
         'Reference': '1961(1)',
-        'MeasureFunc': 'ABS(41)+SCA(41)',
+        'MeasureFunc': 'ABS(41)+SCR(41)',
         'Notes': '5',
         'InputValue': 1.3866e3,
         'Uncertainty': 3.606,
@@ -776,10 +716,10 @@ exp_dt = pd.DataFrame.from_records([
     {
         'Author': 'CRAIG',
         'Reference': '1964(1)',
-        'MeasureFunc': 'ABS(41)+SCA(41)',
+        'MeasureFunc': 'ABS(41)+SCR(41)',
         'Notes': '5',
-        'InputValue': 1.3806e3,
-        'Uncertainty': 2.897,
+        'InputValue': 1.383e3,
+        'Uncertainty': 3.0,
         'WeightedResidual': -0.119,
         'No': 86,
      },
@@ -1446,7 +1386,7 @@ exp_dt = pd.DataFrame.from_records([
     # WALLNER capture data
     {
         'Author': 'WALLNER',
-        'Reference': '2015 PRL 112',
+        'Reference': '2015 PRL 112 (2014)',
         'MeasureFunc': 'CA',
         'Notes': '?',
         'InputValue': 99.5,
@@ -1456,7 +1396,7 @@ exp_dt = pd.DataFrame.from_records([
     },
     {
         'Author': 'WALLNER',
-        'Reference': '2015 PRL 112',
+        'Reference': '2015 PRL 112 (2014)',
         'MeasureFunc': 'CA',
         'Notes': '?',
         'InputValue': 101.5,
@@ -1517,7 +1457,7 @@ pseudo_exp_dt = pd.DataFrame.from_records([
 gma_exp_dt = pd.DataFrame.from_records([
     # 8026
     {
-        'Author': 'Adamchuck',
+        'Author': 'ADAMCHUCK',
         'Reference': '1988',
         'MeasureFunc': 'CA(35) / FIS(35) ',
         'Notes': 'NA',
@@ -1526,20 +1466,9 @@ gma_exp_dt = pd.DataFrame.from_records([
         'WeightedResidual': np.nan,
         'No': 172,
     },
-    # 1918
-    {
-        'Author': 'Arif',
-        'Reference': '2004',
-        'MeasureFunc': 'SCA(35)',
-        'Notes': 'NA',
-        'InputValue': 14.0,
-        'Uncertainty': 1.6,
-        'WeightedResidual': np.nan,
-        'No': 173,
-    },
     # 1915
     {
-        'Author': 'Reed',
+        'Author': 'REED',
         'Reference': '2004',
         'MeasureFunc': 'NUB(33)',
         'Notes': 'NA',
@@ -1550,7 +1479,7 @@ gma_exp_dt = pd.DataFrame.from_records([
     },
     # 1921
     {
-        'Author': 'Reed',
+        'Author': 'REED',
         'Reference': '2004',
         'MeasureFunc': 'NUB(35)',
         'Notes': 'NA',
@@ -1562,7 +1491,7 @@ gma_exp_dt = pd.DataFrame.from_records([
     },
     # 8099
     {
-        'Author': 'Lounsbury',
+        'Author': 'LOUNSBURY',
         'Reference': 'EPJ WoC 146, 2017 New fit... (original 1970)',
         'MeasureFunc': 'CA(33)/FIS(33)',
         'Notes': 'NA',
@@ -1573,7 +1502,7 @@ gma_exp_dt = pd.DataFrame.from_records([
     },
     # 8098
     {
-        'Author': 'Lounsbury',
+        'Author': 'LOUNSBURY',
         'Reference': 'EPJ WoC 146, 2017 New fit... (original 1970)',
         'MeasureFunc': 'CA(35)/FIS(35)',
         'Notes': 'NA',
@@ -1584,7 +1513,7 @@ gma_exp_dt = pd.DataFrame.from_records([
     },
     # 8097
     {
-        'Author': 'Lounsbury',
+        'Author': 'LOUNSBURY',
         'Reference': 'EPJ WoC 146, 2017 New fit... (original 1970)',
         'MeasureFunc': 'CA(39)/FIS(39)',
         'Notes': 'NA',
@@ -1597,7 +1526,38 @@ gma_exp_dt = pd.DataFrame.from_records([
 ])
 
 
-all_exp_dt = pd.concat([gma_exp_dt, exp_dt, pseudo_exp_dt], ignore_index=True)
+# new data listed in Gilles 2025-09-17 email
+
+new_data = pd.DataFrame.from_records(
+	columns=['MeasureFunc', 'Author', 'Reference', 'InputValue', 'Uncertainty'],
+	data=[
+	['SCR(33)', 'OLEKSA', '1958 - Phys Rev.109,1645(1958)', 12.5, 4],
+	['SCR(33)', 'GREEN', '1974', 12.30, 5.6],
+	['SCR(33)', 'VERTEBNIY', '1974', 13.2, 2.2],
+	['SCR(33)', 'BLOCK', '1960', 11, 18],
+	['SCR(35)', 'BLOCK', '1960', 13, 15],
+	['SCR(35)', 'CEULEMANS', '1970', 14.3, 3.5],
+	['SCR(35)', 'FOOTE', '1958', 15.0, 6.0],
+	['SCR(39)', 'SAFFORD', '1961', 11, 30],
+	['ABS(33) + SCR(33)', 'PSHENICHNYJ', '1978', 587.9, 0.5],
+	['ABS(33) + SCR(33)', 'HARVEY', '1979', 590, 0.8],
+	['ABS(33) + SCR(33)', 'MOORE', '1979', 587, 1.0],
+	['ABS(35) + SCR(35)', 'SPENCER', '1987', 690, 0.8],
+	['ABS(35) + SCR(35)', 'LEONARD', '1954', 702, 1.0],
+	['ABS(35) + SCR(35)', 'ANTONOV', '1986', 695, 2.4],
+	['ABS(35) + SCR(35)', 'GUERASIMOV', '1962', 687, 1.2],
+	['ABS(39) + SCR(39)', 'ANDERSON', '1945', 1045, 2.4],
+	['ABS(39) + SCR(39)', 'HAVENS', '1954', 1067, 1.9 ],
+	['ABS(39) + SCR(39)', 'PALEVSKY', '1955', 1034, 1],
+	['ABS(39) + SCR(39)', 'LEONARD', '1956', 1055, 1.3 ],
+	['ABS(39) + SCR(39)', 'STOUGHTON & HALPERIN', '1959', 1030, 3.9],
+	['ABS(39) + SCR(39)', 'SPENCER', '1987', 1025, 0.6],
+])
+new_data['WeightedResidual'] = np.nan
+new_data['No'] = np.arange(190, 190+len(new_data))
+
+
+all_exp_dt = pd.concat([gma_exp_dt, exp_dt, pseudo_exp_dt, new_data], ignore_index=True)
 
 
 # TNC Database checks:
