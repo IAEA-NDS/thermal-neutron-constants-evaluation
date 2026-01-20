@@ -4,19 +4,27 @@ import pandas as pd
 import scipy as scp
 import tensorflow as tf
 from gmapy.tf_uq.inference import (
+    iterative_gls_estimate,
     determine_MAP_estimate,
     generate_MCMC_chain,
 )
 from gmapy.mcmc_inference import compute_effective_sample_size
 
+# do iterative GLS estimate
+optres_gls = iterative_gls_estimate(
+    prep.startvals_tf, prep.propagate, prep.jacobian,
+    prep.expvals_tf, prep.cov_linop_fun, ret_optres=True
+)
+opt_params_gls = optres_gls.position.numpy()
+
 # do a MAP
-optres = determine_MAP_estimate(prep.startvals_tf, prep.func_and_grad_tf, prep.func_hessian_tf, ret_optres=True)
-opt_params = (prep.trafo(optres.position)).numpy()
+optres_chisquare = determine_MAP_estimate(prep.sqrt_startvals_tf, prep.chisquare_and_grad_tf, prep.chisquare_hessian_tf, ret_optres=True)
+opt_params_chisquare = (prep.trafo(optres_chisquare.position)).numpy()
 
 # do MCMC
 log_prob = lambda x: (-prep.chisquare(x))
 chain, _ = generate_MCMC_chain(
-    optres.position, log_prob, prep.chisquare_hessian,
+    optres_chisquare.position, log_prob, prep.chisquare_hessian,
     num_leapfrog_steps=3, step_size=0.001, num_burnin_steps=5000,  num_results=20000
 )
 opt_params_mcmc = np.mean(prep.trafo(chain).numpy(), axis=0)
@@ -25,8 +33,9 @@ opt_params_mcmc_uncs = np.std(prep.trafo(chain).numpy(), axis=0)
 
 post_df = pd.DataFrame({
     'NAME': [f'{x} {y}' for x, y in prep.tuple_combis],
-    'START': np.square(prep.startvals_tf),
-    'POST': opt_params,
+    'START': prep.startvals_tf,
+    'POST_CHISQ': opt_params_chisquare,
+    'POST_GLS': opt_params_gls,
     'POST_MCMC': opt_params_mcmc,
     'POST_MCMC_UNC': opt_params_mcmc_uncs,
     'SEED': prep.seed,

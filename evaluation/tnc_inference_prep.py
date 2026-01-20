@@ -78,6 +78,9 @@ startvals = np.array([    # Set start values by hand
     9.590000e+01,         # 25  CAP 34  9.590000e+01
 ])
 
+assign_startvals(startvals, startvals_map, reac_map)
+sqrt_startvals_tf = tf.constant(np.sqrt(np.abs(startvals)), dtype=tf.float64)
+startvals_tf = tf.constant(startvals, dtype=tf.float64)
 
 # select experimental datasets
 failure_reacs = []
@@ -100,12 +103,9 @@ for i in range(len(exp_dt)):
 
 red_exp_dt = exp_dt.loc[selected_exp_idx].reset_index(drop=True)
 expvals = red_exp_dt['InputValue'].to_numpy()
+expvals_tf = tf.constant(expvals, dtype=tf.float64)
 
-propagate = prepare_propagate(reac_map, red_exp_dt)
-jacobian = prepare_jacobian(propagate)
-assign_startvals(startvals, startvals_map, reac_map)
-startvals_tf = tf.constant(np.sqrt(np.abs(startvals)), dtype=tf.float64)
-
+# prepare the associated covariance matrix
 
 ags_index = np.loadtxt(basepath / 'tnc_cov_data/thermalcst.mic')
 cov_info = np.loadtxt(basepath / 'tnc_cov_data/ags.mic')
@@ -127,14 +127,34 @@ full_covmat[np.ix_(idcs, idcs)] = rel_covmat[np.ix_(sel, sel)]
 
 relcov_linop = tf.linalg.LinearOperatorFullMatrix(full_covmat, is_positive_definite=True, is_square=True)
 
+# prepare propagate and Jacobian function
+
+propagate = prepare_propagate(reac_map, red_exp_dt)
+jacobian = prepare_jacobian(propagate)
+
+def cov_linop_fun(x):
+    y = propagate(x)
+    ym = tf.linalg.LinearOperatorDiag(
+        y, is_self_adjoint=True, is_positive_definite=True
+    )
+    return tf.linalg.LinearOperatorComposition(
+        [ym, relcov_linop, ym],
+        is_positive_definite=True,
+        is_self_adjoint=True,
+        is_square=True,
+        is_non_singular=True
+    )
+
+
 # prepare the fit quantities
+
 trafo = tf.square
 chisquare = prepare_chisquare(propagate, expvals, relcov_linop, trafo=trafo)
 chisquare_and_gradient = prepare_chisquare_and_gradient(chisquare)
 chisquare_hessian = prepare_chisquare_hessian(chisquare)
 
-func_and_grad_tf = tf.function(chisquare_and_gradient)
-func_hessian_tf = tf.function(chisquare_hessian)
+chisquare_and_grad_tf = tf.function(chisquare_and_gradient)
+chisquare_hessian_tf = tf.function(chisquare_hessian)
 
 
 gma_to_axt_map = {
