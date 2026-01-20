@@ -31,6 +31,8 @@ from expdata import (
 )
 from gmapy.tf_uq.custom_distributions import BaseDistribution
 
+assert len(np.unique(exp_dt['No'])) == len(exp_dt['No'])
+
 basepath = Path(__file__).resolve().parent
 
 logging.basicConfig(level=logging.WARNING, stream=sys.stdout, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -97,18 +99,13 @@ for i in range(len(exp_dt)):
 
 
 red_exp_dt = exp_dt.loc[selected_exp_idx].reset_index(drop=True)
+expvals = red_exp_dt['InputValue'].to_numpy()
 
 propagate = prepare_propagate(reac_map, red_exp_dt)
 jacobian = prepare_jacobian(propagate)
 assign_startvals(startvals, startvals_map, reac_map)
 startvals_tf = tf.constant(np.sqrt(np.abs(startvals)), dtype=tf.float64)
 
-expvals = red_exp_dt['InputValue'].to_numpy()
-
-# preapre the relative covariance matrix
-# relcov_linop = tf.linalg.LinearOperatorDiag(
-#     np.square(red_exp_dt['Uncertainty'] / 100.0), is_positive_definite=True
-# )
 
 ags_index = np.loadtxt(basepath / 'tnc_cov_data/thermalcst.mic')
 cov_info = np.loadtxt(basepath / 'tnc_cov_data/ags.mic')
@@ -250,21 +247,3 @@ class GmaAxtDist(BaseDistribution):
         gma_hess = self._gma_dist.log_prob_hessian(gma_inp)
         axt_hess = self._axt_dist.log_prob_hessian(axt_inp)
         return tf.convert_to_tensor(self._combine_hessians(gma_hess, axt_hess))
-
-
-# FOR AD-HOC TESTING
-# axt_to_gma_map = {'b': 'u'}
-#
-# reacs1 = ('a', 'u', 'c', 'd')
-# reacs2 = ('c', 'd', 'e', 'f')
-# reacs = ('a', 'b', 'c', 'd', 'e', 'f')
-# params_tf = tf.range(len(reacs))
-#
-# distribute_params = prepare_distribute_params(reacs1, reacs2, reacs, axt_to_gma_map)
-# distribute_params(params_tf)
-#
-# hess1 = tf.constant([[i*4+j for j in range(4)] for i in range(4)])
-# hess2 = tf.constant([[i*4+j for j in range(4)] for i in range(4)])
-#
-# combine_hessians = prepare_combine_hessians(reacs1, reacs2, reacs, axt_to_gma_map)
-# combine_hessians(hess1, hess2)
