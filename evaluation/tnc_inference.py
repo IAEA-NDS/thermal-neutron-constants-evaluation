@@ -41,6 +41,9 @@ post_df = pd.DataFrame({
     'SEED': prep.seed,
 })
 
+# prep.exp_dt.to_csv('../fits/tnc_expdata_gilles_memo.csv')
+# post_df.to_csv('../fits/tnc_expdata_gilles_memo.csv')
+
 #
 # To compute capture CA (capture) cross sections
 #
