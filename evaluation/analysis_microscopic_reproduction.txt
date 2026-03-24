@@ -1,0 +1,168 @@
+===========================================================================
+Analysis: Reproducing Axton 1986 Microscopic Evaluation (Table 8)
+===========================================================================
+Date: 2024-03-24
+Report: GE/PH/01/86, E.J. Axton, CBNM Geel, June 1986
+
+---------------------------------------------------------------------------
+1. BACKGROUND
+---------------------------------------------------------------------------
+
+The Axton 1986 report presents a simultaneous least-squares evaluation of
+thermal neutron constants for 233U, 235U, 239Pu, 241Pu and the fission
+neutron yield of 252Cf. The report provides several fit variants:
+
+  Table 4:  All data         — 167 measurements, 38 parameters, chi2=103
+  Table 4a: Maxwellian data omitted (from earlier data set)
+  Table 7:  Scattering data omitted
+  Table 8:  Maxwellian data omitted — 101 measurements, 38 parameters, chi2=48
+
+We have built an independent GLS solver using TensorFlow autodiff and
+reproduced the all-data fit (Table 4) to high accuracy. The microscopic-
+only fit (Table 8) proves more challenging.
+
+---------------------------------------------------------------------------
+2. ALL-DATA REPRODUCTION (TABLE 4) — SUCCESSFUL
+---------------------------------------------------------------------------
+
+Our iterative GLS with 167 measurements and 38 free parameters gives:
+  chi2 = 102.3  (report: 103)
+  dof  = 129    (report: 129)
+
+Parameter agreement:
+  - ABS, FIS, NUB, WGA, WGF, ETA, F3ETA: all within 0.06% of Table 4
+  - 47/54 parameters match within tolerance (0.1% for well-constrained,
+    0.5% for poorly constrained)
+  - Only outliers: GC116 (1-3%), SCR 39 (0.9%) — poorly constrained
+
+This confirms our forward model, covariance matrix, and GLS solver are
+correct.
+
+---------------------------------------------------------------------------
+3. MICROSCOPIC CLASSIFICATION — AMBIGUITY
+---------------------------------------------------------------------------
+
+The report's Table 8 uses 101 measurements. To reproduce this, we need
+to identify which measurements are "Maxwellian" (excluded) vs
+"microscopic" (kept). The Axton report functions fall into:
+
+  MICROSCOPIC (0.0253 eV point values):
+    ABS, FIS, SCA, SCR, NUB, ETA, CA, FH1 (=FIS*HLF), ALPHA
+
+  MAXWELLIAN (thermal spectrum averaged):
+    FA (=ABS*WGA), FF (=FIS*WGF), CAP (=FA-FF), FFH (=FF*HLF),
+    F1ETA, F2ETA, F3ETA, FLEM, F1BIG, F1CAB-F5CAB
+
+  GRAY AREA:
+    WGA, WGF — Westcott g-factors (theoretical, from resonance data)
+    GC116, GA116 — Westcott factors for T=116C
+    CAP 34 — essentially sigma_gamma(U234) since U234 is non-fissile
+
+The Pronyaev 2004 IAEA summary (nds.iaea.org/standards/Reports/
+ThermalConstants.pdf) confirms that the AXTON1982 evaluation used "no
+integral data" while AXTON1984 added "integral (Maxwellian spectrum
+averaged) data." The g-factors are classified as integral quantities.
+
+However, Table 8 shows WGA/WGF with fitted values and uncertainties
+matching the input measurements, implying they ARE included.
+
+We tested two boundary definitions:
+  Narrow (WGA/WGF/GC116/GA116 included):  112 measurements, 37 params
+  Strict (WGA/WGF/GC116/GA116 excluded):   96 measurements, 21 params
+
+Neither matches the report's 101 measurements, 38 parameters.
+
+---------------------------------------------------------------------------
+4. FIS 33 DISCREPANCY INVESTIGATION
+---------------------------------------------------------------------------
+
+The most notable discrepancy in the microscopic fit is FIS 33 (U-233
+fission cross section):
+
+  Our fit (strict, 96 meas):   530.38 barns
+  Our fit (narrow, 112 meas):  530.38 barns (identical — extra meas decoupled)
+  Report Table 8 (101 meas):   533.27 barns
+  Difference:                   -2.89 barns  (-0.54%)
+
+This also manifests as:
+  Our CA 33 = 44.88 barns  vs  Report CA 33 = 41.97 barns
+
+4a. Convergence is not the issue
+---
+We verified that our fit converges in 2-3 iterations and is stable.
+Running 1 to 30 iterations gives identical FIS 33 = 530.38.
+
+4b. Gray-area measurements tested
+---
+We systematically added back excluded measurements to check their
+effect on FIS 33:
+
+  Added measurements                              FIS 33    Shift
+  ----------------------------------------------------------------
+  Baseline (96 meas)                               530.38    —
+  + WGA/WGF (54-61)                                530.38   0.00
+  + WGA/WGF + Gwin F3ETA 33,35 (46,47)             530.63  +0.25
+  + WGA/WGF + F3ETA 33 ratios (40,42,50,52)        530.65  +0.27
+  + WGA/WGF + (CAP 33)/FF 33 ratios (24,26,28,30,34) 529.95  -0.43
+  + WGA/WGF + 33 FFH 33 (7,8,11)                   529.48  -0.90
+  + All parameter measurements                     530.38   0.00
+
+  With CAP(34) and WGA/WGF as fixed reference values:
+  + FLEM (meas 4)                                   530.36  -0.02
+  + FLEM + FFH 33 (7,8,11)                          529.55  -0.83
+  + FLEM + Gwin F3ETA (46,47)                       530.95  +0.57
+  + FLEM + FFH 33 + F3ETA                           530.21  -0.17
+
+None of these combinations shifts FIS 33 beyond 531.0, far from the
+report's 533.27. The maximum effect (+0.57 from F3ETA) is less than
+20% of the gap.
+
+4c. Possible explanations
+---
+1. INPUT DATA DIFFERENCES: Small rounding differences in measurement
+   values between our PDF transcription and Axton's original input
+   (max 0.05% in values, one 5% uncertainty difference for No.147).
+   In the all-data fit these average out; in the reduced set they're
+   amplified for poorly-constrained quantities like FIS 33 / CA 33.
+
+2. MEASUREMENT SUBSET: The exact 5 measurements making up the
+   difference between our 96 and the report's 101 are unknown.
+   These could be measurements that specifically constrain the
+   U-233 capture/fission partition.
+
+3. COVARIANCE DIFFERENCES: The systematic uncertainty decomposition
+   was transcribed from a scanned PDF with occasional ambiguities
+   (underlined vs non-underlined codes, sign conventions). Small
+   covariance differences could shift correlated parameters.
+
+---------------------------------------------------------------------------
+5. WHAT IS NEEDED TO RESOLVE
+---------------------------------------------------------------------------
+
+The original Axton paper (1), referenced in the 1986 report:
+
+  Axton, E.J. (1984), European Applied Research Reports — Nucl. Sci.
+  Technol., Vol.5, No.4, pp.609-676 (EUR 8805 EN)
+
+This paper contains:
+  - The original microscopic-only measurement list (defining the exact
+    101-measurement set for Table 8)
+  - The original input data tables (for line-by-line comparison)
+  - The correlation/uncertainty structure of the original data set
+
+The companion paper (2) would also help:
+  Axton, E.J. (B 1985), Report EJA3/1984, submitted to Annals of
+  Nuclear Energy
+
+---------------------------------------------------------------------------
+6. SUMMARY
+---------------------------------------------------------------------------
+
+  All-data fit (Table 4):    REPRODUCED — chi2=102.3 vs 103
+  Microscopic fit (Table 8): PARTIALLY REPRODUCED — chi2=60.5 vs 48
+    - Core quantities (NUB, ABS, most FIS, ETA, WGA, WGF) match well
+    - FIS 33 and CA 33 show persistent ~0.5% and ~7% discrepancies
+    - Discrepancy is NOT from convergence or missing gray-area measurements
+    - Most likely from input data rounding and/or exact measurement subset
+
+Code and data: evaluation/ and axton1986/ directories on axton_repro branch.
