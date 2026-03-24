@@ -1,5 +1,4 @@
 from lark import Lark, Transformer, v_args
-from quantities import prepare_funcs
 
 
 calc_grammar = """

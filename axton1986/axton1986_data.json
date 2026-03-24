@@ -1,0 +1,2343 @@
+{
+  "metadata": {
+    "title": "Evaluation of the Thermal Constants of 233U, 235U, 239Pu, and 241Pu, and the fission neutron yield of 252Cf",
+    "author": "E.J. Axton",
+    "report_id": "GE/PH/01/86",
+    "date": "June 1986",
+    "institution": "CBNM, JRC Geel",
+    "covariance_formula": "cov_rel(i,j) = sum_k u_ik * u_jk over shared codes k",
+    "uncertainty_unit": "relative percent (1 sigma)"
+  },
+  "nuclide_codes": {
+    "33": "233U",
+    "34": "234U",
+    "35": "235U",
+    "39": "239Pu",
+    "40": "240Pu",
+    "41": "241Pu",
+    "42": "242Pu",
+    "52": "252Cf"
+  },
+  "correlation_codes": {
+    "A": "Deruytter Common Uncertainty",
+    "B": "Deruytter Timing",
+    "C": "Deruytter-Berceano Assay",
+    "D": "White U235 Assay",
+    "E": "Maslin-Saplakoglu Lem./Deruyt. Correction",
+    "F": "NPL Common Mn-bath Uncertainty",
+    "G": "Uncertainty in (1+sigmaS/sigmaMn) in Mn-baths",
+    "H": "Energy Uncertainty of U233 Neutrons",
+    "I": "Energy Uncertainty of U235 Neutrons",
+    "J": "Energy Uncertainty of PU239 Neutrons",
+    "K": "Energy Uncertainty of Pu241 Neutrons",
+    "L": "Energy Uncertainty of CF252 Neutrons",
+    "M": "Detector slope (Different Authors)",
+    "N": "Boldeman Detector Slope",
+    "O": "Gwin Detector Slope",
+    "P": "Hopkins Detector Slope",
+    "Q": "Asplund Detector Slope",
+    "R": "Colvin Detector Slope",
+    "S": "Mather Detector Slope",
+    "U": "U233 Delayed Neutrons",
+    "V": "U235 Delayed Neutrons",
+    "W": "PU239 Delayed Neutrons",
+    "X": "PU241 Delayed Neutrons",
+    "Y": "CF252 Delayed Neutrons",
+    "Z": "Delayed Gamma-rays",
+    "Delta": "Boldemans Foil Thickness corrections",
+    "A_": "Gwin Common Uncertainty",
+    "B_": "Spiegel Bozorgmanesh Common Uncertainty",
+    "C_": "Boldeman Common Uncertainty",
+    "D_": "Diven Common Uncertainty",
+    "E_": "Boron Pile Common Uncertainty",
+    "F_": "Smith/Aleksandrov Common Uncertainty",
+    "G_": "Smith Eta/Nubar Common Uncertainty",
+    "H_": "Eta Montecarlo Corrections",
+    "I_": "Mather Common Uncertainty",
+    "J_": "White Pu239 Assay",
+    "K_": "White PU241 Assay",
+    "M_": "Cabell Fluence",
+    "N_": "Cabell Temperature",
+    "O_": "DIDO Reflector g+rs For CAP, ABS PU239",
+    "P_": "DIDO Reflector g+rs For CAP, ABS PU241",
+    "Q_": "CABELL 86 deg Spectrum Uncertainty",
+    "R_": "Cabell Uncertainty (Sjostrand and Story)",
+    "S_": "Cabell Uncertainty (Sjostrand and Story)",
+    "T_": "Gwin Uncertainty evaluated By Hardy",
+    "U_": "Muelhaus uncertainty evaluated by Axton",
+    "V_": "Spectral Uncertainties from IN1060",
+    "W_": "MTR 70 deg Spectrum Uncertainty",
+    "X_": "NRU 40 deg Temperature Uncertainty",
+    "Y_": "NRU Westcott r Uncertainty",
+    "Z_": "Lounsbury Temperature Uncertainty",
+    "Delta_": "Popovic Uncertainty (Na Cross Section)",
+    "rho": "Keith Uncertainty (Deruytter correction)",
+    "dag": "Uncertainty in Co Cross Section",
+    "dn": "+-20 deg Uncertainty in T",
+    "plus": "Common Uncertainty in U235 Reactivity",
+    "sq": "Common Uncertainty in U235 Reactivity",
+    "c": "Half-life U233",
+    "hc": "Half-life U234",
+    "n": "Half-life PU239",
+    "u": "Half-life AM241",
+    "alpha": "Spencer Common Uncertainty"
+  },
+  "measurements": [
+    {
+      "no": 1,
+      "author": "LAPONCHE",
+      "reference": "1972(2)",
+      "measured_function": "(FA 39)/FA 35",
+      "notes": "7",
+      "input_value": 1.6491,
+      "uncertainty_percent": 0.583,
+      "weighted_residual": 0.329,
+      "systematic_uncertainties": {}
+    },
+    {
+      "no": 2,
+      "author": "CORNISH",
+      "reference": "1956(2)",
+      "measured_function": "CAP 39",
+      "notes": "8",
+      "input_value": 312.0,
+      "uncertainty_percent": 4.49,
+      "weighted_residual": 0.179,
+      "systematic_uncertainties": {
+        "dag": 0.161
+      }
+    },
+    {
+      "no": 3,
+      "author": "HALPERIN",
+      "reference": "1963(2)",
+      "measured_function": "CAP 33",
+      "notes": "10",
+      "input_value": 49.53,
+      "uncertainty_percent": 6.4,
+      "weighted_residual": 0.615,
+      "systematic_uncertainties": {
+        "dag": 0.161
+      }
+    },
+    {
+      "no": 4,
+      "author": "CABELL",
+      "reference": "1971(2)",
+      "measured_function": "FLEM",
+      "notes": "11",
+      "input_value": 0.09827,
+      "uncertainty_percent": 3.348,
+      "weighted_residual": -0.256,
+      "systematic_uncertainties": {}
+    },
+    {
+      "no": 5,
+      "author": "LEMMEL",
+      "reference": "1982(1)",
+      "measured_function": "CAP 34",
+      "notes": "3",
+      "input_value": 95.9,
+      "uncertainty_percent": 2.086,
+      "weighted_residual": 0.032,
+      "systematic_uncertainties": {}
+    },
+    {
+      "no": 6,
+      "author": "POPOVIC",
+      "reference": "1953(2)",
+      "measured_function": "FF 35",
+      "notes": "13",
+      "input_value": 571.1,
+      "uncertainty_percent": 2.211,
+      "weighted_residual": 0.119,
+      "systematic_uncertainties": {
+        "Delta": 0.943
+      }
+    },
+    {
+      "no": 7,
+      "author": "POPOVIC",
+      "reference": "1955(2)",
+      "measured_function": "33 FFH 33",
+      "notes": "13",
+      "input_value": 844.72,
+      "uncertainty_percent": 3.147,
+      "weighted_residual": 0.136,
+      "systematic_uncertainties": {
+        "Delta": 0.943,
+        "c": 0.126
+      }
+    },
+    {
+      "no": 8,
+      "author": "KEITH",
+      "reference": "1968(2)",
+      "measured_function": "33 FFH 33",
+      "notes": "14*",
+      "input_value": 834.15,
+      "uncertainty_percent": 1.371,
+      "weighted_residual": -0.608,
+      "systematic_uncertainties": {
+        "rho": 0.935,
+        "dag": 0.161,
+        "c": 0.126
+      }
+    },
+    {
+      "no": 9,
+      "author": "KEITH",
+      "reference": "1968(2)",
+      "measured_function": "33 FFH 35",
+      "notes": "14*",
+      "input_value": 889.01,
+      "uncertainty_percent": 1.446,
+      "weighted_residual": -1.383,
+      "systematic_uncertainties": {
+        "rho": 0.935,
+        "dag": 0.161,
+        "c": 0.126
+      }
+    },
+    {
+      "no": 10,
+      "author": "KEITH",
+      "reference": "1968(2)",
+      "measured_function": "39 FFH 39",
+      "notes": "14*",
+      "input_value": 1884.4,
+      "uncertainty_percent": 0.949,
+      "weighted_residual": -1.014,
+      "systematic_uncertainties": {
+        "rho": 0.5,
+        "dag": 0.161,
+        "n": 0.124
+      }
+    },
+    {
+      "no": 11,
+      "author": "BIGHAM",
+      "reference": "1975(2)",
+      "measured_function": "33 FFH 33",
+      "notes": "15",
+      "input_value": 835.2,
+      "uncertainty_percent": 0.659,
+      "weighted_residual": -1.071,
+      "systematic_uncertainties": {
+        "c": 0.126
+      }
+    },
+    {
+      "no": 12,
+      "author": "JAFFEY",
+      "reference": "1955(2)",
+      "measured_function": "(FF 41)/FF 39",
+      "notes": "17",
+      "input_value": 1.3552,
+      "uncertainty_percent": 1.424,
+      "weighted_residual": 0.823,
+      "systematic_uncertainties": {}
+    },
+    {
+      "no": 13,
+      "author": "WHITE",
+      "reference": "1967(2)",
+      "measured_function": "(FF 39)/FF 35",
+      "notes": "18",
+      "input_value": 1.3583,
+      "uncertainty_percent": 2.139,
+      "weighted_residual": -0.932,
+      "systematic_uncertainties": {
+        "D": 1.225,
+        "J_": 0.94
+      }
+    },
+    {
+      "no": 14,
+      "author": "WHITE",
+      "reference": "1967(2)",
+      "measured_function": "(FF 41)/FF 35",
+      "notes": "18",
+      "input_value": 1.8806,
+      "uncertainty_percent": 2.802,
+      "weighted_residual": 0.477,
+      "systematic_uncertainties": {
+        "D": 1.225,
+        "K_": 2.14
+      }
+    },
+    {
+      "no": 15,
+      "author": "VIDAL",
+      "reference": "1970(2)",
+      "measured_function": "(FF 33)/FF 35",
+      "notes": "2",
+      "input_value": 0.932,
+      "uncertainty_percent": 0.966,
+      "weighted_residual": 0.495,
+      "systematic_uncertainties": {}
+    },
+    {
+      "no": 16,
+      "author": "BIGHAM",
+      "reference": "1975(2)",
+      "measured_function": "(FF 33)/FF 35",
+      "notes": "15",
+      "input_value": 0.9323,
+      "uncertainty_percent": 0.45,
+      "weighted_residual": 1.134,
+      "systematic_uncertainties": {}
+    },
+    {
+      "no": 17,
+      "author": "SWEET",
+      "reference": "1973(2)",
+      "measured_function": "(39 FFH 39)/34 FFH 35",
+      "notes": "2",
+      "input_value": 1.3544,
+      "uncertainty_percent": 1.414,
+      "weighted_residual": -0.263,
+      "systematic_uncertainties": {
+        "hc": -0.122,
+        "n": 0.124
+      }
+    },
+    {
+      "no": 18,
+      "author": "BIGHAM",
+      "reference": "1975(2)",
+      "measured_function": "(39 FFH 39)/33 FFH 33",
+      "notes": "15",
+      "input_value": 2.2796,
+      "uncertainty_percent": 0.669,
+      "weighted_residual": 1.156,
+      "systematic_uncertainties": {
+        "c": -0.126,
+        "n": 0.124
+      }
+    },
+    {
+      "no": 19,
+      "author": "BIGHAM",
+      "reference": "1975(2)",
+      "measured_function": "(39 FFH 39)/33 FFH 35",
+      "notes": "15",
+      "input_value": 2.1239,
+      "uncertainty_percent": 0.709,
+      "weighted_residual": 1.714,
+      "systematic_uncertainties": {
+        "c": -0.126,
+        "n": 0.124
+      }
+    },
+    {
+      "no": 20,
+      "author": "BIGHAM",
+      "reference": "1975(2)",
+      "measured_function": "F1BIG",
+      "notes": "15",
+      "input_value": 0.5527,
+      "uncertainty_percent": 0.562,
+      "weighted_residual": -0.859,
+      "systematic_uncertainties": {
+        "u": 0.025
+      }
+    },
+    {
+      "no": 21,
+      "author": "LOUNSBURY",
+      "reference": "1970(1)",
+      "measured_function": "(CA 33)/FIS 33",
+      "notes": "19",
+      "input_value": 0.0861,
+      "uncertainty_percent": 2.239,
+      "weighted_residual": 0.167,
+      "systematic_uncertainties": {
+        "Z_": 0.226
+      }
+    },
+    {
+      "no": 22,
+      "author": "LOUNSBURY",
+      "reference": "1970(1)",
+      "measured_function": "(CA 35)/FIS 35",
+      "notes": "19",
+      "input_value": 0.1697,
+      "uncertainty_percent": 1.709,
+      "weighted_residual": -0.088,
+      "systematic_uncertainties": {
+        "Z_": 0.247
+      }
+    },
+    {
+      "no": 23,
+      "author": "LOUNSBURY",
+      "reference": "1970(1)",
+      "measured_function": "(CA 39)/FIS 39",
+      "notes": "19",
+      "input_value": 0.3555,
+      "uncertainty_percent": 1.603,
+      "weighted_residual": -1.305,
+      "systematic_uncertainties": {
+        "Z_": 0.818
+      }
+    },
+    {
+      "no": 24,
+      "author": "INGHRAM",
+      "reference": "1956(2)",
+      "measured_function": "(CAP 33)/FF 33",
+      "notes": "2",
+      "input_value": 0.09403,
+      "uncertainty_percent": 3.19,
+      "weighted_residual": 1.324,
+      "systematic_uncertainties": {}
+    },
+    {
+      "no": 25,
+      "author": "CORNISH",
+      "reference": "1960(2)",
+      "measured_function": "(CAP 35)/FF 35",
+      "notes": "2",
+      "input_value": 0.188,
+      "uncertainty_percent": 7.447,
+      "weighted_residual": 1.156,
+      "systematic_uncertainties": {}
+    },
+    {
+      "no": 26,
+      "author": "OKAZAKI",
+      "reference": "1964(2)",
+      "measured_function": "(CAP 33)/FF 33",
+      "notes": "20",
+      "input_value": 0.0902,
+      "uncertainty_percent": 1.731,
+      "weighted_residual": 0.09,
+      "systematic_uncertainties": {
+        "X_": -0.66,
+        "Y_": 0.697
+      }
+    },
+    {
+      "no": 27,
+      "author": "OKAZAKI",
+      "reference": "A1964(2)",
+      "measured_function": "(CAP 35)/FF 35",
+      "notes": "20",
+      "input_value": 0.1705,
+      "uncertainty_percent": 1.056,
+      "weighted_residual": -0.73,
+      "systematic_uncertainties": {
+        "X_": 0.237,
+        "Y_": 0.533
+      }
+    },
+    {
+      "no": 28,
+      "author": "LISMAN",
+      "reference": "1967(2)",
+      "measured_function": "(CAP 33)/FF 33",
+      "notes": "21",
+      "input_value": 0.093,
+      "uncertainty_percent": 2.128,
+      "weighted_residual": 1.486,
+      "systematic_uncertainties": {
+        "W_": 1.28
+      }
+    },
+    {
+      "no": 29,
+      "author": "LISMAN",
+      "reference": "1967(2)",
+      "measured_function": "(CAP 35)/FF 35",
+      "notes": "21",
+      "input_value": 0.1712,
+      "uncertainty_percent": 0.886,
+      "weighted_residual": -0.405,
+      "systematic_uncertainties": {
+        "W_": -0.531
+      }
+    },
+    {
+      "no": 30,
+      "author": "CONWAY",
+      "reference": "1967(2)",
+      "measured_function": "(CAP 33)/FF 33",
+      "notes": "21",
+      "input_value": 0.0851,
+      "uncertainty_percent": 4.935,
+      "weighted_residual": -1.181,
+      "systematic_uncertainties": {
+        "W_": 0.433
+      }
+    },
+    {
+      "no": 31,
+      "author": "CONWAY",
+      "reference": "1967(2)",
+      "measured_function": "(CAP 35)/FF 35",
+      "notes": "21",
+      "input_value": 0.1705,
+      "uncertainty_percent": 4.223,
+      "weighted_residual": -0.182,
+      "systematic_uncertainties": {
+        "W_": -0.562
+      }
+    },
+    {
+      "no": 32,
+      "author": "DURHAM",
+      "reference": "1967(2)",
+      "measured_function": "(CAP 35)/FF 35",
+      "notes": "22",
+      "input_value": 0.1746,
+      "uncertainty_percent": 1.145,
+      "weighted_residual": 1.394,
+      "systematic_uncertainties": {}
+    },
+    {
+      "no": 33,
+      "author": "DURHAM",
+      "reference": "1967(2)",
+      "measured_function": "(CAP 39)/FF 39",
+      "notes": "22",
+      "input_value": 0.3882,
+      "uncertainty_percent": 1.52,
+      "weighted_residual": -0.679,
+      "systematic_uncertainties": {}
+    },
+    {
+      "no": 34,
+      "author": "CABELL",
+      "reference": "1971(2)",
+      "measured_function": "(CAP 33)/FF 33",
+      "notes": "23",
+      "input_value": 0.0857,
+      "uncertainty_percent": 3.048,
+      "weighted_residual": -1.669,
+      "systematic_uncertainties": {
+        "Q_": 1.802
+      }
+    },
+    {
+      "no": 35,
+      "author": "CABELL",
+      "reference": "1971(2)",
+      "measured_function": "(CAP 35)/FF 35",
+      "notes": "23",
+      "input_value": 0.1696,
+      "uncertainty_percent": 1.759,
+      "weighted_residual": -0.742,
+      "systematic_uncertainties": {
+        "Q_": 0.862
+      }
+    },
+    {
+      "no": 36,
+      "author": "CABELL",
+      "reference": "1971(2)",
+      "measured_function": "(CAP 39)/FF 39",
+      "notes": "23",
+      "input_value": 0.3812,
+      "uncertainty_percent": 4.808,
+      "weighted_residual": -0.601,
+      "systematic_uncertainties": {
+        "Q_": 3.102
+      }
+    },
+    {
+      "no": 37,
+      "author": "DEBOISBLANC",
+      "reference": "1961(2)",
+      "measured_function": "(F1ETA 33)/F1ETA 35",
+      "notes": "24",
+      "input_value": 1.115,
+      "uncertainty_percent": 0.717,
+      "weighted_residual": 1.599,
+      "systematic_uncertainties": {}
+    },
+    {
+      "no": 38,
+      "author": "FAST",
+      "reference": "1960(2)",
+      "measured_function": "(F1ETA 39)/F1ETA 35",
+      "notes": "25",
+      "input_value": 0.997,
+      "uncertainty_percent": 1.625,
+      "weighted_residual": 0.004,
+      "systematic_uncertainties": {
+        "V_": 0.479
+      }
+    },
+    {
+      "no": 39,
+      "author": "FAST",
+      "reference": "1960(2)",
+      "measured_function": "(F1ETA 41)/F1ETA 35",
+      "notes": "25",
+      "input_value": 1.0528,
+      "uncertainty_percent": 1.653,
+      "weighted_residual": 0.407,
+      "systematic_uncertainties": {
+        "V_": 0.479
+      }
+    },
+    {
+      "no": 40,
+      "author": "CABELL",
+      "reference": "1965(2)",
+      "measured_function": "(F3ETA 33)/F3ETA 35",
+      "notes": "26",
+      "input_value": 1.0461,
+      "uncertainty_percent": 2.357,
+      "weighted_residual": 0.533,
+      "systematic_uncertainties": {
+        "R_": 1.701
+      }
+    },
+    {
+      "no": 41,
+      "author": "CABELL",
+      "reference": "1965(2)",
+      "measured_function": "(F3ETA 39)/F3ETA 35",
+      "notes": "26",
+      "input_value": 1.6079,
+      "uncertainty_percent": 2.403,
+      "weighted_residual": -0.733,
+      "systematic_uncertainties": {
+        "R_": 1.701
+      }
+    },
+    {
+      "no": 42,
+      "author": "CABELL",
+      "reference": "1965(2)",
+      "measured_function": "(F3ETA 33)/F3ETA 35",
+      "notes": "26",
+      "input_value": 1.0309,
+      "uncertainty_percent": 3.919,
+      "weighted_residual": -0.051,
+      "systematic_uncertainties": {
+        "S_": 2.83
+      }
+    },
+    {
+      "no": 43,
+      "author": "CABELL",
+      "reference": "1965(2)",
+      "measured_function": "(F3ETA 39)/F3ETA 35",
+      "notes": "26",
+      "input_value": 1.6223,
+      "uncertainty_percent": 4.161,
+      "weighted_residual": -0.206,
+      "systematic_uncertainties": {
+        "S_": 2.83
+      }
+    },
+    {
+      "no": 44,
+      "author": "GWIN",
+      "reference": "1962(2)",
+      "measured_function": "(F2ETA 33)/F2ETA 35",
+      "notes": "27",
+      "input_value": 0.953,
+      "uncertainty_percent": 1.414,
+      "weighted_residual": 0.146,
+      "systematic_uncertainties": {
+        "plus": 1.0
+      }
+    },
+    {
+      "no": 45,
+      "author": "GWIN",
+      "reference": "1962(2)",
+      "measured_function": "(F2ETA 39)/F2ETA 35",
+      "notes": "27",
+      "input_value": 1.631,
+      "uncertainty_percent": 1.414,
+      "weighted_residual": -0.429,
+      "systematic_uncertainties": {
+        "plus": 1.0
+      }
+    },
+    {
+      "no": 46,
+      "author": "GWIN",
+      "reference": "A1962(2)",
+      "measured_function": "F3ETA 33",
+      "notes": "28*",
+      "input_value": 744.7,
+      "uncertainty_percent": 0.537,
+      "weighted_residual": 0.612,
+      "systematic_uncertainties": {
+        "T_": 0.38
+      }
+    },
+    {
+      "no": 47,
+      "author": "GWIN",
+      "reference": "A1962(2)",
+      "measured_function": "F3ETA 35",
+      "notes": "28*",
+      "input_value": 722.7,
+      "uncertainty_percent": 0.54,
+      "weighted_residual": 1.057,
+      "systematic_uncertainties": {
+        "T_": 0.382
+      }
+    },
+    {
+      "no": 48,
+      "author": "LAPONCHE",
+      "reference": "1972(2)",
+      "measured_function": "(F3ETA 39)/F3ETA 35",
+      "notes": "7",
+      "input_value": 1.6058,
+      "uncertainty_percent": 1.107,
+      "weighted_residual": -1.711,
+      "systematic_uncertainties": {}
+    },
+    {
+      "no": 49,
+      "author": "LAPONCHE",
+      "reference": "1972(2)",
+      "measured_function": "(F3ETA 41)/F3ETA 39",
+      "notes": "7",
+      "input_value": 1.4687,
+      "uncertainty_percent": 3.58,
+      "weighted_residual": 0.759,
+      "systematic_uncertainties": {}
+    },
+    {
+      "no": 50,
+      "author": "ALIKHANOV",
+      "reference": "1956(2)",
+      "measured_function": "(F3ETA 33)/F3ETA 35",
+      "notes": "29",
+      "input_value": 1.039,
+      "uncertainty_percent": 3.561,
+      "weighted_residual": 0.163,
+      "systematic_uncertainties": {
+        "sq": 1.5
+      }
+    },
+    {
+      "no": 51,
+      "author": "ALIKHANOV",
+      "reference": "1956(2)",
+      "measured_function": "(F3ETA 39)/F3ETA 35",
+      "notes": "29",
+      "input_value": 1.565,
+      "uncertainty_percent": 6.709,
+      "weighted_residual": -0.678,
+      "systematic_uncertainties": {
+        "sq": 1.5
+      }
+    },
+    {
+      "no": 52,
+      "author": "MUELHAUS",
+      "reference": "1959(2)",
+      "measured_function": "(F3ETA 33)/F3ETA 35",
+      "notes": "30",
+      "input_value": 1.0221,
+      "uncertainty_percent": 1.811,
+      "weighted_residual": -0.586,
+      "systematic_uncertainties": {
+        "U_": 1.233,
+        "dn": 0.691
+      }
+    },
+    {
+      "no": 53,
+      "author": "MUELHAUS",
+      "reference": "1959(2)",
+      "measured_function": "(F3ETA 39)/F3ETA 35",
+      "notes": "30",
+      "input_value": 1.6043,
+      "uncertainty_percent": 2.271,
+      "weighted_residual": -0.876,
+      "systematic_uncertainties": {
+        "U_": 1.233,
+        "dn": 1.614
+      }
+    },
+    {
+      "no": 54,
+      "author": "DIVADEENAM",
+      "reference": "1984(2)",
+      "measured_function": "WGA 33",
+      "notes": "4",
+      "input_value": 0.99884,
+      "uncertainty_percent": 0.12,
+      "weighted_residual": -0.518,
+      "systematic_uncertainties": {}
+    },
+    {
+      "no": 55,
+      "author": "DIVADEENAM",
+      "reference": "1984(2)",
+      "measured_function": "WGA 35",
+      "notes": "4",
+      "input_value": 0.9787,
+      "uncertainty_percent": 0.092,
+      "weighted_residual": -0.251,
+      "systematic_uncertainties": {}
+    },
+    {
+      "no": 56,
+      "author": "DIVADEENAM",
+      "reference": "1984(2)",
+      "measured_function": "WGA 39",
+      "notes": "4",
+      "input_value": 1.0767,
+      "uncertainty_percent": 0.269,
+      "weighted_residual": -0.504,
+      "systematic_uncertainties": {}
+    },
+    {
+      "no": 57,
+      "author": "DIVADEENAM",
+      "reference": "1984(2)",
+      "measured_function": "WGA 41",
+      "notes": "4",
+      "input_value": 1.0444,
+      "uncertainty_percent": 0.191,
+      "weighted_residual": 0.083,
+      "systematic_uncertainties": {}
+    },
+    {
+      "no": 58,
+      "author": "DIVADEENAM",
+      "reference": "1984(2)",
+      "measured_function": "WGF 33",
+      "notes": "4",
+      "input_value": 0.99646,
+      "uncertainty_percent": 0.201,
+      "weighted_residual": 0.551,
+      "systematic_uncertainties": {}
+    },
+    {
+      "no": 59,
+      "author": "DERUYTTER",
+      "reference": "1985(3)",
+      "measured_function": "WGF 35",
+      "notes": "4",
+      "input_value": 0.9778,
+      "uncertainty_percent": 0.092,
+      "weighted_residual": 0.475,
+      "systematic_uncertainties": {}
+    },
+    {
+      "no": 60,
+      "author": "DIVADEENAM",
+      "reference": "1984(2)",
+      "measured_function": "WGF 39",
+      "notes": "4",
+      "input_value": 1.0562,
+      "uncertainty_percent": 0.275,
+      "weighted_residual": 0.259,
+      "systematic_uncertainties": {}
+    },
+    {
+      "no": 61,
+      "author": "DIVADEENAM",
+      "reference": "1984(2)",
+      "measured_function": "WGF 41",
+      "notes": "4",
+      "input_value": 1.0452,
+      "uncertainty_percent": 0.67,
+      "weighted_residual": 0.1,
+      "systematic_uncertainties": {}
+    },
+    {
+      "no": 62,
+      "author": "EGELSTAFF",
+      "reference": "1954(1)",
+      "measured_function": "(ABS 35)+SCR 35",
+      "notes": "5",
+      "input_value": 724.33,
+      "uncertainty_percent": 3.59,
+      "weighted_residual": 1.088,
+      "systematic_uncertainties": {}
+    },
+    {
+      "no": 63,
+      "author": "MELKONIAN",
+      "reference": "1953(1)",
+      "measured_function": "(ABS 35)+SCR 35",
+      "notes": "5",
+      "input_value": 694.32,
+      "uncertainty_percent": 2.016,
+      "weighted_residual": -0.123,
+      "systematic_uncertainties": {}
+    },
+    {
+      "no": 64,
+      "author": "PALEVSKY",
+      "reference": "1954(1)",
+      "measured_function": "(ABS 35)+SCR 35",
+      "notes": "5",
+      "input_value": 700.32,
+      "uncertainty_percent": 1.428,
+      "weighted_residual": 0.428,
+      "systematic_uncertainties": {}
+    },
+    {
+      "no": 65,
+      "author": "NITIKIN",
+      "reference": "1955(1)",
+      "measured_function": "(ABS 35)+SCA 35",
+      "notes": "5",
+      "input_value": 710.32,
+      "uncertainty_percent": 2.956,
+      "weighted_residual": 0.596,
+      "systematic_uncertainties": {}
+    },
+    {
+      "no": 66,
+      "author": "SIMPSON",
+      "reference": "1960(1)",
+      "measured_function": "(ABS 35)+SCR 35",
+      "notes": "5",
+      "input_value": 690.32,
+      "uncertainty_percent": 1.391,
+      "weighted_residual": -0.596,
+      "systematic_uncertainties": {}
+    },
+    {
+      "no": 67,
+      "author": "SAFFORD",
+      "reference": "1959(1)",
+      "measured_function": "(ABS 35)+SCA 35",
+      "notes": "5",
+      "input_value": 696.32,
+      "uncertainty_percent": 0.359,
+      "weighted_residual": -0.598,
+      "systematic_uncertainties": {}
+    },
+    {
+      "no": 68,
+      "author": "SAFFORD",
+      "reference": "1959(1)",
+      "measured_function": "(ABS 35)+SCR 35",
+      "notes": "5",
+      "input_value": 698.32,
+      "uncertainty_percent": 0.73,
+      "weighted_residual": 0.448,
+      "systematic_uncertainties": {}
+    },
+    {
+      "no": 69,
+      "author": "BLOCK",
+      "reference": "1960(1)",
+      "measured_function": "(ABS 35)+SCR 35",
+      "notes": "5",
+      "input_value": 693.32,
+      "uncertainty_percent": 0.721,
+      "weighted_residual": -0.544,
+      "systematic_uncertainties": {}
+    },
+    {
+      "no": 70,
+      "author": "SAPLAKOGLU",
+      "reference": "1961(1)",
+      "measured_function": "(ABS 35)+SCR 35",
+      "notes": "5",
+      "input_value": 696.32,
+      "uncertainty_percent": 0.359,
+      "weighted_residual": 0.112,
+      "systematic_uncertainties": {}
+    },
+    {
+      "no": 71,
+      "author": "GERASIMOV",
+      "reference": "1962(1)",
+      "measured_function": "ABS 35",
+      "notes": "5",
+      "input_value": 670.31,
+      "uncertainty_percent": 2.089,
+      "weighted_residual": -0.823,
+      "systematic_uncertainties": {}
+    },
+    {
+      "no": 72,
+      "author": "ZIMMERMAN",
+      "reference": "1955(1)",
+      "measured_function": "(ABS 39)+SCR 39",
+      "notes": "5",
+      "input_value": 1022.5,
+      "uncertainty_percent": 1.271,
+      "weighted_residual": -0.254,
+      "systematic_uncertainties": {}
+    },
+    {
+      "no": 73,
+      "author": "NITIKIN",
+      "reference": "1955(1)",
+      "measured_function": "(ABS 39)+SCA 39",
+      "notes": "5",
+      "input_value": 1040.5,
+      "uncertainty_percent": 2.979,
+      "weighted_residual": 0.439,
+      "systematic_uncertainties": {}
+    },
+    {
+      "no": 74,
+      "author": "BOLLINGER",
+      "reference": "1958(1)",
+      "measured_function": "(ABS 39)+SCR 39",
+      "notes": "5",
+      "input_value": 1022.5,
+      "uncertainty_percent": 1.369,
+      "weighted_residual": -0.236,
+      "systematic_uncertainties": {}
+    },
+    {
+      "no": 75,
+      "author": "PATTENDEN",
+      "reference": "A1956(1)",
+      "measured_function": "(ABS 39)+SCR 39",
+      "notes": "5",
+      "input_value": 1012.5,
+      "uncertainty_percent": 3.003,
+      "weighted_residual": -0.438,
+      "systematic_uncertainties": {}
+    },
+    {
+      "no": 76,
+      "author": "SAFFORD",
+      "reference": "1961(1)",
+      "measured_function": "(ABS 39)+SCR 39",
+      "notes": "5",
+      "input_value": 1018.5,
+      "uncertainty_percent": 0.727,
+      "weighted_residual": -0.985,
+      "systematic_uncertainties": {}
+    },
+    {
+      "no": 77,
+      "author": "MUETHER",
+      "reference": "1954(1)",
+      "measured_function": "(ABS 33)+SCR 33",
+      "notes": "5",
+      "input_value": 597.27,
+      "uncertainty_percent": 2.344,
+      "weighted_residual": 0.724,
+      "systematic_uncertainties": {}
+    },
+    {
+      "no": 78,
+      "author": "NITIKIN",
+      "reference": "1955(1)",
+      "measured_function": "(ABS 33)+SCR 33",
+      "notes": "5",
+      "input_value": 577.26,
+      "uncertainty_percent": 3.638,
+      "weighted_residual": -0.47,
+      "systematic_uncertainties": {}
+    },
+    {
+      "no": 79,
+      "author": "PATTENDEN",
+      "reference": "1956(1)",
+      "measured_function": "(ABS 33)+SCR 33",
+      "notes": "5",
+      "input_value": 596.27,
+      "uncertainty_percent": 3.019,
+      "weighted_residual": 0.508,
+      "systematic_uncertainties": {}
+    },
+    {
+      "no": 80,
+      "author": "GREEN",
+      "reference": "1957(1)",
+      "measured_function": "ABS 33",
+      "notes": "5",
+      "input_value": 574.26,
+      "uncertainty_percent": 3.483,
+      "weighted_residual": -0.098,
+      "systematic_uncertainties": {}
+    },
+    {
+      "no": 81,
+      "author": "SIMPSON",
+      "reference": "1960(1)",
+      "measured_function": "(ABS 33)+SCR 33",
+      "notes": "5",
+      "input_value": 587.27,
+      "uncertainty_percent": 0.8,
+      "weighted_residual": 0.029,
+      "systematic_uncertainties": {}
+    },
+    {
+      "no": 82,
+      "author": "SAFFORD",
+      "reference": "1960(1)",
+      "measured_function": "(ABS 33)+SCA 33",
+      "notes": "5",
+      "input_value": 585.77,
+      "uncertainty_percent": 0.99,
+      "weighted_residual": -0.454,
+      "systematic_uncertainties": {}
+    },
+    {
+      "no": 83,
+      "author": "SAFFORD",
+      "reference": "1960(1)",
+      "measured_function": "(ABS 33)+SCR 33",
+      "notes": "5",
+      "input_value": 585.67,
+      "uncertainty_percent": 0.41,
+      "weighted_residual": -0.611,
+      "systematic_uncertainties": {}
+    },
+    {
+      "no": 84,
+      "author": "BLOCK",
+      "reference": "1960(1)",
+      "measured_function": "(ABS 33)+SCR 33",
+      "notes": "5",
+      "input_value": 587.27,
+      "uncertainty_percent": 0.511,
+      "weighted_residual": 0.045,
+      "systematic_uncertainties": {}
+    },
+    {
+      "no": 85,
+      "author": "SIMPSON",
+      "reference": "1961(1)",
+      "measured_function": "(ABS 41)+SCA 41",
+      "notes": "5",
+      "input_value": 1386.6,
+      "uncertainty_percent": 3.606,
+      "weighted_residual": 0.025,
+      "systematic_uncertainties": {}
+    },
+    {
+      "no": 86,
+      "author": "CRAIG",
+      "reference": "1964(1)",
+      "measured_function": "(ABS 41)+SCA 41",
+      "notes": "5",
+      "input_value": 1380.6,
+      "uncertainty_percent": 2.897,
+      "weighted_residual": -0.119,
+      "systematic_uncertainties": {}
+    },
+    {
+      "no": 87,
+      "author": "SMITH",
+      "reference": "1984(3)",
+      "measured_function": "(ABS 41)+SCR 41",
+      "notes": "31",
+      "input_value": 1395.6,
+      "uncertainty_percent": 1.433,
+      "weighted_residual": 0.563,
+      "systematic_uncertainties": {}
+    },
+    {
+      "no": 88,
+      "author": "LEMMEL",
+      "reference": "1982(1)",
+      "measured_function": "SCA 33",
+      "notes": "3",
+      "input_value": 12.306,
+      "uncertainty_percent": 5.688,
+      "weighted_residual": 0.171,
+      "systematic_uncertainties": {}
+    },
+    {
+      "no": 89,
+      "author": "LEMMEL",
+      "reference": "1982(1)",
+      "measured_function": "(SCA 33)-SCR 33",
+      "notes": "3",
+      "input_value": 1.2006,
+      "uncertainty_percent": 49.977,
+      "weighted_residual": -0.115,
+      "systematic_uncertainties": {}
+    },
+    {
+      "no": 90,
+      "author": "LEMMEL",
+      "reference": "1982(1)",
+      "measured_function": "SCA 35",
+      "notes": "3",
+      "input_value": 16.508,
+      "uncertainty_percent": 7.875,
+      "weighted_residual": 0.404,
+      "systematic_uncertainties": {}
+    },
+    {
+      "no": 91,
+      "author": "LEMMEL",
+      "reference": "1982(1)",
+      "measured_function": "(SCA 35)-SCR 35",
+      "notes": "3",
+      "input_value": 1.7008,
+      "uncertainty_percent": 44.097,
+      "weighted_residual": -0.1,
+      "systematic_uncertainties": {}
+    },
+    {
+      "no": 92,
+      "author": "LEMMEL",
+      "reference": "1982(1)",
+      "measured_function": "SCA 39",
+      "notes": "3",
+      "input_value": 8.0037,
+      "uncertainty_percent": 12.494,
+      "weighted_residual": 0.107,
+      "systematic_uncertainties": {}
+    },
+    {
+      "no": 93,
+      "author": "LEMMEL",
+      "reference": "1982(1)",
+      "measured_function": "(SCA 39)-SCR 39",
+      "notes": "3",
+      "input_value": 0.80037,
+      "uncertainty_percent": 137.437,
+      "weighted_residual": -0.269,
+      "systematic_uncertainties": {}
+    },
+    {
+      "no": 94,
+      "author": "LEMMEL",
+      "reference": "1982(1)",
+      "measured_function": "SCA 41",
+      "notes": "3",
+      "input_value": 12.006,
+      "uncertainty_percent": 21.657,
+      "weighted_residual": -0.07,
+      "systematic_uncertainties": {}
+    },
+    {
+      "no": 95,
+      "author": "LEMMEL",
+      "reference": "1982(1)",
+      "measured_function": "(SCA 41)-SCR 41",
+      "notes": "3",
+      "input_value": 1.2006,
+      "uncertainty_percent": 249.886,
+      "weighted_residual": 0.061,
+      "systematic_uncertainties": {}
+    },
+    {
+      "no": 96,
+      "author": "DERUYTTER",
+      "reference": "1974(1)",
+      "measured_function": "39 FH1 39",
+      "notes": "5",
+      "input_value": 1812.1,
+      "uncertainty_percent": 0.454,
+      "weighted_residual": 1.165,
+      "systematic_uncertainties": {
+        "A": 0.207,
+        "B": 0.232,
+        "n": 0.124
+      }
+    },
+    {
+      "no": 97,
+      "author": "DERUYTTER",
+      "reference": "1973(1)",
+      "measured_function": "34 FH1 35",
+      "notes": "5",
+      "input_value": 1439.1,
+      "uncertainty_percent": 0.445,
+      "weighted_residual": 1.117,
+      "systematic_uncertainties": {
+        "A": 0.207,
+        "B": 0.232,
+        "C": 0.185,
+        "hc": 0.122
+      }
+    },
+    {
+      "no": 98,
+      "author": "DERUYTTER",
+      "reference": "1961(1)",
+      "measured_function": "FIS 35",
+      "notes": "5",
+      "input_value": 589.37,
+      "uncertainty_percent": 1.325,
+      "weighted_residual": 0.844,
+      "systematic_uncertainties": {
+        "B": 0.232
+      }
+    },
+    {
+      "no": 99,
+      "author": "WHITE",
+      "reference": "1967(1)",
+      "measured_function": "(FIS 39)/FIS 35",
+      "notes": "18",
+      "input_value": 1.253,
+      "uncertainty_percent": 1.8,
+      "weighted_residual": -1.323,
+      "systematic_uncertainties": {
+        "D": 1.225,
+        "J_": 0.94
+      }
+    },
+    {
+      "no": 100,
+      "author": "WHITE",
+      "reference": "1967(1)",
+      "measured_function": "(FIS 41)/FIS 35",
+      "notes": "18",
+      "input_value": 1.763,
+      "uncertainty_percent": 2.751,
+      "weighted_residual": 0.551,
+      "systematic_uncertainties": {
+        "D": 1.225,
+        "K_": 2.14
+      }
+    },
+    {
+      "no": 101,
+      "author": "BERCEANO",
+      "reference": "1977(1)",
+      "measured_function": "34 FH1 35",
+      "notes": "5",
+      "input_value": 1443.0,
+      "uncertainty_percent": 0.791,
+      "weighted_residual": 0.975,
+      "systematic_uncertainties": {
+        "C": 0.3,
+        "hc": 0.122
+      }
+    },
+    {
+      "no": 102,
+      "author": "RAFFLE",
+      "reference": "1959(1)",
+      "measured_function": "33 FH1 33",
+      "notes": "5",
+      "input_value": 834.26,
+      "uncertainty_percent": 3.302,
+      "weighted_residual": -0.385,
+      "systematic_uncertainties": {
+        "c": 0.126
+      }
+    },
+    {
+      "no": 103,
+      "author": "RAFFLE",
+      "reference": "1959(1)",
+      "measured_function": "FIS 35",
+      "notes": "5",
+      "input_value": 581.97,
+      "uncertainty_percent": 3.092,
+      "weighted_residual": -0.045,
+      "systematic_uncertainties": {}
+    },
+    {
+      "no": 104,
+      "author": "RAFFLE",
+      "reference": "1959(1)",
+      "measured_function": "39 FH1 39",
+      "notes": "5",
+      "input_value": 1714.8,
+      "uncertainty_percent": 2.843,
+      "weighted_residual": -1.8,
+      "systematic_uncertainties": {
+        "n": 0.124
+      }
+    },
+    {
+      "no": 105,
+      "author": "RAFFLE",
+      "reference": "1956(1)",
+      "measured_function": "(FIS 41)/FIS 39",
+      "notes": "5",
+      "input_value": 1.3319,
+      "uncertainty_percent": 6.0,
+      "weighted_residual": -0.27,
+      "systematic_uncertainties": {}
+    },
+    {
+      "no": 106,
+      "author": "MASLIN",
+      "reference": "1965(1)",
+      "measured_function": "FIS 35",
+      "notes": "5",
+      "input_value": 583.71,
+      "uncertainty_percent": 1.449,
+      "weighted_residual": 0.109,
+      "systematic_uncertainties": {
+        "E": 1.0
+      }
+    },
+    {
+      "no": 107,
+      "author": "SAPLAKOGLU",
+      "reference": "1959(1)",
+      "measured_function": "FIS 35",
+      "notes": "5",
+      "input_value": 593.17,
+      "uncertainty_percent": 2.232,
+      "weighted_residual": 0.785,
+      "systematic_uncertainties": {
+        "E": -2.0
+      }
+    },
+    {
+      "no": 108,
+      "author": "WATANABE",
+      "reference": "1964(1)",
+      "measured_function": "FIS 41",
+      "notes": "5",
+      "input_value": 985.45,
+      "uncertainty_percent": 4.569,
+      "weighted_residual": -0.587,
+      "systematic_uncertainties": {}
+    },
+    {
+      "no": 109,
+      "author": "FRAYSSE",
+      "reference": "1965(1)",
+      "measured_function": "(39 FH1 39)/34 FH1 35",
+      "notes": "5",
+      "input_value": 1.2425,
+      "uncertainty_percent": 1.557,
+      "weighted_residual": -0.843,
+      "systematic_uncertainties": {
+        "hc": -0.122,
+        "n": 0.124
+      }
+    },
+    {
+      "no": 110,
+      "author": "BORCEA",
+      "reference": "1970(1)",
+      "measured_function": "(39 FH1 39)/34 FH1 35",
+      "notes": "5",
+      "input_value": 1.2578,
+      "uncertainty_percent": 1.624,
+      "weighted_residual": -0.05,
+      "systematic_uncertainties": {
+        "hc": -0.122,
+        "n": 0.124
+      }
+    },
+    {
+      "no": 111,
+      "author": "BOLDEMAN",
+      "reference": "1977(1)",
+      "measured_function": "NUB 52",
+      "notes": "5",
+      "input_value": 3.7549,
+      "uncertainty_percent": 0.431,
+      "weighted_residual": -0.783,
+      "systematic_uncertainties": {
+        "L": 0.056,
+        "Y": 0.106,
+        "Z": 0.07,
+        "C_": 0.01
+      }
+    },
+    {
+      "no": 112,
+      "author": "BOLDEMAN",
+      "reference": "1980(1)",
+      "measured_function": "(NUB 33)/NUB 52",
+      "notes": "5",
+      "input_value": 0.66049,
+      "uncertainty_percent": 0.255,
+      "weighted_residual": -0.027,
+      "systematic_uncertainties": {
+        "H": 0.074,
+        "L": -0.056,
+        "M": -0.033,
+        "N": -0.104,
+        "U": 0.009,
+        "Y": -0.106,
+        "Z": 0.04,
+        "Delta": 0.024,
+        "C_": 0.041
+      }
+    },
+    {
+      "no": 113,
+      "author": "BOLDEMAN",
+      "reference": "1980(1)",
+      "measured_function": "(NUB 35)/NUB 52",
+      "notes": "5",
+      "input_value": 0.64318,
+      "uncertainty_percent": 0.255,
+      "weighted_residual": -1.636,
+      "systematic_uncertainties": {
+        "I": 0.069,
+        "L": -0.057,
+        "M": -0.047,
+        "N": -0.149,
+        "V": 0.021,
+        "Y": -0.106,
+        "Z": 0.04,
+        "Delta": 0.047,
+        "C_": 0.06
+      }
+    },
+    {
+      "no": 114,
+      "author": "BOLDEMAN",
+      "reference": "1980(1)",
+      "measured_function": "(NUB 39)/NUB 52",
+      "notes": "5",
+      "input_value": 0.76614,
+      "uncertainty_percent": 0.243,
+      "weighted_residual": 0.617,
+      "systematic_uncertainties": {
+        "J": 0.061,
+        "L": -0.056,
+        "M": -0.018,
+        "N": -0.056,
+        "W": 0.011,
+        "Y": -0.106,
+        "Z": 0.11,
+        "Delta": 0.005,
+        "C_": 0.01
+      }
+    },
+    {
+      "no": 115,
+      "author": "BOLDEMAN",
+      "reference": "1980(1)",
+      "measured_function": "(NUB 41)/NUB 52",
+      "notes": "5",
+      "input_value": 0.78028,
+      "uncertainty_percent": 0.231,
+      "weighted_residual": -0.959,
+      "systematic_uncertainties": {
+        "K": 0.074,
+        "L": -0.056,
+        "M": -0.017,
+        "N": -0.052,
+        "X": 0.055,
+        "Y": -0.106,
+        "Z": 0.11,
+        "Delta": 0.028,
+        "C_": 0.02
+      }
+    },
+    {
+      "no": 116,
+      "author": "SPENCER",
+      "reference": "1982(1)",
+      "measured_function": "NUB 52",
+      "notes": "5",
+      "input_value": 3.7831,
+      "uncertainty_percent": 0.221,
+      "weighted_residual": 1.856,
+      "systematic_uncertainties": {
+        "L": 0.019,
+        "M": 0.007,
+        "O": 0.022,
+        "Y": 0.106,
+        "Z": 0.051
+      }
+    },
+    {
+      "no": 117,
+      "author": "GWIN",
+      "reference": "1984(1)",
+      "measured_function": "(NUB 33)/NUB 52",
+      "notes": "32",
+      "input_value": 0.65996,
+      "uncertainty_percent": 0.34,
+      "weighted_residual": -1.009,
+      "systematic_uncertainties": {
+        "U": 0.009,
+        "Y": -0.106,
+        "Z": 0.12,
+        "A_": 0.139
+      }
+    },
+    {
+      "no": 118,
+      "author": "GWIN",
+      "reference": "1984(1)",
+      "measured_function": "(NUB 35)/NUB 52",
+      "notes": "32",
+      "input_value": 0.64701,
+      "uncertainty_percent": 0.265,
+      "weighted_residual": 0.663,
+      "systematic_uncertainties": {
+        "V": 0.021,
+        "Y": -0.106,
+        "Z": 0.04,
+        "A_": 0.117
+      }
+    },
+    {
+      "no": 119,
+      "author": "GWIN",
+      "reference": "1984(1)",
+      "measured_function": "(NUB 39)/NUB 52",
+      "notes": "32",
+      "input_value": 0.7653,
+      "uncertainty_percent": 0.257,
+      "weighted_residual": 0.157,
+      "systematic_uncertainties": {
+        "W": 0.011,
+        "Y": -0.106,
+        "Z": 0.096,
+        "A_": 0.125
+      }
+    },
+    {
+      "no": 120,
+      "author": "GWIN",
+      "reference": "1984(1)",
+      "measured_function": "(NUB 41)/NUB 52",
+      "notes": "32",
+      "input_value": 0.78423,
+      "uncertainty_percent": 0.29,
+      "weighted_residual": 0.978,
+      "systematic_uncertainties": {
+        "X": 0.055,
+        "Y": -0.106,
+        "Z": 0.12,
+        "A_": 0.078
+      }
+    },
+    {
+      "no": 121,
+      "author": "HOPKINS",
+      "reference": "1963(1)",
+      "measured_function": "NUB 52",
+      "notes": "5",
+      "input_value": 3.7767,
+      "uncertainty_percent": 0.838,
+      "weighted_residual": 0.287,
+      "systematic_uncertainties": {
+        "L": 0.03,
+        "M": 0.018,
+        "P": 0.058,
+        "Y": 0.106,
+        "Z": 0.1
+      }
+    },
+    {
+      "no": 122,
+      "author": "HOPKINS",
+      "reference": "1963(1)",
+      "measured_function": "(NUB 33)/NUB 52",
+      "notes": "5",
+      "input_value": 0.65483,
+      "uncertainty_percent": 0.895,
+      "weighted_residual": -1.261,
+      "systematic_uncertainties": {
+        "H": 0.039,
+        "L": -0.03,
+        "M": -0.018,
+        "P": -0.056,
+        "U": 0.009,
+        "Y": -0.106,
+        "Z": 0.025,
+        "Delta": 0.006,
+        "D_": 0.341
+      }
+    },
+    {
+      "no": 123,
+      "author": "HOPKINS",
+      "reference": "1963(1)",
+      "measured_function": "(NUB 35)/NUB 52",
+      "notes": "5",
+      "input_value": 0.64587,
+      "uncertainty_percent": 0.838,
+      "weighted_residual": 0.0,
+      "systematic_uncertainties": {
+        "I": 0.036,
+        "L": -0.03,
+        "M": -0.025,
+        "P": -0.079,
+        "V": 0.021,
+        "Y": -0.106,
+        "Z": 0.025,
+        "Delta": 0.056,
+        "D_": 0.383
+      }
+    },
+    {
+      "no": 124,
+      "author": "HOPKINS",
+      "reference": "1963(1)",
+      "measured_function": "(NUB 39)/NUB 52",
+      "notes": "5",
+      "input_value": 0.75047,
+      "uncertainty_percent": 0.996,
+      "weighted_residual": -1.943,
+      "systematic_uncertainties": {
+        "J": 0.033,
+        "L": -0.03,
+        "M": -0.009,
+        "P": -0.029,
+        "W": 0.011,
+        "Y": -0.106,
+        "Z": 0.05,
+        "Delta": 0.051,
+        "D_": 0.55
+      }
+    },
+    {
+      "no": 125,
+      "author": "ASPLUND",
+      "reference": "1963(1)",
+      "measured_function": "NUB 52",
+      "notes": "5",
+      "input_value": 3.791,
+      "uncertainty_percent": 1.066,
+      "weighted_residual": 0.578,
+      "systematic_uncertainties": {
+        "L": 0.077,
+        "M": -0.003,
+        "Q": -0.01,
+        "Y": 0.106,
+        "Z": 0.201
+      }
+    },
+    {
+      "no": 126,
+      "author": "CONDE",
+      "reference": "1965(1)",
+      "measured_function": "(NUB 35)/NUB 52",
+      "notes": "5",
+      "input_value": 0.64222,
+      "uncertainty_percent": 0.847,
+      "weighted_residual": -0.671,
+      "systematic_uncertainties": {
+        "I": 0.094,
+        "L": -0.077,
+        "M": -0.083,
+        "Q": -0.263,
+        "V": 0.021,
+        "Y": -0.106,
+        "Z": 0.125
+      }
+    },
+    {
+      "no": 127,
+      "author": "WHITE",
+      "reference": "1968(1)",
+      "measured_function": "NUB 52",
+      "notes": "33*",
+      "input_value": 3.8194,
+      "uncertainty_percent": 1.033,
+      "weighted_residual": 1.314,
+      "systematic_uncertainties": {
+        "F": 0.211,
+        "G": 0.073,
+        "L": 0.057
+      }
+    },
+    {
+      "no": 128,
+      "author": "AXTON",
+      "reference": "A1985(3)",
+      "measured_function": "NUB 52",
+      "notes": "33*",
+      "input_value": 3.7547,
+      "uncertainty_percent": 0.3,
+      "weighted_residual": -1.148,
+      "systematic_uncertainties": {
+        "F": 0.211,
+        "G": 0.073,
+        "L": 0.057
+      }
+    },
+    {
+      "no": 129,
+      "author": "COLV/AXT",
+      "reference": "1966(1)",
+      "measured_function": "NUB 52",
+      "notes": "33*",
+      "input_value": 3.7299,
+      "uncertainty_percent": 0.806,
+      "weighted_residual": -1.254,
+      "systematic_uncertainties": {
+        "F": 0.211,
+        "G": 0.073,
+        "L": 0.057,
+        "Y": 0.106,
+        "E_": 0.231
+      }
+    },
+    {
+      "no": 130,
+      "author": "COLV/ULL",
+      "reference": "1965(1)",
+      "measured_function": "NUB 52",
+      "notes": "5",
+      "input_value": 3.7405,
+      "uncertainty_percent": 0.438,
+      "weighted_residual": -1.651,
+      "systematic_uncertainties": {
+        "L": 0.013,
+        "Y": 0.106,
+        "E_": 0.231
+      }
+    },
+    {
+      "no": 131,
+      "author": "COLVIN",
+      "reference": "1965(1)",
+      "measured_function": "(NUB 33)/NUB 35",
+      "notes": "5",
+      "input_value": 1.0204,
+      "uncertainty_percent": 0.587,
+      "weighted_residual": -0.821,
+      "systematic_uncertainties": {
+        "H": 0.017,
+        "I": -0.016,
+        "M": 0.003,
+        "R": 0.009,
+        "U": 0.009,
+        "V": -0.021
+      }
+    },
+    {
+      "no": 132,
+      "author": "COLVIN",
+      "reference": "1965(1)",
+      "measured_function": "(NUB 39)/NUB 35",
+      "notes": "5",
+      "input_value": 1.1835,
+      "uncertainty_percent": 0.675,
+      "weighted_residual": -0.116,
+      "systematic_uncertainties": {
+        "I": -0.016,
+        "J": 0.014,
+        "M": 0.007,
+        "R": 0.021,
+        "V": -0.021,
+        "W": 0.011
+      }
+    },
+    {
+      "no": 133,
+      "author": "COLVIN",
+      "reference": "1965(1)",
+      "measured_function": "(NUB 41)/NUB 35",
+      "notes": "5",
+      "input_value": 1.2102,
+      "uncertainty_percent": 0.905,
+      "weighted_residual": -0.051,
+      "systematic_uncertainties": {
+        "I": -0.016,
+        "K": 0.017,
+        "M": 0.007,
+        "R": 0.022,
+        "V": -0.021,
+        "X": 0.055
+      }
+    },
+    {
+      "no": 134,
+      "author": "COLVIN",
+      "reference": "1965(1)",
+      "measured_function": "(NUB 35)/NUB 52",
+      "notes": "5",
+      "input_value": 0.64334,
+      "uncertainty_percent": 0.472,
+      "weighted_residual": -0.832,
+      "systematic_uncertainties": {
+        "I": 0.016,
+        "L": -0.013,
+        "M": -0.011,
+        "R": -0.034,
+        "V": 0.021,
+        "Y": -0.106,
+        "Delta": 0.056
+      }
+    },
+    {
+      "no": 135,
+      "author": "MATHER",
+      "reference": "1964(1)",
+      "measured_function": "(NUB 33)/NUB 52",
+      "notes": "5",
+      "input_value": 0.67093,
+      "uncertainty_percent": 1.235,
+      "weighted_residual": 1.051,
+      "systematic_uncertainties": {
+        "H": 0.074,
+        "L": -0.056,
+        "M": -0.033,
+        "S": -0.104,
+        "U": 0.009,
+        "Y": -0.106,
+        "Z": 0.05,
+        "Delta": 0.067,
+        "I_": 1.0
+      }
+    },
+    {
+      "no": 136,
+      "author": "MATHER",
+      "reference": "1964(1)",
+      "measured_function": "(NUB 35)/NUB 52",
+      "notes": "5",
+      "input_value": 0.64145,
+      "uncertainty_percent": 0.537,
+      "weighted_residual": -1.282,
+      "systematic_uncertainties": {
+        "I": 0.069,
+        "L": 0.057,
+        "M": -0.047,
+        "S": -0.149,
+        "V": 0.021,
+        "Y": -0.106,
+        "Z": 0.05,
+        "Delta": 0.084,
+        "I_": 0.3
+      }
+    },
+    {
+      "no": 137,
+      "author": "MATHER",
+      "reference": "1964(1)",
+      "measured_function": "(NUB 39)/NUB 52",
+      "notes": "5",
+      "input_value": 0.77307,
+      "uncertainty_percent": 1.122,
+      "weighted_residual": -0.931,
+      "systematic_uncertainties": {
+        "J": 0.061,
+        "L": -0.056,
+        "M": -0.018,
+        "S": -0.056,
+        "W": 0.011,
+        "Y": -0.106,
+        "Z": 0.136,
+        "Delta": 0.06,
+        "I_": 0.5
+      }
+    },
+    {
+      "no": 138,
+      "author": "ALEK-ROV",
+      "reference": "1981(1)",
+      "measured_function": "NUB 52",
+      "notes": "33*",
+      "input_value": 3.7618,
+      "uncertainty_percent": 0.483,
+      "weighted_residual": -0.32,
+      "systematic_uncertainties": {
+        "G": 0.073,
+        "L": 0.028,
+        "F_": 0.111
+      }
+    },
+    {
+      "no": 139,
+      "author": "SMITH",
+      "reference": "1984(1)",
+      "measured_function": "NUB 52",
+      "notes": "33*",
+      "input_value": 3.7678,
+      "uncertainty_percent": 0.303,
+      "weighted_residual": 0.024,
+      "systematic_uncertainties": {
+        "G": 0.073,
+        "L": 0.034,
+        "M": 0.003,
+        "F_": 0.111,
+        "G_": 0.15
+      }
+    },
+    {
+      "no": 140,
+      "author": "EDWARDS",
+      "reference": "1982(1)",
+      "measured_function": "NUB 52",
+      "notes": "33*",
+      "input_value": 3.7641,
+      "uncertainty_percent": 0.711,
+      "weighted_residual": -0.131,
+      "systematic_uncertainties": {
+        "F": 0.211,
+        "G": 0.073,
+        "L": 0.028,
+        "M": -0.001,
+        "Y_": 0.106
+      }
+    },
+    {
+      "no": 141,
+      "author": "BOZ-NESH",
+      "reference": "1977(1)",
+      "measured_function": "NUB 52",
+      "notes": "33*",
+      "input_value": 3.7475,
+      "uncertainty_percent": 0.58,
+      "weighted_residual": -0.922,
+      "systematic_uncertainties": {
+        "G": 0.073,
+        "L": 0.028,
+        "M": -0.001,
+        "B_": 0.441
+      }
+    },
+    {
+      "no": 142,
+      "author": "DEVOLPI",
+      "reference": "1972(1)",
+      "measured_function": "NUB 52",
+      "notes": "33*",
+      "input_value": 3.7507,
+      "uncertainty_percent": 0.463,
+      "weighted_residual": -0.97,
+      "systematic_uncertainties": {
+        "G": 0.073
+      }
+    },
+    {
+      "no": 143,
+      "author": "ZHANG",
+      "reference": "1981(1)",
+      "measured_function": "NUB 52",
+      "notes": "5",
+      "input_value": 3.7534,
+      "uncertainty_percent": 0.49,
+      "weighted_residual": -0.768,
+      "systematic_uncertainties": {
+        "L": 0.077,
+        "M": 0.01,
+        "Y": 0.106,
+        "Z": 0.07
+      }
+    },
+    {
+      "no": 144,
+      "author": "SPIEGEL",
+      "reference": "1981(1)",
+      "measured_function": "NUB 52",
+      "notes": "33",
+      "input_value": 3.7828,
+      "uncertainty_percent": 0.759,
+      "weighted_residual": 0.53,
+      "systematic_uncertainties": {
+        "G": 0.073,
+        "L": 0.055,
+        "B_": 0.508
+      }
+    },
+    {
+      "no": 145,
+      "author": "SMITH",
+      "reference": "1984(1)",
+      "measured_function": "ETA 33",
+      "notes": "5",
+      "input_value": 2.2972,
+      "uncertainty_percent": 0.35,
+      "weighted_residual": -0.083,
+      "systematic_uncertainties": {
+        "H": 0.036,
+        "M": 0.008,
+        "G_": 0.15,
+        "H_": 0.167
+      }
+    },
+    {
+      "no": 146,
+      "author": "SMITH",
+      "reference": "1984(1)",
+      "measured_function": "ETA 35",
+      "notes": "5",
+      "input_value": 2.0842,
+      "uncertainty_percent": 0.386,
+      "weighted_residual": 0.537,
+      "systematic_uncertainties": {
+        "I": 0.034,
+        "M": 0.009,
+        "G_": 0.15,
+        "H_": 0.167
+      }
+    },
+    {
+      "no": 147,
+      "author": "SMITH",
+      "reference": "1984(1)",
+      "measured_function": "ETA 39",
+      "notes": "5",
+      "input_value": 2.112,
+      "uncertainty_percent": 0.38,
+      "weighted_residual": -0.333,
+      "systematic_uncertainties": {
+        "J": -0.03,
+        "G_": 0.15,
+        "H_": 0.167
+      }
+    },
+    {
+      "no": 148,
+      "author": "SMITH",
+      "reference": "1984(1)",
+      "measured_function": "ETA 41",
+      "notes": "5",
+      "input_value": 2.169,
+      "uncertainty_percent": 0.419,
+      "weighted_residual": -0.223,
+      "systematic_uncertainties": {
+        "K": -0.036,
+        "G_": 0.15,
+        "H_": 0.167
+      }
+    },
+    {
+      "no": 149,
+      "author": "MACKLIN",
+      "reference": "1960(1)",
+      "measured_function": "ETA 33",
+      "notes": "5",
+      "input_value": 2.3121,
+      "uncertainty_percent": 0.375,
+      "weighted_residual": 1.642,
+      "systematic_uncertainties": {
+        "H": -0.036,
+        "M": 0.15,
+        "H_": 0.167
+      }
+    },
+    {
+      "no": 150,
+      "author": "MACKLIN",
+      "reference": "1960(1)",
+      "measured_function": "ETA 35",
+      "notes": "5",
+      "input_value": 2.0757,
+      "uncertainty_percent": 0.382,
+      "weighted_residual": -0.526,
+      "systematic_uncertainties": {
+        "I": 0.034,
+        "M": 0.009,
+        "H_": 0.167
+      }
+    },
+    {
+      "no": 151,
+      "author": "MACKLIN",
+      "reference": "1962(1)",
+      "measured_function": "ETA 39",
+      "notes": "5",
+      "input_value": 2.1163,
+      "uncertainty_percent": 0.851,
+      "weighted_residual": 0.091,
+      "systematic_uncertainties": {
+        "J": 0.03,
+        "M": 0.002,
+        "H_": 0.167
+      }
+    },
+    {
+      "no": 152,
+      "author": "CABELL",
+      "reference": "1968(1)",
+      "measured_function": "F1CAB",
+      "notes": "35",
+      "input_value": 273.84,
+      "uncertainty_percent": 4.96,
+      "weighted_residual": -1.195,
+      "systematic_uncertainties": {
+        "M_": 2.23,
+        "N_": 0.31,
+        "dag": 0.181
+      }
+    },
+    {
+      "no": 153,
+      "author": "CABELL",
+      "reference": "1968(1)",
+      "measured_function": "F2CAB",
+      "notes": "35",
+      "input_value": 1171.9,
+      "uncertainty_percent": 3.176,
+      "weighted_residual": -0.32,
+      "systematic_uncertainties": {
+        "M_": 2.23,
+        "N_": 1.21,
+        "dag": 0.161
+      }
+    },
+    {
+      "no": 154,
+      "author": "CABELL",
+      "reference": "1968(1)",
+      "measured_function": "F3CAB",
+      "notes": "35",
+      "input_value": 3.269,
+      "uncertainty_percent": 2.776,
+      "weighted_residual": -0.149,
+      "systematic_uncertainties": {
+        "N_": -0.54
+      }
+    },
+    {
+      "no": 155,
+      "author": "CABELL",
+      "reference": "1968(1)",
+      "measured_function": "F4CAB",
+      "notes": "35",
+      "input_value": 303.39,
+      "uncertainty_percent": 5.836,
+      "weighted_residual": -0.053,
+      "systematic_uncertainties": {
+        "M_": 2.23,
+        "N_": -1.31,
+        "dag": 0.161,
+        "u": -0.09
+      }
+    },
+    {
+      "no": 156,
+      "author": "CABELL",
+      "reference": "1968(1)",
+      "measured_function": "F5CAB",
+      "notes": "35",
+      "input_value": 3.871,
+      "uncertainty_percent": 1.602,
+      "weighted_residual": 0.512,
+      "systematic_uncertainties": {
+        "u": -0.016
+      }
+    },
+    {
+      "no": 157,
+      "author": "BNL 325",
+      "reference": "1973(1)",
+      "measured_function": "CA 40",
+      "notes": "36",
+      "input_value": 289.5,
+      "uncertainty_percent": 0.484,
+      "weighted_residual": 0.122,
+      "systematic_uncertainties": {}
+    },
+    {
+      "no": 158,
+      "author": "BNL 325",
+      "reference": "1973(1)",
+      "measured_function": "CA 42",
+      "notes": "36",
+      "input_value": 18.5,
+      "uncertainty_percent": 2.162,
+      "weighted_residual": -0.036,
+      "systematic_uncertainties": {}
+    },
+    {
+      "no": 159,
+      "author": "BNL325 + WESTCOTT",
+      "reference": "1973(1)",
+      "measured_function": "GC116 39",
+      "notes": "37",
+      "input_value": 1.3265,
+      "uncertainty_percent": 6.056,
+      "weighted_residual": -0.326,
+      "systematic_uncertainties": {
+        "Q_": 2.7
+      }
+    },
+    {
+      "no": 160,
+      "author": "WESTCOTT",
+      "reference": "1960(1)",
+      "measured_function": "GC116 40",
+      "notes": "37",
+      "input_value": 1.086,
+      "uncertainty_percent": 2.0,
+      "weighted_residual": 0.498,
+      "systematic_uncertainties": {}
+    },
+    {
+      "no": 161,
+      "author": "BNL325 + WESTCOTT",
+      "reference": "1973(1)",
+      "measured_function": "GC116 41",
+      "notes": "37",
+      "input_value": 1.1085,
+      "uncertainty_percent": 2.457,
+      "weighted_residual": 0.707,
+      "systematic_uncertainties": {
+        "P_": 1.1
+      }
+    },
+    {
+      "no": 162,
+      "author": "WESTCOTT",
+      "reference": "1960(1)",
+      "measured_function": "GC116 42",
+      "notes": "37",
+      "input_value": 1.1335,
+      "uncertainty_percent": 2.67,
+      "weighted_residual": -0.045,
+      "systematic_uncertainties": {}
+    },
+    {
+      "no": 163,
+      "author": "BNL325 + WESTCOTT",
+      "reference": "1973(1)",
+      "measured_function": "GA116 39",
+      "notes": "37",
+      "input_value": 1.1846,
+      "uncertainty_percent": 1.521,
+      "weighted_residual": 0.125,
+      "systematic_uncertainties": {
+        "Q_": 0.68
+      }
+    },
+    {
+      "no": 164,
+      "author": "WESTCOTT",
+      "reference": "1960(1)",
+      "measured_function": "GA116 41",
+      "notes": "37",
+      "input_value": 1.1073,
+      "uncertainty_percent": 0.819,
+      "weighted_residual": -0.194,
+      "systematic_uncertainties": {
+        "P_": 0.37
+      }
+    },
+    {
+      "no": 165,
+      "author": "LLOYD",
+      "reference": "1982(1)",
+      "measured_function": "(ETA 39)/FIS 39",
+      "notes": "4",
+      "input_value": 0.002782,
+      "uncertainty_percent": 2.072,
+      "weighted_residual": -0.807,
+      "systematic_uncertainties": {}
+    },
+    {
+      "no": 166,
+      "author": "SPENCER",
+      "reference": "1985(3)",
+      "measured_function": "(ABS 35)+SCR 35",
+      "notes": "*",
+      "input_value": 690.0,
+      "uncertainty_percent": 1.0,
+      "weighted_residual": -0.875,
+      "systematic_uncertainties": {
+        "alpha": 0.707
+      }
+    },
+    {
+      "no": 167,
+      "author": "SPENCER",
+      "reference": "1985(3)",
+      "measured_function": "(ABS 39)+SCR 39",
+      "notes": "*",
+      "input_value": 1025.8,
+      "uncertainty_percent": 1.0,
+      "weighted_residual": 0.003,
+      "systematic_uncertainties": {
+        "alpha": 0.707
+      }
+    }
+  ]
+}
