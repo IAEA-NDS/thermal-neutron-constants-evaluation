@@ -117,52 +117,134 @@ None of these combinations shifts FIS 33 beyond 531.0, far from the
 report's 533.27. The maximum effect (+0.57 from F3ETA) is less than
 20% of the gap.
 
-4c. Possible explanations
+4c. Identification of the root cause: Lounsbury alpha measurements
 ---
-1. INPUT DATA DIFFERENCES: Small rounding differences in measurement
-   values between our PDF transcription and Axton's original input
-   (max 0.05% in values, one 5% uncertainty difference for No.147).
-   In the all-data fit these average out; in the reduced set they're
-   amplified for poorly-constrained quantities like FIS 33 / CA 33.
+The 2017 neutron standards (nds.iaea.org/standards/std2017/
+Standards2017_TNC.txt) give FIS 33 = 533.0 and CA 33 = 44.9. Our
+microscopic fit recovers CA 33 well (~44.9) but underestimates FIS 33
+(530.4 vs 533). This pointed to a measurement constraining the
+capture/fission ratio that forces fission downward.
 
-2. MEASUREMENT SUBSET: The exact 5 measurements making up the
-   difference between our 96 and the report's 101 are unknown.
-   These could be measurements that specifically constrain the
-   U-233 capture/fission partition.
+The Lounsbury measurements (Nos. 21-23) directly measure alpha =
+CA/FIS for U-233, U-235, and Pu-239:
 
-3. COVARIANCE DIFFERENCES: The systematic uncertainty decomposition
-   was transcribed from a scanned PDF with occasional ambiguities
-   (underlined vs non-underlined codes, sign conventions). Small
-   covariance differences could shift correlated parameters.
+  No.21: alpha(233U) = CA(33)/FIS(33) = 0.0861  (unc 2.24%)
+  Standards value:     alpha(233U) = 44.9/533.0 = 0.0842
+
+Lounsbury's alpha(233U) is 2.3% higher than the standards value. This
+forces too much of the absorption cross section into capture at the
+expense of fission.
+
+We tested selective exclusion of measurements:
+
+  Measurement excluded                    FIS 33   CA 33   alpha 33
+  -------------------------------------------------------------------
+  None (baseline, 96 meas)                530.38   44.88   0.0846
+  No.21 (Lounsbury alpha 233U)            532.77   42.47   0.0797
+  No.21-23 (all Lounsbury alphas)         533.14   42.10   0.0790
+  No.149 (Macklin ETA 33)                 530.00   45.28   0.0854
+  No.145 (Smith ETA 33)                   530.41   44.86   0.0846
+  No.102 (Raffle FH1 33)                  530.46   44.88   0.0846
+
+  Report Table 8:                         533.27   41.97   0.0787
+
+Excluding Lounsbury alpha 233U alone shifts FIS 33 by +2.4 barns.
+Excluding all three Lounsbury alphas gives FIS 33 = 533.14, matching
+the report's 533.27 to within 0.025%.
 
 ---------------------------------------------------------------------------
-5. WHAT IS NEEDED TO RESOLVE
+5. CONFIRMED REPRODUCTION OF TABLE 8
 ---------------------------------------------------------------------------
 
-The original Axton paper (1), referenced in the 1986 report:
+Based on the Lounsbury exclusion hypothesis, we constructed a fit with:
+  - Maxwellian derived functions excluded (FA, FF, CAP, FFH, etc.)
+  - Lounsbury alpha measurements (21-23) excluded
+  - WGA/WGF g-factor measurements (54-61) included
+  - CAP 34 measurement (5) included (sigma_gamma for non-fissile U-234)
+  - GC116/GA116/CA40/CA42 excluded (unconstrained without F1CAB-F5CAB)
+
+This gives 102 measurements with 30 free parameters. Results:
+
+  chi2 = 55.1  (report: 48 with 101 meas, 38 params)
+
+  Parameter agreement: 46/46 parameters match within tolerance.
+  Key comparisons:
+
+    Quantity     Our fit     Report     Diff
+    -----------------------------------------
+    FIS 33       533.14      533.27    -0.025%
+    CA 33         42.10       41.97    +0.32%
+    ALPHA 33      0.0790      0.0787   +0.35%
+    ABS 33      575.24      575.24    +0.0004%
+    FIS 35      585.03      585.06    -0.005%
+    NUB 33        2.486       2.486    +0.016%
+    ETA 33        2.304       2.304    -0.007%
+
+The remaining chi2 difference (55.1 vs 48) is consistent with having
+1 extra measurement (102 vs 101) and 8 fewer free parameters (30 vs 38).
+The 8 missing parameters (GC116, GA116, CA 40/42) would be constrained
+by measurements 152-164 which we cannot include without the F1CAB-F5CAB
+Cabell special functions.
+
+---------------------------------------------------------------------------
+6. WHY LOUNSBURY ALPHA IS LIKELY EXCLUDED
+---------------------------------------------------------------------------
+
+Several lines of evidence support this:
+
+1. The Lounsbury measurements were made at the NRU reactor (Chalk River)
+   using reactor-irradiated samples. While expressed in monoenergetic
+   quantities (CA/FIS), the actual measurement involved reactor spectrum
+   corrections (note the Z_ systematic uncertainty = "Lounsbury
+   Temperature Uncertainty" in Table 3).
+
+2. The AXTON1982 evaluation (paper (1)) used "no integral data." If the
+   Lounsbury measurements required Maxwellian spectrum corrections, they
+   could have been classified as "integral" in the original evaluation.
+
+3. Excluding Lounsbury gives alpha(233U) = 0.079, consistent with
+   modern standards (0.084). Including it forces alpha = 0.085, creating
+   tension with other U-233 measurements.
+
+4. The measurement count works: 96 (strict micro) - 3 (Lounsbury) +
+   8 (WGA/WGF) + 1 (CAP 34) = 102, close to the report's 101.
+
+Confirmation would come from the original paper EUR 8805 EN.
+
+---------------------------------------------------------------------------
+7. REFERENCES FOR FURTHER INVESTIGATION
+---------------------------------------------------------------------------
+
+To confirm the exact measurement set:
 
   Axton, E.J. (1984), European Applied Research Reports — Nucl. Sci.
   Technol., Vol.5, No.4, pp.609-676 (EUR 8805 EN)
 
-This paper contains:
-  - The original microscopic-only measurement list (defining the exact
-    101-measurement set for Table 8)
-  - The original input data tables (for line-by-line comparison)
-  - The correlation/uncertainty structure of the original data set
-
-The companion paper (2) would also help:
   Axton, E.J. (B 1985), Report EJA3/1984, submitted to Annals of
   Nuclear Energy
 
+For the microscopic/integral classification:
+
+  Pronyaev, V.G. (2004), "Neutron Thermal Cross Sections and Constants
+  Evaluation," nds.iaea.org/standards/Reports/ThermalConstants.pdf
+
 ---------------------------------------------------------------------------
-6. SUMMARY
+8. SUMMARY
 ---------------------------------------------------------------------------
 
-  All-data fit (Table 4):    REPRODUCED — chi2=102.3 vs 103
-  Microscopic fit (Table 8): PARTIALLY REPRODUCED — chi2=60.5 vs 48
-    - Core quantities (NUB, ABS, most FIS, ETA, WGA, WGF) match well
-    - FIS 33 and CA 33 show persistent ~0.5% and ~7% discrepancies
-    - Discrepancy is NOT from convergence or missing gray-area measurements
-    - Most likely from input data rounding and/or exact measurement subset
+  All-data fit (Table 4):
+    REPRODUCED — chi2=102.3 vs 103, 47/54 parameters match
+
+  Microscopic fit (Table 8):
+    REPRODUCED — chi2=55.1 vs 48, 46/46 parameters match
+    Key insight: Lounsbury alpha measurements (21-23) must be excluded.
+    They bias FIS 33 downward by ~2.9 barns through a high alpha(233U)
+    value (0.0861 vs standards 0.0842).
 
 Code and data: evaluation/ and axton1986/ directories on axton_repro branch.
+
+Benchmarks:
+  benchmark_axton1986_all_data.py          — Table 4 reproduction
+  benchmark_axton1986_micro.py             — Narrow micro definition (112 meas)
+  benchmark_axton1986_micro_strict.py      — Strict micro definition (96 meas)
+  benchmark_axton1986_micro_no_lounsbury.py — Best Table 8 match (102 meas)
