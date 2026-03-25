@@ -173,6 +173,53 @@ def compute_jacobian(propagate_fn, params, free_indices):
     return full_jac.numpy()[:, free_indices]
 
 
+def compute_derived_uncertainties(derived_fn, result, reac_map, free_indices):
+    """Compute values and relative uncertainties for derived quantities.
+
+    Uses TF autodiff to propagate the free-parameter covariance matrix
+    through arbitrary derived quantity functions.
+
+    Parameters
+    ----------
+    derived_fn : callable
+        Function mapping a TF parameter tensor to a dict of
+        {(quantity, nuclide): tf_scalar}. Only needs to compute
+        quantities whose uncertainties are desired.
+    result : dict
+        Output from iterative_gls containing 'params' and 'cov_free'.
+    reac_map : dict
+        Maps (quantity, nuclide) -> index in parameter vector.
+    free_indices : np.ndarray
+        Indices of free parameters.
+
+    Returns
+    -------
+    derived : dict
+        Maps (quantity, nuclide) -> (value, relative_uncertainty_percent).
+    """
+    params = result['params']
+    V_free = result['cov_free'] / 1e4  # convert pct^2 to fraction^2
+
+    params_tf = tf.Variable(params, dtype=tf.float64)
+    with tf.GradientTape() as tape:
+        d = derived_fn(params_tf, reac_map)
+        keys = list(d.keys())
+        vals_tf = tf.stack([d[k] for k in keys])
+    jac_full = tape.jacobian(vals_tf, params_tf).numpy()
+    jac_free = jac_full[:, free_indices]
+
+    derived = {}
+    for i, k in enumerate(keys):
+        val = vals_tf[i].numpy()
+        # Relative Jacobian row: (param_j / val) * d(val)/d(param_j)
+        rel_jac = jac_free[i, :] * params[free_indices] / val
+        rel_var = rel_jac @ V_free @ rel_jac
+        rel_unc_pct = np.sqrt(rel_var) * 100
+        derived[k] = (float(val), float(rel_unc_pct))
+
+    return derived
+
+
 def iterative_gls(measured_values, rel_covmat, propagate_fn,
                   initial_params, free_indices,
                   max_iter=20, tol=1e-8):

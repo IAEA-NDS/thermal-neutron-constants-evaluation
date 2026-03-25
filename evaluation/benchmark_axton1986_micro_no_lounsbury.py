@@ -16,7 +16,8 @@ import numpy as np
 
 sys.path.insert(0, str(__import__('pathlib').Path(__file__).resolve().parent))
 
-from utils.gls import build_param_space, create_propagate_fn, iterative_gls
+from utils.gls import (build_param_space, create_propagate_fn, iterative_gls,
+                       compute_derived_uncertainties)
 from utils.covmat import create_relative_covmat
 from axton1986_defaults import DEFAULT_INITIAL_PARAMS, DEFAULT_FIXED_PARAMS
 
@@ -116,15 +117,16 @@ REPORT_N_PARAMS = 38
 REPORT_DOF = 63
 
 
-def compute_derived_quantities(result, reac_map):
-    p = result['params']
+def derived_quantity_fn(params_tf, reac_map):
+    """Compute derived quantities as TF operations for autodiff."""
     def get(q, n):
-        return p[reac_map[(q, n)]]
+        return params_tf[reac_map[(q, n)]]
     derived = {}
     for n in [33, 35, 39, 41]:
         derived[('CA', n)] = get('ABS', n) - get('FIS', n)
         derived[('ETA', n)] = get('NUB', n) * get('FIS', n) / get('ABS', n)
-        derived[('ALPHA', n)] = derived[('CA', n)] / get('FIS', n)
+        ca = get('ABS', n) - get('FIS', n)
+        derived[('ALPHA', n)] = ca / get('FIS', n)
         if ('WGA', n) in reac_map and ('WGF', n) in reac_map:
             FA = get('ABS', n) * get('WGA', n)
             FF = get('FIS', n) * get('WGF', n)
@@ -167,7 +169,8 @@ def run_benchmark():
         measured, covmat, propagate,
         param_vec.copy(), free_idx, max_iter=30, tol=1e-10)
 
-    derived = compute_derived_quantities(result, reac_map)
+    derived = compute_derived_uncertainties(
+        derived_quantity_fn, result, reac_map, free_idx)
 
     free_keys = list(initial_params.keys())
     all_fitted = {}
@@ -175,8 +178,7 @@ def run_benchmark():
         val = result['free_values'][i]
         unc_pct = np.sqrt(result['cov_free'][i, i])
         all_fitted[k] = (val, unc_pct)
-    for k, val in derived.items():
-        all_fitted[k] = (val, None)
+    all_fitted.update(derived)
 
     # Print results
     print("=" * 78)
