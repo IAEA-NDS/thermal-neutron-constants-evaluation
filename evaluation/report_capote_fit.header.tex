@@ -1,0 +1,5 @@
+% Shrink only longtable environments (used by pandoc for all wide tables)
+\usepackage{etoolbox}
+\AtBeginEnvironment{longtable}{\footnotesize}
+% Looser column spacing for tables to reduce wrapping
+\setlength{\tabcolsep}{4pt}
