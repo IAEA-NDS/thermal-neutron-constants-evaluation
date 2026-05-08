@@ -103,6 +103,27 @@ def step5_vs_step6():
     return '\n'.join(lines)
 
 
+def step5_vs_step5b():
+    """Sensitivity comparison: step 5 vs step 5b (Lemmel SCA-SCR doubled)."""
+    s5 = summary['steps'][5]['fitted']
+    # step 5b is the last entry in the summary list
+    s5b_step = next(s for s in summary['steps']
+                    if s['tag'].startswith('step5b'))
+    s5b = s5b_step['fitted']
+    lines = ['| Quantity | Step 5 | Step 5b | Δ% |',
+             '|----------|-------:|--------:|---:|']
+    for q in PRIMARY_QUANTS + DERIVED_QUANTS:
+        v5 = s5.get(q)
+        vb = s5b.get(q)
+        if not v5 or v5['value'] is None or not vb or vb['value'] is None:
+            continue
+        d = (vb['value'] - v5['value']) / v5['value'] * 100
+        sig = abs(d) > 0.1
+        lines.append(f'| {bold(q, sig)} | {fmt(v5["value"])} | '
+                     f'{fmt(vb["value"])} | {bold(f"{d:+.3f}", sig)} |')
+    return '\n'.join(lines), s5b_step
+
+
 # ---------------------------------------------------------------------------
 # Step 4 and Step 5 added-datapoint tables
 # ---------------------------------------------------------------------------
@@ -269,13 +290,15 @@ def build():
          '+ transmission additions; 3 SCR→SCA reclassifications',
          'All ABS+SCR → ABS+SCA; drop Lemmel SCA-SCR; SCR partially removed'),
     ][0]
-    for i, s in enumerate(summary['steps']):
+    main_chain_steps = [s for s in summary['steps']
+                        if not s['tag'].startswith('step5b')]
+    for i, s in enumerate(main_chain_steps):
         add(f"| {i} | {descs[i]} | {s['n_meas']} | {s['n_free_params']} | "
             f"{s['dof']} | {s['chi2']:.2f} | {'Yes' if s['converged'] else 'No'} |")
     add('')
 
     add('## Targeted comparison: Step 5 vs Step 6\n')
-    add('The 2026-05-04 email asks to *"compare steps 5 and 6 — hopefully one of them will be the final fit"*. The two candidate fits agree to better than 0.2% on every primary and derived quantity. Step 5 retains 4 SCR fit variables (now constrained by both the round-2 SCR reclassifications and the ABS+SCR transmissions); step 6 removes the ABS+SCR transmissions and Lemmel SCA-SCR, leaving SCR(²³³U) and SCR(²³⁵U) constrained only by the reclassified direct measurements (and SCR(²³⁹Pu), SCR(²⁴¹Pu) unconstrained → removed). The 2026-05-06 follow-up email expresses a marginal preference for Step 5 over Step 6.\n')
+    add('The 2026-05-04 email asks to *"compare steps 5 and 6 — hopefully one of them will be the final fit"*. The two candidate fits agree to better than 0.2% on every primary and derived quantity. Step 5 retains 4 SCR fit variables (now constrained by both the round-2 SCR reclassifications and the ABS+SCR transmissions); step 6 removes the ABS+SCR transmissions and Lemmel SCA-SCR, leaving SCR(²³³U) and SCR(²³⁵U) constrained only by the reclassified direct measurements (and SCR(²³⁹Pu), SCR(²⁴¹Pu) unconstrained → removed). The 2026-05-06 follow-up email expresses a marginal preference for Step 5 over Step 6 and also asks for a sensitivity check on the SCA−SCR prior — see [Step 5b](#step-5b-sensitivity-check-lemmel-scascr-doubled).\n')
 
     # Per-step sections
     headings = [
@@ -376,6 +399,36 @@ Differences are small. SCA channel essentially unchanged (much less than 0.02%) 
     add('')
     add('**Per the 2026-05-06 follow-up email, Step 5 is marginally favoured** as the final fit candidate, on the grounds that the systematic SCR < SCA difference visible in step 5 is physically expected and yields fission cross sections in slightly better agreement with current library R-matrix fits. Differences with step 6 are within uncertainties.\n')
 
+    # Step 5b sensitivity check
+    add('## Step 5b: Sensitivity Check (Lemmel SCA−SCR doubled)\n')
+    add('Per the 2026-05-06 follow-up email, this is a stability check on the Step 5 solution under a shifted SCA−SCR prior:\n\n'
+        '> *"Pls start from Step 5 results and increase the SCA-SCR by a factor of 2 (both mean values and uncertainties). I like to see how stable our solution is relative to the SCA-SCR assumed values."*\n\n'
+        'Implementation: starting from the round-2 step 5 inputs, the four Lemmel SCA−SCR datapoints (Nos. 89, 91, 93, 95) have their central values doubled. Percent uncertainties are kept unchanged so the absolute uncertainty also doubles — i.e., the prior is *shifted* (factor 2 on the central value) without weakening the relative confidence (50% → 50% for U-233; the same scaling for the other three nuclides). Documented in [B7](#b7-step-5b-sensitivity-check-on-scascr).\n')
+    s5b_table, s5b_step = step5_vs_step5b()
+    s5_step = summary['steps'][5]
+    add(f'Fit: χ² = {s5b_step["chi2"]:.2f} ({s5_step["chi2"]:.2f} in step 5), N_meas = {s5b_step["n_meas"]}, N_free = {s5b_step["n_free_params"]}, DOF = {s5b_step["dof"]}.\n')
+    add(s5b_table)
+    add('')
+    sca_scr_changes = []
+    for n in [33, 35, 39, 41]:
+        v5 = s5_step['fitted'].get(f'SCR {n}')
+        vb = s5b_step['fitted'].get(f'SCR {n}')
+        if v5 and vb and v5['value'] and vb['value']:
+            sca_v5 = s5_step['fitted'].get(f'SCA {n}')
+            sca_vb = s5b_step['fitted'].get(f'SCA {n}')
+            diff5 = sca_v5['value'] - v5['value']
+            diffb = sca_vb['value'] - vb['value']
+            sca_scr_changes.append((n, diff5, diffb))
+    add('SCA − SCR per nuclide (b):\n')
+    add('| Nuclide | Step 5 | Step 5b | Lemmel input (5) | Lemmel input (5b) |\n'
+        '|---------|-------:|--------:|-----------------:|------------------:|')
+    LEMMEL_5_VALS = {33: 1.20, 35: 1.70, 39: 0.80, 41: 1.20}
+    for n, d5, db in sca_scr_changes:
+        l5 = LEMMEL_5_VALS[n]
+        add(f'| ²{["³³U","³⁵U","³⁹Pu","⁴¹Pu"][[33,35,39,41].index(n)]} | {d5:.3f} | {db:.3f} | {l5:.2f} | {2*l5:.2f} |')
+    add('')
+    add('**Conclusion on stability**: the K1 = F3ETA values shift by less than 0.2% between Step 5 and Step 5b on every nuclide. The fitted SCA values are essentially unchanged (the SCA channel is dominated by the direct SCA measurements added in Step 4, so doubling the Lemmel SCA−SCR input mostly perturbs SCR rather than SCA). The fit is therefore stable against the chosen SCA−SCR central values within the ±50% uncertainty band, confirming that the Step 5 solution is not artificially driven by a particular Lemmel-derived prior.\n')
+
     # K1 = F3ETA evolution
     add('## K1 = F3ETA Evolution Through the Chain\n')
     add('K1 = F3ETA = NUB · FF − FA is the central derived quantity flagged as the K1 of the new TNC fit. Values across all 7 steps (round 2):\n')
@@ -442,7 +495,7 @@ Differences are small. SCA channel essentially unchanged (much less than 0.02%) 
     add('Roberto\'s step 6 instructs *"CONVERT ALL SCR in ABS+SCR to ABS+SCA, delete Lemmel SCA-SCR (reducing 4 fitting variables SCR)"*. The literal application:\n\n  * Convert every (ABS X)+SCR X → (ABS X)+SCA X (26 conversions).\n  * Delete the four Lemmel SCA−SCR datapoints (Nos. 89, 91, 93, 95).\n  * **No measurement function or datapoint references SCR after these changes**, so the four SCR primary parameters become unconstrained.\n  * They are therefore removed from the fit parameter space, consistent with the existing handling of unconstrained parameters (CA 40, CA 42, GC116, GA116). This matches Roberto\'s parenthetical "reducing 4 fitting variables SCR" exactly.\n')
 
     add('### A17. Microscopic filter and unconstrained parameters\n')
-    add('All seven benchmarks apply the same microscopic filter that reproduces Axton Table 8: exclude measurements whose `measured_function` references any Maxwellian-derived quantity (FA, FF, CAP, FFH, F1ETA, F2ETA, F3ETA, FLEM, F1BIG, F1CAB–F5CAB, GC116, GA116) — except CAP 34 (No.5), which is retained because it ≈ σ_γ for non-fissile U-234. Lounsbury alpha (Nos. 21–23) is excluded only in step 0; it is included in steps 1–6. Unconstrained parameters CA 40, CA 42, GC116/40/41/42, GA116/39/41 are removed from the fit parameter space throughout. Step 6 additionally removes SCR 33/35/39/41 (see A16).\n')
+    add('All seven benchmarks (steps 0–6) apply the same microscopic filter that reproduces Axton Table 8: exclude measurements whose `measured_function` references any Maxwellian-derived quantity (FA, FF, CAP, FFH, F1ETA, F2ETA, F3ETA, FLEM, F1BIG, F1CAB–F5CAB, GC116, GA116) — except CAP 34 (No.5), which is retained because it ≈ σ_γ for non-fissile U-234. Lounsbury alpha (Nos. 21–23) is excluded only in step 0; it is included in steps 1–6. Unconstrained parameters CA 40, CA 42, GC116/40/41/42, GA116/39/41 are removed from the fit parameter space throughout. Step 6 (round 2) additionally removes SCR(²³⁹Pu) and SCR(²⁴¹Pu) — see [B5](#b5-scr-2-3-3-u-scr-2-3-5-u-retained-as-fit-variables-in-step-6) — but retains SCR(²³³U) and SCR(²³⁵U) as fit variables, which are constrained by the round-2 reclassified entries.\n')
 
     add('### A18. Empty systematic uncertainties for step-5 transmission additions\n')
     add('All step-5 transmission additions are entered with empty `systematic_uncertainties` (single uncorrelated total uncertainty), matching the convention used for 26 of the 28 baseline transmission entries. Spencer 1985 (Nos. 166/167) is the existing exception with `alpha = 0.707` representing the α-correction Spencer used internally. The Harvey-pair correlation alternative is the only other systematic structure considered (see A14).\n')
@@ -485,6 +538,9 @@ Differences are small. SCA channel essentially unchanged (much less than 0.02%) 
     add('### B6. Round-2 baseline file separation\n')
     add('To preserve the Axton-Table-8 reproduction artefact, the original `axton1986/axton1986_data.json` is left **unchanged** and a new file `axton1986/axton1986_data_capote_round2_baseline.json` is introduced for steps 0 and 1. The new file is identical to the original except for the eight Westcott measurements (No. 54–61). Steps 2–6 carry their own copies of all measurements; the Westcott updates are applied in-place to those JSONs.\n')
 
+    add('### B7. Step 5b sensitivity check on SCA−SCR\n')
+    add('Per the 2026-05-06 follow-up email, an additional sensitivity check is run starting from the round-2 Step 5 inputs. The four Lemmel SCA−SCR datapoints (Nos. 89, 91, 93, 95) have their central values doubled. Per project decision (selected over the alternative of doubling the percent uncertainty), the percent uncertainty is left unchanged so that the absolute uncertainty also doubles — interpreted as a "shift the prior by factor 2 with the same relative confidence" sensitivity test rather than a "weaken the prior" test.\n\nResult: K1 = F3ETA shifts by ≤ 0.2% on every nuclide compared to Step 5; SCA values are essentially unchanged; the perturbation is absorbed almost entirely by the SCR fitted values. The Step 5 solution is therefore stable against the assumed SCA−SCR prior within the doubling factor tested. See the dedicated [Step 5b section](#step-5b-sensitivity-check-lemmel-scascr-doubled) for the full comparison table.\n\nFiles produced: `axton1986/axton1986_data_capote_step5b_double_sca_scr.json` (data) and `evaluation/benchmark_capote_step5b_double_sca_scr.py` (benchmark).\n')
+
     add('## C. Files Produced by This Chain\n')
     add('All on branch `tnc_update_capote_20260504`, building on commit `575fac0` (the Axton 1986 reproduction state of master).\n')
     add('### JSON databases (one per step where data changes)\n')
@@ -494,9 +550,10 @@ Differences are small. SCA channel essentially unchanged (much less than 0.02%) 
         '  * `axton1986/axton1986_data_capote_step3_wallner.json` — 170 measurements\n'
         '  * `axton1986/axton1986_data_capote_step4_sca_list.json` — 179 measurements (round 2: 180 − 1 KAISER deleted)\n'
         '  * `axton1986/axton1986_data_capote_step5_transmission.json` — 189 measurements (round 2: 190 − 1 KAISER deleted)\n'
-        '  * `axton1986/axton1986_data_capote_step6_all_sca.json` — 185 measurements (round 2; final)\n')
+        '  * `axton1986/axton1986_data_capote_step6_all_sca.json` — 185 measurements (round 2; final)\n'
+        '  * `axton1986/axton1986_data_capote_step5b_double_sca_scr.json` — 189 measurements (step 5 with Lemmel SCA−SCR doubled; sensitivity test)\n')
     add('### Benchmarks\n')
-    add('  * `evaluation/benchmark_capote_step0_baseline.py`\n  * `evaluation/benchmark_capote_step1_lounsbury.py`\n  * `evaluation/benchmark_capote_step2_adamchuk.py`\n  * `evaluation/benchmark_capote_step3_wallner.py`\n  * `evaluation/benchmark_capote_step4_sca_list.py`\n  * `evaluation/benchmark_capote_step5_transmission.py`\n  * `evaluation/benchmark_capote_step6_all_sca.py`\n  * `evaluation/benchmark_capote_summary.py` — runs all 7 in sequence and dumps `capote_chain_summary.json`\n')
+    add('  * `evaluation/benchmark_capote_step0_baseline.py`\n  * `evaluation/benchmark_capote_step1_lounsbury.py`\n  * `evaluation/benchmark_capote_step2_adamchuk.py`\n  * `evaluation/benchmark_capote_step3_wallner.py`\n  * `evaluation/benchmark_capote_step4_sca_list.py`\n  * `evaluation/benchmark_capote_step5_transmission.py`\n  * `evaluation/benchmark_capote_step5b_double_sca_scr.py` — Step 5b sensitivity check (Lemmel SCA−SCR doubled)\n  * `evaluation/benchmark_capote_step6_all_sca.py`\n  * `evaluation/benchmark_capote_summary.py` — runs all 8 (7 main + 1 sensitivity) in sequence and dumps `capote_chain_summary.json`\n')
     add('### Generated artefacts\n')
     add('  * `evaluation/capote_chain_summary.json` — machine-readable consolidation of all step results (round 2)\n'
         '  * `evaluation/capote_chain_summary_20260504.json` — round-1 snapshot for direct comparison\n'

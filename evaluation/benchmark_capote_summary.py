@@ -21,17 +21,21 @@ import benchmark_capote_step2_adamchuk as s2
 import benchmark_capote_step3_wallner as s3
 import benchmark_capote_step4_sca_list as s4
 import benchmark_capote_step5_transmission as s5
+import benchmark_capote_step5b_double_sca_scr as s5b
 import benchmark_capote_step6_all_sca as s6
 
 
 STEP_MODULES = [
-    ('step0_baseline',     s0, 'Axton T8 baseline (no Lounsbury)'),
-    ('step1_lounsbury',    s1, '+ Lounsbury alpha (21-23)'),
-    ('step2_adamchuk',     s2, '+ Adamchuk 1988 alpha-235U'),
-    ('step3_wallner',      s3, '+ Wallner 2014 U-235 capture'),
-    ('step4_sca_list',     s4, 'Sears SCA list + Pu-241 estimate; delete Lemmel SCA'),
-    ('step5_transmission', s5, '+ transmission entries; 3 SCR->SCA reclassifications'),
-    ('step6_all_sca',      s6, 'All ABS+SCR -> ABS+SCA; drop Lemmel SCA-SCR; SCR removed'),
+    ('step0_baseline',     s0,  'Axton T8 baseline (no Lounsbury)'),
+    ('step1_lounsbury',    s1,  '+ Lounsbury alpha (21-23)'),
+    ('step2_adamchuk',     s2,  '+ Adamchuk 1988 alpha-235U'),
+    ('step3_wallner',      s3,  '+ Wallner 2014 U-235 capture'),
+    ('step4_sca_list',     s4,  'Sears SCA list + Pu-241 estimate; delete Lemmel SCA'),
+    ('step5_transmission', s5,  '+ transmission entries; 3 SCR->SCA reclassifications'),
+    ('step6_all_sca',      s6,  'All ABS+SCR -> ABS+SCA; drop Lemmel SCA-SCR; SCR partially removed'),
+    # Sensitivity check (placed at the end so the main per-step loop in the
+    # report builder still iterates 0..6 by index)
+    ('step5b_double_scascr', s5b, 'Step 5 with Lemmel SCA-SCR doubled (sensitivity test)'),
 ]
 
 
