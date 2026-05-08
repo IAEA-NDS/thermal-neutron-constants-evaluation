@@ -6,7 +6,10 @@
     "date": "June 1986",
     "institution": "CBNM, JRC Geel",
     "covariance_formula": "cov_rel(i,j) = sum_k u_ik * u_jk over shared codes k",
-    "uncertainty_unit": "relative percent (1 sigma)"
+    "uncertainty_unit": "relative percent (1 sigma)",
+    "round2_corrections": [
+      "2026-05-08: dropped KAISER (No.173, dup of ARIF); reclassified Nos. 171, 172, 177 (U-235) and 179 (U-233) from SCA to SCR per Capote/Pronyaev review"
+    ]
   },
   "nuclide_codes": {
     "33": "233U",
@@ -2332,8 +2335,8 @@
       "no": 171,
       "author": "ATOYI",
       "reference": "Acta Cryst. 20, 587 (1966)",
-      "measured_function": "SCA 35",
-      "notes": "Capote 2026-05-04 step 4: Sears Sel; row tagged \"SCR\" treated as SCA per project decision",
+      "measured_function": "SCR 35",
+      "notes": "Capote 2026-05-04 step 4 (SCR per 2026-05-08 round-2 correction; Vladimir flagged classical-method inconsistency)",
       "input_value": 12.3,
       "uncertainty_percent": 4.065,
       "weighted_residual": null,
@@ -2343,21 +2346,10 @@
       "no": 172,
       "author": "WILLIS",
       "reference": "PRS A274, 122 (1963)",
-      "measured_function": "SCA 35",
-      "notes": "Capote 2026-05-04 step 4: EXFOR value (replaces Sears 12.3)",
+      "measured_function": "SCR 35",
+      "notes": "Capote 2026-05-04 step 4: EXFOR value (replaces Sears 12.3); SCR per 2026-05-08 round-2 correction",
       "input_value": 12.8,
       "uncertainty_percent": 7.8125,
-      "weighted_residual": null,
-      "systematic_uncertainties": {}
-    },
-    {
-      "no": 173,
-      "author": "KAISER",
-      "reference": "Physica B 136, 134 (1986)",
-      "measured_function": "SCA 35",
-      "notes": "Capote 2026-05-04 step 4: Interferometry; Sears Sel",
-      "input_value": 14.0,
-      "uncertainty_percent": 1.4286,
       "weighted_residual": null,
       "systematic_uncertainties": {}
     },
@@ -2398,8 +2390,8 @@
       "no": 177,
       "author": "FOOTE",
       "reference": "Divadeenam compilation 1958",
-      "measured_function": "SCA 35",
-      "notes": "Capote 2026-05-04 step 4: Divadeenam",
+      "measured_function": "SCR 35",
+      "notes": "Capote 2026-05-04 step 4: Divadeenam; SCR per 2026-05-08 round-2 correction (cleaned table tagged SCR)",
       "input_value": 15.0,
       "uncertainty_percent": 6.6667,
       "weighted_residual": null,
@@ -2420,8 +2412,8 @@
       "no": 179,
       "author": "GREEN",
       "reference": "JNM 51, 281 (1974)",
-      "measured_function": "SCA 33",
-      "notes": "Capote 2026-05-04 step 4: Divadeenam; row tagged \"SCR\" treated as SCA per project decision",
+      "measured_function": "SCR 33",
+      "notes": "Capote 2026-05-04 step 4: Divadeenam; SCR per 2026-05-08 round-2 correction (Vladimir: classical method, not crystal spectrometer)",
       "input_value": 12.6,
       "uncertainty_percent": 5.5556,
       "weighted_residual": null,

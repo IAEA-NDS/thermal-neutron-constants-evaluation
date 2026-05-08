@@ -158,10 +158,12 @@ def run_benchmark():
         ('GC116', 39), ('GC116', 40), ('GC116', 41), ('GC116', 42),
         ('GA116', 39), ('GA116', 41),
         ('CA', 40), ('CA', 42),
-        # Step 6: SCR has no remaining constraints (all ABS+SCR converted to
-        # ABS+SCA, all Lemmel SCA-SCR datapoints deleted). Removed from
-        # parameter space — matches Roberto's "(reducing 4 fitting variables SCR)".
-        ('SCR', 33), ('SCR', 35), ('SCR', 39), ('SCR', 41),
+        # Step 6 with 2026-05-08 round-2 corrections: SCR(33) and SCR(35) are
+        # constrained by the reclassified ATOYI/WILLIS/FOOTE/GREEN-233 entries
+        # (was SCA, now SCR); they remain in the fit. SCR(39) and SCR(41) have
+        # no remaining constraints (no ABS+SCR transmissions, no Lemmel SCA-SCR,
+        # no direct SCR/SCA measurements) and stay unconstrained.
+        ('SCR', 39), ('SCR', 41),
     }
     initial_params = {k: v for k, v in DEFAULT_INITIAL_PARAMS.items()
                       if k not in unconstrained}
