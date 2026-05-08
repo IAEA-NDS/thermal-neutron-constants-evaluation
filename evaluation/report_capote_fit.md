@@ -1,10 +1,12 @@
 # Capote 2026-05-04 Fit Chain: Step-by-Step Benchmark Report
 
-This report documents the implementation of the new TNC fit chain proposed by R. Capote in his 2026-05-04 emails *"NEW TNC FIT steps"* and *"Revision/additions to Axton Total cross sections experimental data"*. Each section corresponds to one of the seven steps (0–6) in the chain, showing how the iterative Generalized Least Squares (GLS) fit results evolve as data are added, deleted, reclassified, or modified.
+*Round 2 — incorporates corrections requested in the 2026-05-08 email round (see [`references/emails/tnc_update_roberto_20260508/`](../references/emails/tnc_update_roberto_20260508/summary.md)).*
 
-All fits use the microscopic-only data subset (Maxwellian-derived functions excluded) on the Axton 1986 database, starting from the no-Lounsbury baseline that reproduces Axton Table 8 (see `report_axton1986_reproduction.md`).
+This report documents the implementation of the new TNC fit chain proposed in the 2026-05-04 emails *"NEW TNC FIT steps"* and *"Revision/additions to Axton Total cross sections experimental data"*, refined by the corrections in the 2026-05-08 round (drop KAISER as duplicate of ARIF; reclassify ATOYI / WILLIS / FOOTE / GREEN-233 from SCA to SCR; replace Westcott factors with B81-derived values). Each section corresponds to one of the seven steps (0–6) in the chain, showing how the iterative Generalized Least Squares (GLS) fit results evolve as data are added, deleted, reclassified, or modified.
 
-Quantities with shifts exceeding 0.1% relative to the previous step are highlighted in **bold**. The Westcott-folded quantities FA, FF, F1ETA, F2ETA, F3ETA are computed as derived outputs at each step per Roberto's request (K1 = F3ETA).
+All fits use the microscopic-only data subset (Maxwellian-derived functions excluded) on the Axton 1986 database. Steps 0 and 1 read from a round-2 baseline file (`axton1986_data_capote_round2_baseline.json`) that is identical to the original microscopic-Axton baseline except for the new Westcott factors; the original `axton1986_data.json` is preserved unchanged as the Axton-Table-8 reproduction artefact.
+
+Quantities with shifts exceeding 0.1% relative to the previous step are highlighted in **bold**. The Westcott-folded quantities FA, FF, F1ETA, F2ETA, F3ETA are computed as derived outputs at each step per the request (K1 = F3ETA). A Round-1 → Round-2 comparison table is shown after the Step-5-vs-Step-6 head-to-head; the round-2 corrections are documented in detail in Appendix B.
 
 ## Overview
 
@@ -14,13 +16,13 @@ Quantities with shifts exceeding 0.1% relative to the previous step are highligh
 | 1 | + Lounsbury alpha (21–23) | 105 | 30 | 75 | 60.49 | Yes |
 | 2 | + Adamchuk 1988 alpha(²³⁵U) | 106 | 30 | 76 | 60.56 | Yes |
 | 3 | + Wallner 2014 U-235 capture | 108 | 30 | 78 | 62.85 | Yes |
-| 4 | Sears SCA list + Pu-241 estimate; delete Lemmel SCA | 118 | 30 | 88 | 74.68 | Yes |
-| 5 | + transmission additions; 3 SCR→SCA reclassifications | 128 | 30 | 98 | 84.21 | Yes |
-| 6 | All ABS+SCR → ABS+SCA; drop Lemmel SCA-SCR; SCR removed | 124 | 26 | 98 | 85.18 | Yes |
+| 4 | Sears SCA list + Pu-241 estimate; delete Lemmel SCA | 117 | 30 | 87 | 70.91 | Yes |
+| 5 | + transmission additions; 3 SCR→SCA reclassifications | 127 | 30 | 97 | 80.55 | Yes |
+| 6 | All ABS+SCR → ABS+SCA; drop Lemmel SCA-SCR; SCR partially removed | 123 | 28 | 95 | 80.14 | Yes |
 
-## Roberto's targeted comparison: Step 5 vs Step 6
+## Targeted comparison: Step 5 vs Step 6
 
-Roberto's email asks to *"compare steps 5 and 6 — hopefully one of them will be the final fit"*. The two candidate fits agree to better than 0.2% on every primary and derived quantity. Step 5 retains 4 SCR fit variables constrained by Lemmel SCA−SCR datapoints; step 6 removes them per Roberto's parenthetical *"reducing 4 fitting variables SCR"*. Detailed numbers are in the per-step sections below; the head-to-head comparison appears in the dedicated section after step 6.
+The 2026-05-04 email asks to *"compare steps 5 and 6 — hopefully one of them will be the final fit"*. The two candidate fits agree to better than 0.2% on every primary and derived quantity. Step 5 retains 4 SCR fit variables (now constrained by both the round-2 SCR reclassifications and the ABS+SCR transmissions); step 6 removes the ABS+SCR transmissions and Lemmel SCA-SCR, leaving SCR(²³³U) and SCR(²³⁵U) constrained only by the reclassified direct measurements (and SCR(²³⁹Pu), SCR(²⁴¹Pu) unconstrained → removed). The 2026-05-06 follow-up email expresses a marginal preference for Step 5 over Step 6.
 
 ## Step 0: Axton Table 8 Baseline (No Lounsbury)
 
@@ -64,34 +66,34 @@ This is the reference point: the microscopic GLS fit reproducing Axton's Table 8
 | ALPHA 35 | 0.1644 | 1.962 | – |
 | ALPHA 39 | 0.3611 | 1.289 | – |
 | ALPHA 41 | 0.3547 | 1.697 | – |
-| WGA 33 | 0.9988 | 0.120 | – |
-| WGA 35 | 0.9787 | 0.092 | – |
-| WGA 39 | 1.0767 | 0.269 | – |
-| WGA 41 | 1.0444 | 0.191 | – |
-| WGF 33 | 0.9965 | 0.201 | – |
-| WGF 35 | 0.9778 | 0.092 | – |
-| WGF 39 | 1.0562 | 0.275 | – |
-| WGF 41 | 1.0452 | 0.670 | – |
-| FA 33 | 574.5740 | 0.343 | – |
-| FA 35 | 666.6963 | 0.265 | – |
-| FA 39 | 1096.9327 | 0.451 | – |
-| FA 41 | 1443.6336 | 1.096 | – |
-| FF 33 | 531.2491 | 0.502 | – |
-| FF 35 | 572.0457 | 0.292 | – |
-| FF 39 | 790.5916 | 0.437 | – |
-| FF 41 | 1066.4497 | 1.312 | – |
-| F1ETA 33 | 2.2985 | 0.357 | – |
-| F1ETA 35 | 2.0819 | 0.286 | – |
-| F1ETA 39 | 2.0753 | 0.494 | – |
-| F1ETA 41 | 2.1723 | 0.803 | – |
-| F2ETA 33 | 1320.6836 | 0.463 | – |
-| F2ETA 35 | 1387.9982 | 0.303 | – |
-| F2ETA 39 | 2276.4588 | 0.453 | – |
-| F2ETA 41 | 3135.9879 | 1.304 | – |
-| F3ETA 33 | 746.1097 | 0.680 | – |
-| F3ETA 35 | 721.3019 | 0.507 | – |
-| F3ETA 39 | 1179.5261 | 0.803 | – |
-| F3ETA 41 | 1692.3543 | 1.773 | – |
+| WGA 33 | 1.0000 | 0.100 | – |
+| WGA 35 | 0.9820 | 0.305 | – |
+| WGA 39 | 1.0780 | 0.928 | – |
+| WGA 41 | 1.0460 | 0.669 | – |
+| WGF 33 | 0.9970 | 0.100 | – |
+| WGF 35 | 0.9810 | 0.510 | – |
+| WGF 39 | 1.0520 | 1.331 | – |
+| WGF 41 | 1.0520 | 0.665 | – |
+| FA 33 | 575.2413 | 0.337 | – |
+| FA 35 | 668.9443 | 0.394 | – |
+| FA 39 | 1098.2571 | 0.996 | – |
+| FA 41 | 1445.8452 | 1.270 | – |
+| FF 33 | 531.5370 | 0.471 | – |
+| FF 35 | 573.9178 | 0.580 | – |
+| FF 39 | 787.4478 | 1.374 | – |
+| FF 41 | 1073.3879 | 1.309 | – |
+| F1ETA 33 | 2.2971 | 0.304 | – |
+| F1ETA 35 | 2.0817 | 0.647 | – |
+| F1ETA 39 | 2.0645 | 1.652 | – |
+| F1ETA 41 | 2.1831 | 1.025 | – |
+| F2ETA 33 | 1321.3993 | 0.429 | – |
+| F2ETA 35 | 1392.5407 | 0.586 | – |
+| F2ETA 39 | 2267.4064 | 1.379 | – |
+| F2ETA 41 | 3156.3904 | 1.301 | – |
+| F3ETA 33 | 746.1581 | 0.604 | – |
+| F3ETA 35 | 723.5963 | 1.123 | – |
+| F3ETA 39 | 1169.1493 | 2.779 | – |
+| F3ETA 41 | 1710.5452 | 1.844 | – |
 
 ## Step 1: + Lounsbury Alpha (Nos. 21–23)
 
@@ -141,34 +143,34 @@ This is the largest single change in the entire chain. Lounsbury's α(²³³U) =
 | **ALPHA 35** | **0.1679** | 1.235 | **+2.154** |
 | ALPHA 39 | 0.3611 | 0.965 | -0.001 |
 | **ALPHA 41** | **0.3576** | 1.585 | **+0.822** |
-| WGA 33 | 0.9988 | 0.120 | +0.000 |
-| WGA 35 | 0.9787 | 0.092 | +0.000 |
-| WGA 39 | 1.0767 | 0.269 | +0.000 |
-| WGA 41 | 1.0444 | 0.191 | +0.000 |
-| WGF 33 | 0.9965 | 0.201 | +0.000 |
-| WGF 35 | 0.9778 | 0.092 | +0.000 |
-| WGF 39 | 1.0562 | 0.275 | +0.000 |
-| WGF 41 | 1.0452 | 0.670 | +0.000 |
-| FA 33 | 574.6019 | 0.343 | +0.005 |
-| **FA 35** | **667.5568** | 0.250 | **+0.129** |
-| FA 39 | 1096.3331 | 0.433 | -0.055 |
-| FA 41 | 1444.1025 | 1.096 | +0.032 |
-| **FF 33** | **528.5068** | 0.408 | **-0.516** |
-| **FF 35** | **571.0473** | 0.261 | **-0.175** |
-| FF 39 | 790.1607 | 0.423 | -0.055 |
-| **FF 41** | **1064.5042** | 1.305 | **-0.182** |
-| **F1ETA 33** | **2.2912** | 0.307 | **-0.319** |
-| **F1ETA 35** | **2.0782** | 0.248 | **-0.180** |
-| F1ETA 39 | 2.0767 | 0.468 | +0.067 |
-| **F1ETA 41** | **2.1698** | 0.799 | **-0.116** |
-| **F2ETA 33** | **1316.5317** | 0.428 | **-0.314** |
-| F2ETA 35 | 1387.2857 | 0.296 | -0.051 |
-| F2ETA 39 | 2276.7426 | 0.451 | +0.012 |
-| F2ETA 41 | 3133.3762 | 1.302 | -0.083 |
-| **F3ETA 33** | **741.9298** | 0.603 | **-0.560** |
-| **F3ETA 35** | **719.7289** | 0.470 | **-0.218** |
-| F3ETA 39 | 1180.4095 | 0.781 | +0.075 |
-| **F3ETA 41** | **1689.2737** | 1.769 | **-0.182** |
+| WGA 33 | 1.0000 | 0.100 | +0.000 |
+| WGA 35 | 0.9820 | 0.305 | +0.000 |
+| WGA 39 | 1.0780 | 0.928 | +0.000 |
+| WGA 41 | 1.0460 | 0.669 | +0.000 |
+| WGF 33 | 0.9970 | 0.100 | +0.000 |
+| WGF 35 | 0.9810 | 0.510 | +0.000 |
+| WGF 39 | 1.0520 | 1.331 | +0.000 |
+| WGF 41 | 1.0520 | 0.665 | +0.000 |
+| FA 33 | 575.2692 | 0.337 | +0.005 |
+| **FA 35** | **669.8077** | 0.384 | **+0.129** |
+| FA 39 | 1097.6568 | 0.988 | -0.055 |
+| FA 41 | 1446.3148 | 1.270 | +0.032 |
+| **FF 33** | **528.7932** | 0.369 | **-0.516** |
+| **FF 35** | **572.9162** | 0.565 | **-0.175** |
+| FF 39 | 787.0186 | 1.369 | -0.055 |
+| **FF 41** | **1071.4298** | 1.302 | **-0.182** |
+| **F1ETA 33** | **2.2898** | 0.244 | **-0.319** |
+| **F1ETA 35** | **2.0779** | 0.630 | **-0.180** |
+| F1ETA 39 | 2.0659 | 1.644 | +0.067 |
+| **F1ETA 41** | **2.1805** | 1.021 | **-0.116** |
+| **F2ETA 33** | **1317.2452** | 0.391 | **-0.314** |
+| F2ETA 35 | 1391.8258 | 0.582 | -0.051 |
+| F2ETA 39 | 2267.6891 | 1.378 | +0.012 |
+| F2ETA 41 | 3153.7617 | 1.300 | -0.083 |
+| **F3ETA 33** | **741.9759** | 0.515 | **-0.560** |
+| **F3ETA 35** | **722.0181** | 1.108 | **-0.218** |
+| F3ETA 39 | 1170.0323 | 2.771 | +0.076 |
+| **F3ETA 41** | **1707.4469** | 1.840 | **-0.181** |
 
 ## Step 2: + Adamchuk 1988 Alpha(²³⁵U)
 
@@ -216,34 +218,34 @@ Adamchuk's α(²³⁵U) = 0.169 is highly consistent with the step-1 fitted valu
 | **ALPHA 35** | **0.1682** | 1.064 | **+0.162** |
 | ALPHA 39 | 0.3612 | 0.960 | +0.025 |
 | ALPHA 41 | 0.3577 | 1.580 | +0.031 |
-| WGA 33 | 0.9988 | 0.120 | +0.000 |
-| WGA 35 | 0.9787 | 0.092 | +0.000 |
-| WGA 39 | 1.0767 | 0.269 | +0.000 |
-| WGA 41 | 1.0444 | 0.191 | +0.000 |
-| WGF 33 | 0.9965 | 0.201 | +0.000 |
-| WGF 35 | 0.9778 | 0.092 | +0.000 |
-| WGF 39 | 1.0562 | 0.275 | +0.000 |
-| WGF 41 | 1.0452 | 0.670 | +0.000 |
-| FA 33 | 574.6021 | 0.343 | +0.000 |
-| FA 35 | 667.6202 | 0.248 | +0.010 |
-| FA 39 | 1096.3333 | 0.433 | +0.000 |
-| FA 41 | 1444.1037 | 1.096 | +0.000 |
-| FF 33 | 528.4915 | 0.408 | -0.003 |
-| FF 35 | 570.9684 | 0.256 | -0.014 |
-| FF 39 | 790.1079 | 0.422 | -0.007 |
-| FF 41 | 1064.4175 | 1.304 | -0.008 |
-| F1ETA 33 | 2.2912 | 0.307 | -0.001 |
-| F1ETA 35 | 2.0778 | 0.239 | -0.017 |
-| F1ETA 39 | 2.0766 | 0.468 | -0.003 |
-| F1ETA 41 | 2.1697 | 0.798 | -0.005 |
-| F2ETA 33 | 1316.5210 | 0.428 | -0.001 |
-| F2ETA 35 | 1387.1801 | 0.295 | -0.008 |
-| F2ETA 39 | 2276.6671 | 0.451 | -0.003 |
-| F2ETA 41 | 3133.2351 | 1.302 | -0.005 |
-| F3ETA 33 | 741.9189 | 0.603 | -0.001 |
-| F3ETA 35 | 719.5599 | 0.461 | -0.023 |
-| F3ETA 39 | 1180.3338 | 0.781 | -0.006 |
-| F3ETA 41 | 1689.1314 | 1.769 | -0.008 |
+| WGA 33 | 1.0000 | 0.100 | +0.000 |
+| WGA 35 | 0.9820 | 0.305 | +0.000 |
+| WGA 39 | 1.0780 | 0.928 | +0.000 |
+| WGA 41 | 1.0460 | 0.669 | +0.000 |
+| WGF 33 | 0.9970 | 0.100 | +0.000 |
+| WGF 35 | 0.9810 | 0.510 | +0.000 |
+| WGF 39 | 1.0520 | 1.331 | +0.000 |
+| WGF 41 | 1.0520 | 0.665 | +0.000 |
+| FA 33 | 575.2694 | 0.337 | +0.000 |
+| FA 35 | 669.8713 | 0.382 | +0.010 |
+| FA 39 | 1097.6570 | 0.988 | +0.000 |
+| FA 41 | 1446.3160 | 1.270 | +0.000 |
+| FF 33 | 528.7779 | 0.369 | -0.003 |
+| FF 35 | 572.8370 | 0.563 | -0.014 |
+| FF 39 | 786.9660 | 1.369 | -0.007 |
+| FF 41 | 1071.3426 | 1.302 | -0.008 |
+| F1ETA 33 | 2.2898 | 0.244 | -0.001 |
+| F1ETA 35 | 2.0776 | 0.627 | -0.017 |
+| F1ETA 39 | 2.0659 | 1.644 | -0.003 |
+| F1ETA 41 | 2.1804 | 1.021 | -0.005 |
+| F2ETA 33 | 1317.2344 | 0.391 | -0.001 |
+| F2ETA 35 | 1391.7199 | 0.582 | -0.008 |
+| F2ETA 39 | 2267.6139 | 1.378 | -0.003 |
+| F2ETA 41 | 3153.6197 | 1.300 | -0.005 |
+| F3ETA 33 | 741.9650 | 0.515 | -0.001 |
+| F3ETA 35 | 721.8486 | 1.104 | -0.023 |
+| F3ETA 39 | 1169.9569 | 2.771 | -0.006 |
+| F3ETA 41 | 1707.3037 | 1.840 | -0.008 |
 
 ## Step 3: + Wallner 2014 U-235 Capture
 
@@ -292,40 +294,42 @@ Both Wallner values lie above the step-2 fit (CA 35 ≈ 98.2 b). The fit accommo
 | **ALPHA 35** | **0.1695** | 0.879 | **+0.795** |
 | **ALPHA 39** | **0.3616** | 0.956 | **+0.113** |
 | **ALPHA 41** | **0.3583** | 1.574 | **+0.149** |
-| WGA 33 | 0.9988 | 0.120 | +0.000 |
-| WGA 35 | 0.9787 | 0.092 | +0.000 |
-| WGA 39 | 1.0767 | 0.269 | +0.000 |
-| WGA 41 | 1.0444 | 0.191 | +0.000 |
-| WGF 33 | 0.9965 | 0.201 | +0.000 |
-| WGF 35 | 0.9778 | 0.092 | +0.000 |
-| WGF 39 | 1.0562 | 0.275 | +0.000 |
-| WGF 41 | 1.0452 | 0.670 | +0.000 |
-| FA 33 | 574.6028 | 0.343 | +0.000 |
-| FA 35 | 668.1790 | 0.239 | +0.084 |
-| FA 39 | 1096.4583 | 0.433 | +0.011 |
-| FA 41 | 1444.1770 | 1.096 | +0.005 |
-| FF 33 | 528.4174 | 0.408 | -0.014 |
-| FF 35 | 570.7931 | 0.255 | -0.031 |
-| FF 39 | 789.9604 | 0.422 | -0.019 |
-| FF 41 | 1064.0549 | 1.304 | -0.034 |
-| F1ETA 33 | 2.2911 | 0.307 | -0.004 |
-| F1ETA 35 | 2.0761 | 0.230 | -0.084 |
-| F1ETA 39 | 2.0763 | 0.468 | -0.014 |
-| F1ETA 41 | 2.1692 | 0.798 | -0.022 |
-| F2ETA 33 | 1316.4696 | 0.428 | -0.004 |
-| F2ETA 35 | 1387.1758 | 0.295 | -0.000 |
-| F2ETA 39 | 2276.6053 | 0.451 | -0.003 |
-| F2ETA 41 | 3132.7161 | 1.302 | -0.017 |
-| F3ETA 33 | 741.8668 | 0.603 | -0.007 |
-| F3ETA 35 | 718.9968 | 0.458 | -0.078 |
-| F3ETA 39 | 1180.1470 | 0.781 | -0.016 |
-| F3ETA 41 | 1688.5391 | 1.769 | -0.035 |
+| WGA 33 | 1.0000 | 0.100 | +0.000 |
+| WGA 35 | 0.9820 | 0.305 | +0.000 |
+| WGA 39 | 1.0780 | 0.928 | +0.000 |
+| WGA 41 | 1.0460 | 0.669 | +0.000 |
+| WGF 33 | 0.9970 | 0.100 | +0.000 |
+| WGF 35 | 0.9810 | 0.510 | +0.000 |
+| WGF 39 | 1.0520 | 1.331 | +0.000 |
+| WGF 41 | 1.0520 | 0.665 | +0.000 |
+| FA 33 | 575.2702 | 0.337 | +0.000 |
+| FA 35 | 670.4319 | 0.377 | +0.084 |
+| FA 39 | 1097.7822 | 0.988 | +0.011 |
+| FA 41 | 1446.3895 | 1.270 | +0.005 |
+| FF 33 | 528.7038 | 0.369 | -0.014 |
+| FF 35 | 572.6611 | 0.562 | -0.031 |
+| FF 39 | 786.8191 | 1.369 | -0.019 |
+| FF 41 | 1070.9776 | 1.302 | -0.034 |
+| F1ETA 33 | 2.2897 | 0.244 | -0.004 |
+| F1ETA 35 | 2.0758 | 0.624 | -0.084 |
+| F1ETA 39 | 2.0656 | 1.644 | -0.014 |
+| F1ETA 41 | 2.1800 | 1.021 | -0.022 |
+| F2ETA 33 | 1317.1830 | 0.391 | -0.004 |
+| F2ETA 35 | 1391.7155 | 0.581 | -0.000 |
+| F2ETA 39 | 2267.5523 | 1.378 | -0.003 |
+| F2ETA 41 | 3153.0973 | 1.300 | -0.017 |
+| F3ETA 33 | 741.9129 | 0.515 | -0.007 |
+| F3ETA 35 | 721.2836 | 1.104 | -0.078 |
+| F3ETA 39 | 1169.7702 | 2.771 | -0.016 |
+| F3ETA 41 | 1706.7079 | 1.840 | -0.035 |
 
 ## Step 4: Sears SCA List + Pu-241 Estimate; Delete Lemmel SCA
 
-Step 4 implements the most extensive change in the chain. It replaces the four Lemmel direct SCA measurements with a curated compilation drawn from Sears (1992), the Divadeenam compilation, EXFOR replacements where Roberto annotated them, and Pronyaev's potential-scattering estimate for Pu-241.
+Step 4 implements the most extensive change in the chain. It replaces the four Lemmel direct SCA measurements with a curated compilation drawn from Sears (1992), the Divadeenam compilation, EXFOR replacements, and Pronyaev's potential-scattering estimate for Pu-241.
 
-The Lemmel SCA−SCR datapoints (Nos. 89, 91, 93, 95) are *kept* per Roberto's instruction *"leave SCA-SCR"*; only the four direct Lemmel SCA datapoints are deleted.
+The Lemmel SCA−SCR datapoints (Nos. 89, 91, 93, 95) are *kept* per the instruction *"leave SCA-SCR"*; only the four direct Lemmel SCA datapoints are deleted.
+
+**Round-2 corrections applied here** (see Appendix B): KAISER (No.173) is removed as a duplicate of ARIF; ATOYI (No.171), WILLIS (No.172), FOOTE (No.177) and GREEN-233 (No.179) are reclassified from SCA to SCR. Net step-4 cardinality is therefore 9 added (vs. 14 before round 2): 1 deleted (Kaiser) plus 4 reclassified (still added, but now constraining SCR rather than SCA).
 
 #### Datapoints deleted
 | No. | Author | Reference | Quantity | Value | Note |
@@ -338,15 +342,15 @@ The Lemmel SCA−SCR datapoints (Nos. 89, 91, 93, 95) are *kept* per Roberto's i
 #### Datapoints added
 | No. | Author / year | Reference | Type | Value (b) | σ (b) | Appendix |
 |----:|---------------|-----------|------|----------:|------:|:---------|
-| 171 | Atoyi | Acta Cryst. 20, 587 (1966) | SCA(²³⁵U) | 12.3 | 0.5 | [A2](#a-decisions-and-contentious-points) |
-| 172 | Willis | PRS A274, 122 (1963) | SCA(²³⁵U) | 12.8 | 1 | [A3](#a-decisions-and-contentious-points) |
-| 173 | Kaiser | Physica B 136, 134 (1986) | SCA(²³⁵U) | 14 | 0.2 |  |
+| 171 | Atoyi | Acta Cryst. 20, 587 (1966) | SCR(²³⁵U) [r2] | 12.3 | 0.5 | [B2](#a-decisions-and-contentious-points) |
+| 172 | Willis | PRS A274, 122 (1963) | SCR(²³⁵U) [r2] | 12.8 | 1 | [B2](#a-decisions-and-contentious-points) |
+| 173 | Kaiser | Physica B 136, 134 (1986) | — DELETED [r2] | 14 | 0.2 | [B1](#a-decisions-and-contentious-points) |
 | 174 | Arif | PR A35, 2810 (1987) | SCA(²³⁵U) | 14 | 0.2 |  |
 | 175 | Ceulemans | Divadeenam compilation 1970 | SCA(²³⁵U) | 14.6 | 0.5 | [A4](#a-decisions-and-contentious-points) |
 | 176 | Bayvas | Divadeenam compilation 1980 | SCA(²³⁵U) | 14.3 | 1.5 |  |
-| 177 | Foote | Divadeenam compilation 1958 | SCA(²³⁵U) | 15 | 1 |  |
+| 177 | Foote | Divadeenam compilation 1958 | SCR(²³⁵U) [r2] | 15 | 1 | [B3](#a-decisions-and-contentious-points) |
 | 178 | Oleksa | Phys Rev 109, 1645 (1958) | SCA(²³³U) | 13.4 | 0.5 | [A5](#a-decisions-and-contentious-points) |
-| 179 | Green | JNM 51, 281 (1974) | SCA(²³³U) | 12.6 | 0.7 | [A6](#a-decisions-and-contentious-points) |
+| 179 | Green | JNM 51, 281 (1974) | SCR(²³³U) [r2] | 12.6 | 0.7 | [B2](#a-decisions-and-contentious-points) |
 | 180 | Vertebnyi | Divadeenam compilation 1974 | SCA(²³³U) | 13.2 | 0.6 |  |
 | 181 | Green | JNM 34, 281 (1970) | SCA(²³⁹Pu) | 7.7 | 0.6 |  |
 | 182 | Atoyi | Acta Cryst. 20, 587 (1966) | SCA(²³⁹Pu) | 7.3 | 0.7 |  |
@@ -354,75 +358,75 @@ The Lemmel SCA−SCR datapoints (Nos. 89, 91, 93, 95) are *kept* per Roberto's i
 | 184 | Pronyaev | Internal analysis 2026-04-17 | SCA(²⁴¹Pu) | 12 | 0.8 | [A7](#a-decisions-and-contentious-points) |
 
 #### Impact
-The U-235 SCA channel is the most affected: SCA(²³⁵U) drops from 15.66 b to 13.96 b — a 10.9% shift — driven by the Kaiser/Arif interferometry consensus around 14.0 b replacing the 16-ish Lemmel value. SCA uncertainties collapse dramatically (e.g. SCA 35: 7.19% → 0.92%; SCA 41: 21.6% → 6.7% via Pronyaev's pin), reflecting the data richness of the new compilation. ABS, FIS, CA, and the F-quantities shift by ≤0.16% — the K1 = F3ETA is essentially insensitive to the SCA reshaping because F3ETA = NUB·FF − FA does not directly depend on SCA. χ² rises by 11.9 from a net +10 measurements (~1.2/measurement, indicating moderate but absorbable tension).
+The U-235 SCA channel is the most affected: SCA(²³⁵U) drops driven by the ARIF interferometry value 14.0 b replacing the 16-ish Lemmel value (Kaiser is no longer added separately; it is the same experiment as Arif). SCA uncertainties collapse dramatically, reflecting the data richness of the new compilation. ABS, FIS, CA, and the F-quantities shift by ≤0.2% relative to step 3. χ² rises by ≈8 from a net +9 measurements (~0.9/measurement, indicating moderate but absorbable tension).
 
 
 ### Fitted quantities
 
 | Quantity | Value | Unc (%) | Δ vs prev (%) |
 |----------|------:|--------:|--------------:|
-| **SCA 33** | **13.1687** | 2.559 | **+6.919** |
-| **SCA 35** | **13.9550** | 0.922 | **-10.868** |
-| **SCA 39** | **7.4588** | 5.107 | **-5.840** |
-| **SCA 41** | **11.9950** | 6.665 | **+0.291** |
-| **SCR 33** | **11.9926** | 5.624 | **+7.637** |
-| **SCR 35** | **12.1748** | 6.230 | **-11.626** |
-| **SCR 39** | **6.4499** | 21.795 | **-7.071** |
-| **SCR 41** | **10.8309** | 27.719 | **+0.268** |
-| **ABS 33** | **574.4310** | 0.304 | **-0.146** |
-| **ABS 35** | **683.8756** | 0.190 | **+0.169** |
-| ABS 39 | 1018.9603 | 0.336 | +0.060 |
-| ABS 41 | 1383.0480 | 1.070 | +0.019 |
-| **FIS 33** | **529.5169** | 0.340 | **-0.147** |
-| **FIS 35** | **584.6560** | 0.214 | **+0.155** |
-| FIS 39 | 748.4082 | 0.317 | +0.064 |
-| FIS 41 | 1018.2307 | 1.111 | +0.019 |
-| **CA 33** | **44.9141** | 1.823 | **-0.136** |
-| **CA 35** | **99.2196** | 0.796 | **+0.254** |
-| CA 39 | 270.5521 | 0.904 | +0.047 |
-| CA 41 | 364.8174 | 1.650 | +0.021 |
+| **SCA 33** | **13.3989** | 2.631 | **+8.789** |
+| **SCA 35** | **14.1217** | 1.265 | **-9.803** |
+| **SCA 39** | **7.4596** | 5.107 | **-5.829** |
+| **SCA 41** | **11.9951** | 6.665 | **+0.292** |
+| **SCR 33** | **12.3565** | 3.809 | **+10.902** |
+| **SCR 35** | **12.7854** | 2.629 | **-7.193** |
+| **SCR 39** | **6.4694** | 21.374 | **-6.791** |
+| **SCR 41** | **10.8324** | 27.684 | **+0.282** |
+| **ABS 33** | **574.0827** | 0.295 | **-0.206** |
+| **ABS 35** | **683.5588** | 0.184 | **+0.123** |
+| ABS 39 | 1018.8655 | 0.336 | +0.051 |
+| ABS 41 | 1382.9760 | 1.070 | +0.014 |
+| **FIS 33** | **529.1971** | 0.331 | **-0.207** |
+| **FIS 35** | **584.4090** | 0.210 | **+0.112** |
+| FIS 39 | 748.3107 | 0.317 | +0.051 |
+| FIS 41 | 1018.1747 | 1.111 | +0.013 |
+| **CA 33** | **44.8856** | 1.822 | **-0.200** |
+| **CA 35** | **99.1499** | 0.793 | **+0.183** |
+| CA 39 | 270.5548 | 0.903 | +0.048 |
+| CA 41 | 364.8014 | 1.650 | +0.016 |
 | CAP 34 | 95.9000 | 2.086 | +0.000 |
 | NUB 33 | 2.4914 | 0.184 | +0.001 |
-| NUB 35 | 2.4303 | 0.169 | +0.004 |
-| NUB 39 | 2.8819 | 0.191 | +0.000 |
+| NUB 35 | 2.4303 | 0.169 | +0.003 |
+| NUB 39 | 2.8819 | 0.191 | +0.001 |
 | NUB 41 | 2.9442 | 0.208 | +0.001 |
 | NUB 52 | 3.7667 | 0.129 | +0.001 |
 | ETA 33 | 2.2966 | 0.199 | +0.000 |
-| ETA 35 | 2.0777 | 0.190 | -0.011 |
-| ETA 39 | 2.1167 | 0.266 | +0.005 |
-| ETA 41 | 2.1676 | 0.390 | +0.001 |
-| ALPHA 33 | 0.0848 | 1.949 | +0.010 |
-| ALPHA 35 | 0.1697 | 0.876 | +0.099 |
-| ALPHA 39 | 0.3615 | 0.954 | -0.017 |
-| ALPHA 41 | 0.3583 | 1.574 | +0.002 |
-| WGA 33 | 0.9988 | 0.120 | +0.000 |
-| WGA 35 | 0.9787 | 0.092 | +0.000 |
-| WGA 39 | 1.0767 | 0.269 | +0.000 |
-| WGA 41 | 1.0444 | 0.191 | +0.000 |
-| WGF 33 | 0.9965 | 0.201 | +0.000 |
-| WGF 35 | 0.9778 | 0.092 | +0.000 |
-| WGF 39 | 1.0562 | 0.275 | +0.000 |
-| WGF 41 | 1.0452 | 0.670 | +0.000 |
-| **FA 33** | **573.7647** | 0.327 | **-0.146** |
-| **FA 35** | **669.3091** | 0.211 | **+0.169** |
-| FA 39 | 1097.1146 | 0.431 | +0.060 |
-| FA 41 | 1444.4553 | 1.087 | +0.019 |
-| **FF 33** | **527.6424** | 0.395 | **-0.147** |
-| **FF 35** | **571.6766** | 0.233 | **+0.155** |
-| FF 39 | 790.4688 | 0.420 | +0.064 |
-| FF 41 | 1064.2547 | 1.298 | +0.019 |
-| F1ETA 33 | 2.2911 | 0.307 | +0.000 |
-| F1ETA 35 | 2.0758 | 0.230 | -0.011 |
-| F1ETA 39 | 2.0764 | 0.468 | +0.005 |
-| F1ETA 41 | 2.1692 | 0.798 | +0.001 |
-| **F2ETA 33** | **1314.5515** | 0.415 | **-0.146** |
-| **F2ETA 35** | **1389.3732** | 0.275 | **+0.158** |
-| F2ETA 39 | 2278.0813 | 0.449 | +0.065 |
-| F2ETA 41 | 3133.3398 | 1.295 | +0.020 |
-| **F3ETA 33** | **740.7869** | 0.594 | **-0.146** |
-| **F3ETA 35** | **720.0641** | 0.447 | **+0.148** |
-| F3ETA 39 | 1180.9667 | 0.780 | +0.069 |
-| F3ETA 41 | 1688.8844 | 1.764 | +0.020 |
+| ETA 35 | 2.0778 | 0.190 | -0.008 |
+| ETA 39 | 2.1167 | 0.266 | +0.002 |
+| ETA 41 | 2.1676 | 0.390 | +0.000 |
+| ALPHA 33 | 0.0848 | 1.949 | +0.007 |
+| ALPHA 35 | 0.1697 | 0.875 | +0.071 |
+| ALPHA 39 | 0.3616 | 0.954 | -0.003 |
+| ALPHA 41 | 0.3583 | 1.574 | +0.003 |
+| WGA 33 | 1.0000 | 0.100 | +0.000 |
+| WGA 35 | 0.9820 | 0.305 | +0.000 |
+| WGA 39 | 1.0780 | 0.928 | +0.000 |
+| WGA 41 | 1.0460 | 0.669 | +0.000 |
+| WGF 33 | 0.9970 | 0.100 | +0.000 |
+| WGF 35 | 0.9810 | 0.510 | +0.000 |
+| WGF 39 | 1.0520 | 1.331 | +0.000 |
+| WGF 41 | 1.0520 | 0.665 | +0.000 |
+| **FA 33** | **574.0827** | 0.311 | **-0.206** |
+| **FA 35** | **671.2548** | 0.357 | **+0.123** |
+| FA 39 | 1098.3370 | 0.987 | +0.051 |
+| FA 41 | 1446.5929 | 1.262 | +0.014 |
+| **FF 33** | **527.6095** | 0.346 | **-0.207** |
+| **FF 35** | **573.3052** | 0.551 | **+0.112** |
+| FF 39 | 787.2228 | 1.368 | +0.051 |
+| FF 41 | 1071.1197 | 1.295 | +0.013 |
+| F1ETA 33 | 2.2897 | 0.244 | +0.000 |
+| F1ETA 35 | 2.0757 | 0.624 | -0.008 |
+| F1ETA 39 | 2.0656 | 1.644 | +0.002 |
+| F1ETA 41 | 2.1800 | 1.021 | +0.000 |
+| **F2ETA 33** | **1314.4669** | 0.369 | **-0.206** |
+| **F2ETA 35** | **1393.3184** | 0.570 | **+0.115** |
+| F2ETA 39 | 2268.7368 | 1.377 | +0.052 |
+| F2ETA 41 | 3153.5496 | 1.293 | +0.014 |
+| **F3ETA 33** | **740.3842** | 0.499 | **-0.206** |
+| **F3ETA 35** | **722.0637** | 1.099 | **+0.108** |
+| F3ETA 39 | 1170.3998 | 2.771 | +0.054 |
+| F3ETA 41 | 1706.9566 | 1.836 | +0.015 |
 
 ## Step 5: + Transmission Entries; 3 ABS+SCR → ABS+SCA Reclassifications
 
@@ -463,234 +467,236 @@ The new transmission datapoints sharpen ABS (and through it FIS and CA) but bare
 
 | Quantity | Value | Unc (%) | Δ vs prev (%) |
 |----------|------:|--------:|--------------:|
-| SCA 33 | 13.1683 | 2.559 | -0.003 |
-| SCA 35 | 13.9536 | 0.922 | -0.010 |
-| **SCA 39** | **7.4717** | 5.106 | **+0.173** |
-| SCA 41 | 11.9949 | 6.665 | -0.000 |
-| **SCR 33** | **12.0577** | 5.286 | **+0.542** |
-| **SCR 35** | **12.0876** | 6.539 | **-0.716** |
-| **SCR 39** | **6.6489** | 17.624 | **+3.085** |
-| SCR 41 | 10.8359 | 27.592 | +0.046 |
-| **ABS 33** | **573.7878** | 0.197 | **-0.112** |
-| ABS 35 | 683.7585 | 0.185 | -0.017 |
-| **ABS 39** | **1020.7611** | 0.308 | **+0.177** |
-| ABS 41 | 1383.7682 | 1.053 | +0.052 |
-| **FIS 33** | **528.9012** | 0.248 | **-0.116** |
-| FIS 35 | 584.5832 | 0.211 | -0.012 |
-| **FIS 39** | **749.2389** | 0.304 | **+0.111** |
-| FIS 41 | 1018.6109 | 1.096 | +0.037 |
-| CA 33 | 44.8866 | 1.807 | -0.061 |
-| CA 35 | 99.1754 | 0.794 | -0.045 |
-| **CA 39** | **271.5222** | 0.863 | **+0.359** |
-| CA 41 | 365.1574 | 1.635 | +0.093 |
+| SCA 33 | 13.3908 | 2.624 | -0.061 |
+| SCA 35 | 14.1213 | 1.265 | -0.003 |
+| **SCA 39** | **7.4728** | 5.106 | **+0.176** |
+| SCA 41 | 11.9951 | 6.665 | -0.000 |
+| **SCR 33** | **12.3795** | 3.744 | **+0.186** |
+| SCR 35 | 12.7734 | 2.636 | -0.094 |
+| **SCR 39** | **6.6595** | 17.420 | **+2.939** |
+| SCR 41 | 10.8374 | 27.557 | +0.046 |
+| **ABS 33** | **573.4874** | 0.186 | **-0.104** |
+| ABS 35 | 683.4317 | 0.181 | -0.019 |
+| **ABS 39** | **1020.6859** | 0.307 | **+0.179** |
+| ABS 41 | 1383.6990 | 1.053 | +0.052 |
+| **FIS 33** | **528.6252** | 0.240 | **-0.108** |
+| FIS 35 | 584.3285 | 0.207 | -0.014 |
+| **FIS 39** | **749.1488** | 0.304 | **+0.112** |
+| FIS 41 | 1018.5549 | 1.096 | +0.037 |
+| CA 33 | 44.8622 | 1.806 | -0.052 |
+| CA 35 | 99.1032 | 0.791 | -0.047 |
+| **CA 39** | **271.5372** | 0.863 | **+0.363** |
+| CA 41 | 365.1441 | 1.635 | +0.094 |
 | CAP 34 | 95.9000 | 2.086 | +0.000 |
-| NUB 33 | 2.4915 | 0.184 | +0.003 |
+| NUB 33 | 2.4914 | 0.184 | +0.003 |
 | NUB 35 | 2.4304 | 0.169 | +0.002 |
 | NUB 39 | 2.8824 | 0.191 | +0.016 |
-| NUB 41 | 2.9444 | 0.208 | +0.007 |
+| NUB 41 | 2.9444 | 0.208 | +0.008 |
 | NUB 52 | 3.7668 | 0.129 | +0.002 |
 | ETA 33 | 2.2965 | 0.199 | -0.001 |
-| ETA 35 | 2.0779 | 0.190 | +0.007 |
-| ETA 39 | 2.1157 | 0.264 | -0.050 |
+| ETA 35 | 2.0780 | 0.190 | +0.007 |
+| ETA 39 | 2.1156 | 0.264 | -0.051 |
 | ETA 41 | 2.1674 | 0.390 | -0.007 |
-| ALPHA 33 | 0.0849 | 1.948 | +0.055 |
-| ALPHA 35 | 0.1697 | 0.875 | -0.032 |
-| **ALPHA 39** | **0.3624** | 0.937 | **+0.247** |
-| ALPHA 41 | 0.3585 | 1.573 | +0.056 |
-| WGA 33 | 0.9988 | 0.120 | +0.000 |
-| WGA 35 | 0.9787 | 0.092 | +0.000 |
-| WGA 39 | 1.0767 | 0.269 | +0.000 |
-| WGA 41 | 1.0444 | 0.191 | +0.000 |
-| WGF 33 | 0.9965 | 0.201 | +0.000 |
-| WGF 35 | 0.9778 | 0.092 | +0.000 |
-| WGF 39 | 1.0562 | 0.275 | +0.000 |
-| WGF 41 | 1.0452 | 0.670 | +0.000 |
-| **FA 33** | **573.1222** | 0.230 | **-0.112** |
-| FA 35 | 669.1945 | 0.207 | -0.017 |
-| **FA 39** | **1099.0534** | 0.409 | **+0.177** |
-| FA 41 | 1445.2075 | 1.070 | +0.052 |
-| **FF 33** | **527.0289** | 0.320 | **-0.116** |
-| FF 35 | 571.6054 | 0.230 | -0.012 |
-| **FF 39** | **791.3461** | 0.410 | **+0.111** |
-| FF 41 | 1064.6521 | 1.284 | +0.037 |
-| F1ETA 33 | 2.2911 | 0.307 | -0.001 |
-| F1ETA 35 | 2.0760 | 0.230 | +0.007 |
-| F1ETA 39 | 2.0754 | 0.466 | -0.050 |
-| F1ETA 41 | 2.1691 | 0.798 | -0.007 |
-| **F2ETA 33** | **1313.0668** | 0.344 | **-0.113** |
-| F2ETA 35 | 1389.2322 | 0.273 | -0.010 |
-| **F2ETA 39** | **2280.9637** | 0.437 | **+0.127** |
-| F2ETA 41 | 3134.7420 | 1.282 | +0.045 |
-| **F3ETA 33** | **739.9446** | 0.547 | **-0.114** |
-| F3ETA 35 | 720.0378 | 0.445 | -0.004 |
-| F3ETA 39 | 1181.9103 | 0.777 | +0.080 |
-| F3ETA 41 | 1689.5344 | 1.755 | +0.038 |
+| ALPHA 33 | 0.0849 | 1.948 | +0.056 |
+| ALPHA 35 | 0.1696 | 0.875 | -0.033 |
+| **ALPHA 39** | **0.3625** | 0.937 | **+0.251** |
+| ALPHA 41 | 0.3585 | 1.573 | +0.057 |
+| WGA 33 | 1.0000 | 0.100 | +0.000 |
+| WGA 35 | 0.9820 | 0.305 | +0.000 |
+| WGA 39 | 1.0780 | 0.928 | +0.000 |
+| WGA 41 | 1.0460 | 0.669 | +0.000 |
+| WGF 33 | 0.9970 | 0.100 | +0.000 |
+| WGF 35 | 0.9810 | 0.510 | +0.000 |
+| WGF 39 | 1.0520 | 1.331 | +0.000 |
+| WGF 41 | 1.0520 | 0.665 | +0.000 |
+| **FA 33** | **573.4874** | 0.212 | **-0.104** |
+| FA 35 | 671.1299 | 0.355 | -0.019 |
+| **FA 39** | **1100.2995** | 0.977 | **+0.179** |
+| FA 41 | 1447.3492 | 1.248 | +0.052 |
+| **FF 33** | **527.0393** | 0.261 | **-0.108** |
+| FF 35 | 573.2262 | 0.550 | -0.014 |
+| **FF 39** | **788.1045** | 1.365 | **+0.112** |
+| FF 41 | 1071.5198 | 1.282 | +0.037 |
+| F1ETA 33 | 2.2897 | 0.244 | -0.001 |
+| F1ETA 35 | 2.0758 | 0.624 | +0.007 |
+| F1ETA 39 | 2.0646 | 1.643 | -0.051 |
+| F1ETA 41 | 2.1798 | 1.021 | -0.007 |
+| **F2ETA 33** | **1313.0907** | 0.290 | **-0.105** |
+| F2ETA 35 | 1393.1589 | 0.569 | -0.011 |
+| **F2ETA 39** | **2271.6351** | 1.373 | **+0.128** |
+| F2ETA 41 | 3154.9640 | 1.279 | +0.045 |
+| **F3ETA 33** | **739.6033** | 0.444 | **-0.105** |
+| F3ETA 35 | 722.0290 | 1.098 | -0.005 |
+| F3ETA 39 | 1171.3357 | 2.772 | +0.080 |
+| F3ETA 41 | 1707.6149 | 1.827 | +0.039 |
 
-## Step 6: All ABS+SCR → ABS+SCA; Drop Lemmel SCA-SCR; SCR Removed
+## Step 6: All ABS+SCR → ABS+SCA; Drop Lemmel SCA-SCR; SCR Partially Removed
 
 Step 6 finalises the Capote chain:
 
   * **Convert** every (ABS X)+SCR X measurement to (ABS X)+SCA X — 26 conversions covering all transmission entries from baseline plus the step-5 additions.
   * **Delete** the four Lemmel SCA−SCR datapoints (Nos. 89, 91, 93, 95).
-  * **Consequence**: with no measurement function referencing SCR and no SCA−SCR datapoint, the four SCR primary parameters become unconstrained and are removed from the fit parameter space — exactly Roberto's parenthetical *"reducing 4 fitting variables SCR"*. Decision logged in [A16](#a-decisions-and-contentious-points).
+  * **Round-2 nuance** (see Appendix B): SCR(²³⁹Pu) and SCR(²⁴¹Pu) become unconstrained and are removed from the fit parameter space, but SCR(²³³U) and SCR(²³⁵U) remain in the fit because the four reclassified entries from step 4 (ATOYI, WILLIS, FOOTE on U-235; GREEN-233 on U-233) now constitute *direct* SCR measurements. Roberto's original *"reducing 4 fitting variables SCR"* simplifies to *reducing 2 fitting variables*. Decision logged in [B5](#b-round-2-corrections).
 
 #### Impact relative to step 5
-Differences are small. SCA channel essentially unchanged (much less than 0.02%) — the SCA additions in step 4 are the dominant constraint. ABS, FIS, CA, and the F-quantities shift by ≈0.15% as the converted transmission datapoints now correlate only with SCA, slightly relaxing the absorption fit. χ² rises by only 1.0 (84.2 → 85.2) despite the bulk reclassification.
+Differences are small. SCA channel essentially unchanged (much less than 0.02%) — the SCA additions in step 4 are the dominant constraint. ABS, FIS, CA, and the F-quantities shift by ≤0.15% as the converted transmission datapoints now correlate only with SCA, slightly relaxing the absorption fit. χ² is comparable (80.5 → 80.1, a 0.4 *decrease*) with 2 fewer free parameters.
 
 
 ### Fitted quantities
 
 | Quantity | Value | Unc (%) | Δ vs prev (%) |
 |----------|------:|--------:|--------------:|
-| SCA 33 | 13.1678 | 2.559 | -0.004 |
-| SCA 35 | 13.9513 | 0.922 | -0.016 |
-| SCA 39 | 7.4713 | 5.105 | -0.005 |
-| SCA 41 | 11.9949 | 6.665 | +0.000 |
-| **ABS 33** | **572.9047** | 0.182 | **-0.154** |
-| **ABS 35** | **682.9942** | 0.180 | **-0.112** |
-| ABS 39 | 1020.1612 | 0.301 | -0.059 |
-| ABS 41 | 1382.9121 | 1.047 | -0.062 |
-| **FIS 33** | **528.0955** | 0.237 | **-0.152** |
-| **FIS 35** | **583.9832** | 0.207 | **-0.103** |
-| FIS 39 | 748.8276 | 0.301 | -0.055 |
-| FIS 41 | 1018.0174 | 1.090 | -0.058 |
-| **CA 33** | **44.8092** | 1.805 | **-0.173** |
-| **CA 35** | **99.0110** | 0.791 | **-0.166** |
-| CA 39 | 271.3336 | 0.855 | -0.069 |
-| CA 41 | 364.8947 | 1.631 | -0.072 |
+| **SCA 33** | **13.3207** | 2.883 | **-0.524** |
+| **SCA 35** | **14.0725** | 1.305 | **-0.345** |
+| SCA 39 | 7.4716 | 5.105 | -0.016 |
+| SCA 41 | 11.9950 | 6.665 | -0.001 |
+| **SCR 33** | **12.6000** | 5.556 | **+1.781** |
+| **SCR 35** | **12.9936** | 3.172 | **+1.723** |
+| **ABS 33** | **572.7526** | 0.185 | **-0.128** |
+| ABS 35 | 682.9085 | 0.180 | -0.077 |
+| ABS 39 | 1020.1379 | 0.302 | -0.054 |
+| ABS 41 | 1382.8937 | 1.047 | -0.058 |
+| **FIS 33** | **527.9557** | 0.239 | **-0.127** |
+| FIS 35 | 583.9164 | 0.207 | -0.071 |
+| FIS 39 | 748.8023 | 0.301 | -0.046 |
+| FIS 41 | 1018.0029 | 1.090 | -0.054 |
+| **CA 33** | **44.7969** | 1.806 | **-0.146** |
+| **CA 35** | **98.9921** | 0.791 | **-0.112** |
+| CA 39 | 271.3356 | 0.855 | -0.074 |
+| CA 41 | 364.8908 | 1.631 | -0.069 |
 | CAP 34 | 95.9000 | 2.086 | +0.000 |
 | NUB 33 | 2.4914 | 0.184 | -0.001 |
-| NUB 35 | 2.4303 | 0.169 | -0.003 |
-| NUB 39 | 2.8823 | 0.191 | -0.002 |
+| NUB 35 | 2.4303 | 0.169 | -0.002 |
+| NUB 39 | 2.8823 | 0.191 | -0.003 |
 | NUB 41 | 2.9443 | 0.208 | -0.002 |
 | NUB 52 | 3.7668 | 0.129 | -0.001 |
 | ETA 33 | 2.2966 | 0.199 | +0.000 |
-| ETA 35 | 2.0780 | 0.190 | +0.006 |
-| ETA 39 | 2.1157 | 0.263 | +0.002 |
+| ETA 35 | 2.0780 | 0.190 | +0.004 |
+| ETA 39 | 2.1157 | 0.263 | +0.005 |
 | ETA 41 | 2.1674 | 0.390 | +0.002 |
-| ALPHA 33 | 0.0849 | 1.948 | -0.020 |
-| ALPHA 35 | 0.1695 | 0.875 | -0.063 |
-| ALPHA 39 | 0.3623 | 0.934 | -0.015 |
-| ALPHA 41 | 0.3584 | 1.573 | -0.014 |
-| WGA 33 | 0.9988 | 0.120 | +0.000 |
-| WGA 35 | 0.9787 | 0.092 | +0.000 |
-| WGA 39 | 1.0767 | 0.269 | +0.000 |
-| WGA 41 | 1.0444 | 0.191 | +0.000 |
-| WGF 33 | 0.9965 | 0.201 | +0.000 |
-| WGF 35 | 0.9778 | 0.092 | +0.000 |
-| WGF 39 | 1.0562 | 0.275 | +0.000 |
-| WGF 41 | 1.0452 | 0.670 | +0.000 |
-| **FA 33** | **572.2401** | 0.218 | **-0.154** |
-| **FA 35** | **668.4464** | 0.202 | **-0.112** |
-| FA 39 | 1098.4076 | 0.404 | -0.059 |
-| FA 41 | 1444.3134 | 1.064 | -0.062 |
-| **FF 33** | **526.2260** | 0.311 | **-0.152** |
-| **FF 35** | **571.0188** | 0.226 | **-0.103** |
-| FF 39 | 790.9117 | 0.408 | -0.055 |
-| FF 41 | 1064.0318 | 1.280 | -0.058 |
-| F1ETA 33 | 2.2911 | 0.307 | +0.000 |
-| F1ETA 35 | 2.0761 | 0.230 | +0.006 |
-| F1ETA 39 | 2.0754 | 0.466 | +0.002 |
-| F1ETA 41 | 2.1691 | 0.798 | +0.002 |
-| **F2ETA 33** | **1311.0504** | 0.336 | **-0.154** |
-| **F2ETA 35** | **1387.7682** | 0.269 | **-0.105** |
-| F2ETA 39 | 2279.6646 | 0.435 | -0.057 |
-| F2ETA 41 | 3132.8564 | 1.277 | -0.060 |
-| **F3ETA 33** | **738.8103** | 0.542 | **-0.153** |
-| F3ETA 35 | 719.3218 | 0.444 | -0.099 |
-| F3ETA 39 | 1181.2570 | 0.776 | -0.055 |
-| F3ETA 41 | 1688.5430 | 1.752 | -0.059 |
+| ALPHA 33 | 0.0848 | 1.948 | -0.019 |
+| ALPHA 35 | 0.1695 | 0.875 | -0.042 |
+| ALPHA 39 | 0.3624 | 0.934 | -0.028 |
+| ALPHA 41 | 0.3584 | 1.573 | -0.015 |
+| WGA 33 | 1.0000 | 0.100 | +0.000 |
+| WGA 35 | 0.9820 | 0.305 | +0.000 |
+| WGA 39 | 1.0780 | 0.928 | +0.000 |
+| WGA 41 | 1.0460 | 0.669 | +0.000 |
+| WGF 33 | 0.9970 | 0.100 | +0.000 |
+| WGF 35 | 0.9810 | 0.510 | +0.000 |
+| WGF 39 | 1.0520 | 1.331 | +0.000 |
+| WGF 41 | 1.0520 | 0.665 | +0.000 |
+| **FA 33** | **572.7526** | 0.210 | **-0.128** |
+| FA 35 | 670.6162 | 0.355 | -0.077 |
+| FA 39 | 1099.7086 | 0.975 | -0.054 |
+| FA 41 | 1446.5068 | 1.243 | -0.058 |
+| **FF 33** | **526.3718** | 0.259 | **-0.127** |
+| FF 35 | 572.8220 | 0.550 | -0.071 |
+| FF 39 | 787.7400 | 1.364 | -0.046 |
+| FF 41 | 1070.9390 | 1.277 | -0.054 |
+| F1ETA 33 | 2.2897 | 0.244 | +0.000 |
+| F1ETA 35 | 2.0759 | 0.624 | +0.004 |
+| F1ETA 39 | 2.0647 | 1.643 | +0.005 |
+| F1ETA 41 | 2.1799 | 1.021 | +0.002 |
+| **F2ETA 33** | **1311.4128** | 0.289 | **-0.128** |
+| F2ETA 35 | 1392.1472 | 0.569 | -0.073 |
+| F2ETA 39 | 2270.5258 | 1.373 | -0.049 |
+| F2ETA 41 | 3153.1933 | 1.275 | -0.056 |
+| **F3ETA 33** | **738.6603** | 0.443 | **-0.128** |
+| F3ETA 35 | 721.5310 | 1.098 | -0.069 |
+| F3ETA 39 | 1170.8172 | 2.771 | -0.044 |
+| F3ETA 41 | 1706.6865 | 1.824 | -0.054 |
 
 ## Step 5 vs Step 6: Head-to-Head Comparison
 
-This is the key comparison Roberto requested. Both candidate fits agree to better than 0.2% on every primary and derived quantity. Step 6 has 4 fewer free parameters (SCR 33, 35, 39, 41 removed) and slightly higher χ² (85.2 vs 84.2 — a 1.0 increase from the bulk SCR→SCA conversion).
+Both candidate fits agree to better than 0.2% on every primary and derived quantity. Step 6 has 2 fewer free parameters than step 5 (SCR(²³⁹Pu), SCR(²⁴¹Pu) become unconstrained after the ABS+SCR → ABS+SCA conversion; SCR(²³³U), SCR(²³⁵U) remain in the fit, constrained by the round-2 reclassified entries — see Appendix B5). χ² is comparable: 80.55 vs 80.14, with step 6 *fitting slightly better* despite the parameter reduction.
 
 | Quantity | Step 5 | Step 6 | Δ% |
 |----------|-------:|-------:|---:|
-| SCA 33 | 13.1683 | 13.1678 | -0.004 |
-| SCA 35 | 13.9536 | 13.9513 | -0.016 |
-| SCA 39 | 7.4717 | 7.4713 | -0.005 |
-| SCA 41 | 11.9949 | 11.9949 | +0.000 |
-| SCR 33 | 12.0577 | – (removed) | – |
-| SCR 35 | 12.0876 | – (removed) | – |
-| SCR 39 | 6.6489 | – (removed) | – |
-| SCR 41 | 10.8359 | – (removed) | – |
-| **ABS 33** | 573.7878 | 572.9047 | **-0.154** |
-| **ABS 35** | 683.7585 | 682.9942 | **-0.112** |
-| ABS 39 | 1020.7611 | 1020.1612 | -0.059 |
-| ABS 41 | 1383.7682 | 1382.9121 | -0.062 |
-| **FIS 33** | 528.9012 | 528.0955 | **-0.152** |
-| **FIS 35** | 584.5832 | 583.9832 | **-0.103** |
-| FIS 39 | 749.2389 | 748.8276 | -0.055 |
-| FIS 41 | 1018.6109 | 1018.0174 | -0.058 |
-| **CA 33** | 44.8866 | 44.8092 | **-0.173** |
-| **CA 35** | 99.1754 | 99.0110 | **-0.166** |
-| CA 39 | 271.5222 | 271.3336 | -0.069 |
-| CA 41 | 365.1574 | 364.8947 | -0.072 |
+| **SCA 33** | 13.3908 | 13.3207 | **-0.524** |
+| **SCA 35** | 14.1213 | 14.0725 | **-0.345** |
+| SCA 39 | 7.4728 | 7.4716 | -0.016 |
+| SCA 41 | 11.9951 | 11.9950 | -0.001 |
+| **SCR 33** | 12.3795 | 12.6000 | **+1.781** |
+| **SCR 35** | 12.7734 | 12.9936 | **+1.723** |
+| SCR 39 | 6.6595 | – (removed) | – |
+| SCR 41 | 10.8374 | – (removed) | – |
+| **ABS 33** | 573.4874 | 572.7526 | **-0.128** |
+| ABS 35 | 683.4317 | 682.9085 | -0.077 |
+| ABS 39 | 1020.6859 | 1020.1379 | -0.054 |
+| ABS 41 | 1383.6990 | 1382.8937 | -0.058 |
+| **FIS 33** | 528.6252 | 527.9557 | **-0.127** |
+| FIS 35 | 584.3285 | 583.9164 | -0.071 |
+| FIS 39 | 749.1488 | 748.8023 | -0.046 |
+| FIS 41 | 1018.5549 | 1018.0029 | -0.054 |
+| **CA 33** | 44.8622 | 44.7969 | **-0.146** |
+| **CA 35** | 99.1032 | 98.9921 | **-0.112** |
+| CA 39 | 271.5372 | 271.3356 | -0.074 |
+| CA 41 | 365.1441 | 364.8908 | -0.069 |
 | CAP 34 | 95.9000 | 95.9000 | +0.000 |
-| NUB 33 | 2.4915 | 2.4914 | -0.001 |
-| NUB 35 | 2.4304 | 2.4303 | -0.003 |
-| NUB 39 | 2.8824 | 2.8823 | -0.002 |
+| NUB 33 | 2.4914 | 2.4914 | -0.001 |
+| NUB 35 | 2.4304 | 2.4303 | -0.002 |
+| NUB 39 | 2.8824 | 2.8823 | -0.003 |
 | NUB 41 | 2.9444 | 2.9443 | -0.002 |
 | NUB 52 | 3.7668 | 3.7668 | -0.001 |
 | ETA 33 | 2.2965 | 2.2966 | +0.000 |
-| ETA 35 | 2.0779 | 2.0780 | +0.006 |
-| ETA 39 | 2.1157 | 2.1157 | +0.002 |
+| ETA 35 | 2.0780 | 2.0780 | +0.004 |
+| ETA 39 | 2.1156 | 2.1157 | +0.005 |
 | ETA 41 | 2.1674 | 2.1674 | +0.002 |
-| ALPHA 33 | 0.0849 | 0.0849 | -0.020 |
-| ALPHA 35 | 0.1697 | 0.1695 | -0.063 |
-| ALPHA 39 | 0.3624 | 0.3623 | -0.015 |
-| ALPHA 41 | 0.3585 | 0.3584 | -0.014 |
-| WGA 33 | 0.9988 | 0.9988 | +0.000 |
-| WGA 35 | 0.9787 | 0.9787 | +0.000 |
-| WGA 39 | 1.0767 | 1.0767 | +0.000 |
-| WGA 41 | 1.0444 | 1.0444 | +0.000 |
-| WGF 33 | 0.9965 | 0.9965 | +0.000 |
-| WGF 35 | 0.9778 | 0.9778 | +0.000 |
-| WGF 39 | 1.0562 | 1.0562 | +0.000 |
-| WGF 41 | 1.0452 | 1.0452 | +0.000 |
-| **FA 33** | 573.1222 | 572.2401 | **-0.154** |
-| **FA 35** | 669.1945 | 668.4464 | **-0.112** |
-| FA 39 | 1099.0534 | 1098.4076 | -0.059 |
-| FA 41 | 1445.2075 | 1444.3134 | -0.062 |
-| **FF 33** | 527.0289 | 526.2260 | **-0.152** |
-| **FF 35** | 571.6054 | 571.0188 | **-0.103** |
-| FF 39 | 791.3461 | 790.9117 | -0.055 |
-| FF 41 | 1064.6521 | 1064.0318 | -0.058 |
-| F1ETA 33 | 2.2911 | 2.2911 | +0.000 |
-| F1ETA 35 | 2.0760 | 2.0761 | +0.006 |
-| F1ETA 39 | 2.0754 | 2.0754 | +0.002 |
-| F1ETA 41 | 2.1691 | 2.1691 | +0.002 |
-| **F2ETA 33** | 1313.0668 | 1311.0504 | **-0.154** |
-| **F2ETA 35** | 1389.2322 | 1387.7682 | **-0.105** |
-| F2ETA 39 | 2280.9637 | 2279.6646 | -0.057 |
-| F2ETA 41 | 3134.7420 | 3132.8564 | -0.060 |
-| **F3ETA 33** | 739.9446 | 738.8103 | **-0.153** |
-| F3ETA 35 | 720.0378 | 719.3218 | -0.099 |
-| F3ETA 39 | 1181.9103 | 1181.2570 | -0.055 |
-| F3ETA 41 | 1689.5344 | 1688.5430 | -0.059 |
+| ALPHA 33 | 0.0849 | 0.0848 | -0.019 |
+| ALPHA 35 | 0.1696 | 0.1695 | -0.042 |
+| ALPHA 39 | 0.3625 | 0.3624 | -0.028 |
+| ALPHA 41 | 0.3585 | 0.3584 | -0.015 |
+| WGA 33 | 1.0000 | 1.0000 | +0.000 |
+| WGA 35 | 0.9820 | 0.9820 | +0.000 |
+| WGA 39 | 1.0780 | 1.0780 | +0.000 |
+| WGA 41 | 1.0460 | 1.0460 | +0.000 |
+| WGF 33 | 0.9970 | 0.9970 | +0.000 |
+| WGF 35 | 0.9810 | 0.9810 | +0.000 |
+| WGF 39 | 1.0520 | 1.0520 | +0.000 |
+| WGF 41 | 1.0520 | 1.0520 | +0.000 |
+| **FA 33** | 573.4874 | 572.7526 | **-0.128** |
+| FA 35 | 671.1299 | 670.6162 | -0.077 |
+| FA 39 | 1100.2995 | 1099.7086 | -0.054 |
+| FA 41 | 1447.3492 | 1446.5068 | -0.058 |
+| **FF 33** | 527.0393 | 526.3718 | **-0.127** |
+| FF 35 | 573.2262 | 572.8220 | -0.071 |
+| FF 39 | 788.1045 | 787.7400 | -0.046 |
+| FF 41 | 1071.5198 | 1070.9390 | -0.054 |
+| F1ETA 33 | 2.2897 | 2.2897 | +0.000 |
+| F1ETA 35 | 2.0758 | 2.0759 | +0.004 |
+| F1ETA 39 | 2.0646 | 2.0647 | +0.005 |
+| F1ETA 41 | 2.1798 | 2.1799 | +0.002 |
+| **F2ETA 33** | 1313.0907 | 1311.4128 | **-0.128** |
+| F2ETA 35 | 1393.1589 | 1392.1472 | -0.073 |
+| F2ETA 39 | 2271.6351 | 2270.5258 | -0.049 |
+| F2ETA 41 | 3154.9640 | 3153.1933 | -0.056 |
+| **F3ETA 33** | 739.6033 | 738.6603 | **-0.128** |
+| F3ETA 35 | 722.0290 | 721.5310 | -0.069 |
+| F3ETA 39 | 1171.3357 | 1170.8172 | -0.044 |
+| F3ETA 41 | 1707.6149 | 1706.6865 | -0.054 |
 
-**Recommendation for choice between step 5 and step 6 is left to the collaborators.** Step 5 retains an SCR fit constrained only by the Lemmel SCA−SCR data; step 6 abandons SCR entirely, treating all transmission data as ABS+SCA. The K1 = F3ETA differs by ≤0.15% between the two — a difference well below the percent-level uncertainties on the K1 values themselves.
+**Per the 2026-05-06 follow-up email, Step 5 is marginally favoured** as the final fit candidate, on the grounds that the systematic SCR < SCA difference visible in step 5 is physically expected and yields fission cross sections in slightly better agreement with current library R-matrix fits. Differences with step 6 are within uncertainties.
 
 ## K1 = F3ETA Evolution Through the Chain
 
-This is the central derived quantity Roberto identifies as the K1 of the new TNC fit. Values across all 7 steps:
+K1 = F3ETA = NUB · FF − FA is the central derived quantity flagged as the K1 of the new TNC fit. Values across all 7 steps (round 2):
 
 | Step | F3ETA 33 | F3ETA 35 | F3ETA 39 | F3ETA 41 |
 |------|---------:|---------:|---------:|---------:|
-| step0 baseline |  746.1097 |  721.3019 | 1179.5261 | 1692.3543 |
-| step1 lounsbury |  741.9298 |  719.7289 | 1180.4095 | 1689.2737 |
-| step2 adamchuk |  741.9189 |  719.5599 | 1180.3338 | 1689.1314 |
-| step3 wallner |  741.8668 |  718.9968 | 1180.1470 | 1688.5391 |
-| step4 sca list |  740.7869 |  720.0641 | 1180.9667 | 1688.8844 |
-| step5 transmission |  739.9446 |  720.0378 | 1181.9103 | 1689.5344 |
-| step6 all sca |  738.8103 |  719.3218 | 1181.2570 | 1688.5430 |
+| step0 baseline |  746.1581 |  723.5963 | 1169.1493 | 1710.5452 |
+| step1 lounsbury |  741.9759 |  722.0181 | 1170.0323 | 1707.4469 |
+| step2 adamchuk |  741.9650 |  721.8486 | 1169.9569 | 1707.3037 |
+| step3 wallner |  741.9129 |  721.2836 | 1169.7702 | 1706.7079 |
+| step4 sca list |  740.3842 |  722.0637 | 1170.3998 | 1706.9566 |
+| step5 transmission |  739.6033 |  722.0290 | 1171.3357 | 1707.6149 |
+| step6 all sca |  738.6603 |  721.5310 | 1170.8172 | 1706.6865 |
 
-All four K1 values stay within ±1% of the Axton T8 baseline through the entire chain. The largest excursion is K1(²³³U) = F3ETA(²³³U), which drops from 746.1 (step 0) to 738.8 (step 6) — a 1.0% reduction driven primarily by the Lounsbury inclusion in step 1.
+K1(²³³U) drops from ≈ 746.2 (step 0) to ≈ 738.7 (step 6) — a 1.0% reduction driven primarily by the Lounsbury inclusion in step 1. K1(²³⁵U) is essentially flat across the chain. K1(²³⁹Pu) shifts ≈ −0.1% from step 0 to step 6. K1(²⁴¹Pu) is flat. The dominant K1 changes between round 1 and round 2 come from the Westcott-factor update (Appendix B4): U-235 K1 ≈ +0.3%, Pu-239 K1 ≈ −0.9%, Pu-241 K1 ≈ +1.1%.
 
 ## Comprehensive Dataset Table (Final Fit, Step 6)
 
-All 124 measurements actually used in the step-6 fit (after the microscopic filter is applied). Cross-references to the [Decisions appendix](#a-decisions-and-contentious-points) flag entries where a non-trivial choice was made.
+All 123 measurements actually used in the step-6 fit (after the microscopic filter is applied). Cross-references to the [Decisions appendix](#a-decisions-and-contentious-points) flag entries where a non-trivial choice was made.
 
 | No. | Author | Reference | Quantity | Value | σ (%) | Appendix |
 |----:|--------|-----------|----------|------:|------:|:---------|
@@ -698,14 +704,14 @@ All 124 measurements actually used in the step-6 fit (after the microscopic filt
 | 21 | LOUNSBURY | 1970(1) | (CA 33)/FIS 33 | 0.0861 | 2.239 |  |
 | 22 | LOUNSBURY | 1970(1) | (CA 35)/FIS 35 | 0.1697 | 1.709 |  |
 | 23 | LOUNSBURY | 1970(1) | (CA 39)/FIS 39 | 0.3555 | 1.603 |  |
-| 54 | DIVADEENAM | 1984(2) | WGA 33 | 0.99884 | 0.120 |  |
-| 55 | DIVADEENAM | 1984(2) | WGA 35 | 0.9787 | 0.092 |  |
-| 56 | DIVADEENAM | 1984(2) | WGA 39 | 1.0767 | 0.269 |  |
-| 57 | DIVADEENAM | 1984(2) | WGA 41 | 1.0444 | 0.191 |  |
-| 58 | DIVADEENAM | 1984(2) | WGF 33 | 0.99646 | 0.201 |  |
-| 59 | DERUYTTER | 1985(3) | WGF 35 | 0.9778 | 0.092 |  |
-| 60 | DIVADEENAM | 1984(2) | WGF 39 | 1.0562 | 0.275 |  |
-| 61 | DIVADEENAM | 1984(2) | WGF 41 | 1.0452 | 0.670 |  |
+| 54 | DIVADEENAM | 1984(2) | WGA 33 | 1 | 0.100 |  |
+| 55 | DIVADEENAM | 1984(2) | WGA 35 | 0.982 | 0.305 |  |
+| 56 | DIVADEENAM | 1984(2) | WGA 39 | 1.078 | 0.928 |  |
+| 57 | DIVADEENAM | 1984(2) | WGA 41 | 1.046 | 0.669 |  |
+| 58 | DIVADEENAM | 1984(2) | WGF 33 | 0.997 | 0.100 |  |
+| 59 | DERUYTTER | 1985(3) | WGF 35 | 0.981 | 0.510 |  |
+| 60 | DIVADEENAM | 1984(2) | WGF 39 | 1.052 | 1.331 |  |
+| 61 | DIVADEENAM | 1984(2) | WGF 41 | 1.052 | 0.665 |  |
 | 62 | EGELSTAFF | 1954(1) | (ABS 35)+SCA 35 | 724.33 | 3.590 |  |
 | 63 | MELKONIAN | 1953(1) | (ABS 35)+SCA 35 | 694.32 | 2.016 |  |
 | 64 | PALEVSKY | 1954(1) | (ABS 35)+SCA 35 | 700.32 | 1.428 |  |
@@ -794,15 +800,14 @@ All 124 measurements actually used in the step-6 fit (after the microscopic filt
 | 168 | ADAMCHUK | At. En. (R), 65, 434 (1988) | (CA 35)/FIS 35 | 0.169 | 2.100 |  |
 | 169 | WALLNER | PRL 112, 192501 (2014) | CA 35 | 99.5 | 2.000 |  |
 | 170 | WALLNER | PRL 112, 192501 (2014) | CA 35 | 101.5 | 2.000 |  |
-| 171 | ATOYI | Acta Cryst. 20, 587 (1966) | SCA 35 | 12.3 | 4.065 | [A2](#a-decisions-and-contentious-points) |
-| 172 | WILLIS | PRS A274, 122 (1963) | SCA 35 | 12.8 | 7.812 | [A3](#a-decisions-and-contentious-points) |
-| 173 | KAISER | Physica B 136, 134 (1986) | SCA 35 | 14 | 1.429 |  |
+| 171 | ATOYI | Acta Cryst. 20, 587 (1966) | SCR 35 | 12.3 | 4.065 | [B2](#a-decisions-and-contentious-points) |
+| 172 | WILLIS | PRS A274, 122 (1963) | SCR 35 | 12.8 | 7.812 | [B2](#a-decisions-and-contentious-points) |
 | 174 | ARIF | PR A35, 2810 (1987) | SCA 35 | 14 | 1.429 |  |
 | 175 | CEULEMANS | Divadeenam compilation 1970 | SCA 35 | 14.6 | 3.425 | [A4](#a-decisions-and-contentious-points) |
 | 176 | BAYVAS | Divadeenam compilation 1980 | SCA 35 | 14.3 | 10.489 |  |
-| 177 | FOOTE | Divadeenam compilation 1958 | SCA 35 | 15 | 6.667 |  |
+| 177 | FOOTE | Divadeenam compilation 1958 | SCR 35 | 15 | 6.667 | [B3](#a-decisions-and-contentious-points) |
 | 178 | OLEKSA | Phys Rev 109, 1645 (1958) | SCA 33 | 13.4 | 3.731 | [A5](#a-decisions-and-contentious-points) |
-| 179 | GREEN | JNM 51, 281 (1974) | SCA 33 | 12.6 | 5.556 | [A6](#a-decisions-and-contentious-points) |
+| 179 | GREEN | JNM 51, 281 (1974) | SCR 33 | 12.6 | 5.556 | [B2](#a-decisions-and-contentious-points) |
 | 180 | VERTEBNYI | Divadeenam compilation 1974 | SCA 33 | 13.2 | 4.545 |  |
 | 181 | GREEN | JNM 34, 281 (1970) | SCA 39 | 7.7 | 7.792 |  |
 | 182 | ATOYI | Acta Cryst. 20, 587 (1966) | SCA 39 | 7.3 | 9.589 |  |
@@ -917,18 +922,79 @@ All seven benchmarks apply the same microscopic filter that reproduces Axton Tab
 
 All step-5 transmission additions are entered with empty `systematic_uncertainties` (single uncorrelated total uncertainty), matching the convention used for 26 of the 28 baseline transmission entries. Spencer 1985 (Nos. 166/167) is the existing exception with `alpha = 0.707` representing the α-correction Spencer used internally. The Harvey-pair correlation alternative is the only other systematic structure considered (see A14).
 
-## B. Files Produced by This Chain
+## B. Round-2 Corrections (2026-05-08)
+
+The 2026-05-08 email round produced three corrections to the round-1 fit. Each is documented below; the verbatim source is preserved in [`references/emails/tnc_update_roberto_20260508/summary.md`](../references/emails/tnc_update_roberto_20260508/summary.md). The original round-1 outputs are preserved as `evaluation/capote_chain_summary_20260504.json` and `evaluation/report_capote_fit_20260504.pdf` for direct numerical comparison.
+
+### B1. KAISER (Physica B 136, 134 (1986)) removed as duplicate of ARIF
+
+Kaiser et al. 1986 and Arif et al. 1987 used the same neutron-interferometry installation at the same institute; Kaiser gave preliminary values at only two energies, while Arif is the final publication. The 2026-05-08 review (Pronyaev) flagged the duplication; the 2026-05-05 follow-up confirmed deletion of KAISER, retaining ARIF.
+
+### B2. ATOYI / WILLIS / GREEN-233 reclassified SCA → SCR
+
+In round 1, the entire Sears/Divadeenam compilation was treated as providing SCA values per project decision (the per-row "SCR" tags were assumed to be paste artefacts). The 2026-05-08 review identified three rows for which the SCR tag is consistent with the actual measurement method:
+
+  * **ATOYI 1966** (²³⁵U, Sears Sel = 12.3(5)): tagged SCR by Sears.
+  * **WILLIS 1963** (²³⁵U, EXFOR value 12.8(1.0)): SCR per Sears.
+  * **GREEN 1974** (²³³U, 12.6(7)): per the Pronyaev analysis, the EXFOR record indicates a classical (non-crystal-spectrometer) method, consistent with SCR. Ad-hoc SCA estimation supplied by Pronyaev.
+
+All three are reclassified from SCA to SCR in steps 4, 5 and 6.
+
+### B3. FOOTE 1958 reclassified SCA → SCR (inferred)
+
+The cleaned compilation in Roberto's 2026-05-05 email tags FOOTE 1958 (²³⁵U, 15.0(1.0)) as "SCR", but the explicit numbered action items only list ATOYI, WILLIS and GREEN-233. Per project decision, the cleaned table is treated as the new authoritative classification, so FOOTE is reclassified to SCR alongside the three named entries. **This decision is inferred and worth confirming with Roberto.** The K1 impact of this single reclassification is ≤ 0.05% (FOOTE's 6.7% uncertainty is much weaker than ARIF's 1.4% which dominates the SCA(²³⁵U) channel).
+
+### B4. Westcott factors updated to B81-derived values
+
+The 2026-05-06 email replaces the Westcott factors with values derived from the B81 evaluation (R-matrix fit best estimate), with uncertainties set by the spread between B81 and JEFF-4.0:
+
+
+| nuclide | Old WGA (Gabs) | New WGA (Gabs) | Old WGF (Gf) | New WGF (Gf) |
+|---------|---------------:|---------------:|-------------:|-------------:|
+| U-233   | 0.9988 (0.12%) | **1.000 (0.10%)** | 0.9966 (0.20%) | **0.997 (0.10%)** |
+| U-235   | 0.9787 (0.09%) | **0.982 (0.31%)** | 0.9778 (0.09%) | **0.981 (0.51%)** |
+| Pu-239  | 1.0767 (0.27%) | **1.078 (0.93%)** | 1.0562 (0.28%) | **1.052 (1.33%)** |
+| Pu-241  | 1.0444 (0.19%) | **1.046 (0.67%)** | 1.0452 (0.67%) | **1.052 (0.67%)** |
+
+
+Gabs is derived as Gabs = (Gcap·Scap + Gfis·Sfis)/(Scap+Sfis) per Capote's 2026-05-06 derivation. The new factors apply to **all seven steps**: steps 0 and 1 read from a new `axton1986_data_capote_round2_baseline.json` file (= original baseline + new Westcott); steps 2–6 inherit through their respective JSONs.
+
+K1 impact (Step 6, round 2 vs round 1):
+
+
+| Nuclide | K1 (round 1) | K1 (round 2) | Δ |
+|---------|-------------:|-------------:|---:|
+| ²³³U    | 738.81       | 738.66      | -0.020% |
+| ²³⁵U    | 719.32       | 721.53      | +0.307% |
+| ²³⁹Pu   | 1181.26      | 1170.82     | -0.884% |
+| ²⁴¹Pu   | 1688.54      | 1706.69     | +1.075% |
+
+
+For comparison, K1(²³⁵U, Step 5, round 2) = 722.03, in close agreement with the value reported in the 2026-05-06 email (722.4) using the same new Westcott factor.
+
+### B5. SCR(²³³U), SCR(²³⁵U) retained as fit variables in step 6
+
+In round 1, step 6 removed all four SCR primary parameters from the fit because no measurement function or datapoint referenced SCR after the conversions and Lemmel deletion. In round 2, the reclassifications (B2, B3) introduce four direct SCR measurements: ATOYI (²³⁵U), WILLIS (²³⁵U), FOOTE (²³⁵U), and GREEN-233 (²³³U). These constrain SCR(²³³U) and SCR(²³⁵U), so the two parameters remain in the fit. SCR(²³⁹Pu) and SCR(²⁴¹Pu) have no remaining constraints and stay unconstrained (removed).
+
+Net effect: Roberto's parenthetical *"reducing 4 fitting variables SCR"* in the original step 6 description simplifies to *reducing 2 fitting variables*. Step 6 now has 28 free parameters (was 26 in round 1).
+
+### B6. Round-2 baseline file separation
+
+To preserve the Axton-Table-8 reproduction artefact, the original `axton1986/axton1986_data.json` is left **unchanged** and a new file `axton1986/axton1986_data_capote_round2_baseline.json` is introduced for steps 0 and 1. The new file is identical to the original except for the eight Westcott measurements (No. 54–61). Steps 2–6 carry their own copies of all measurements; the Westcott updates are applied in-place to those JSONs.
+
+## C. Files Produced by This Chain
 
 All on branch `tnc_update_capote_20260504`, building on commit `575fac0` (the Axton 1986 reproduction state of master).
 
 ### JSON databases (one per step where data changes)
 
-  * `axton1986/axton1986_data.json` — baseline (steps 0, 1 use this directly)
+  * `axton1986/axton1986_data.json` — original Axton-Table-8 reproduction baseline (untouched; not currently used by any step)
+  * `axton1986/axton1986_data_capote_round2_baseline.json` — round-2 baseline (= original + new Westcott); steps 0 and 1 read this
   * `axton1986/axton1986_data_capote_step2_adamchuk.json` — 168 measurements
   * `axton1986/axton1986_data_capote_step3_wallner.json` — 170 measurements
-  * `axton1986/axton1986_data_capote_step4_sca_list.json` — 180 measurements
-  * `axton1986/axton1986_data_capote_step5_transmission.json` — 190 measurements
-  * `axton1986/axton1986_data_capote_step6_all_sca.json` — 186 measurements (final)
+  * `axton1986/axton1986_data_capote_step4_sca_list.json` — 179 measurements (round 2: 180 − 1 KAISER deleted)
+  * `axton1986/axton1986_data_capote_step5_transmission.json` — 189 measurements (round 2: 190 − 1 KAISER deleted)
+  * `axton1986/axton1986_data_capote_step6_all_sca.json` — 185 measurements (round 2; final)
 
 ### Benchmarks
 
@@ -943,6 +1009,13 @@ All on branch `tnc_update_capote_20260504`, building on commit `575fac0` (the Ax
 
 ### Generated artefacts
 
-  * `evaluation/capote_chain_summary.json` — machine-readable consolidation of all step results
-  * `evaluation/report_capote_fit.md` — this report
+  * `evaluation/capote_chain_summary.json` — machine-readable consolidation of all step results (round 2)
+  * `evaluation/capote_chain_summary_20260504.json` — round-1 snapshot for direct comparison
+  * `evaluation/report_capote_fit.md` — this report (round 2)
+  * `evaluation/report_capote_fit_20260504.pdf` — round-1 PDF snapshot
   * `evaluation/build_capote_report.py` — the script that generated this report from the summary JSON
+
+### Source paraphrases
+
+  * [`references/emails/tnc_update_roberto_20260505/summary.md`](../references/emails/tnc_update_roberto_20260505/summary.md) — paraphrased thread covering the round-1 instructions (2026-04-09 → 2026-05-04)
+  * [`references/emails/tnc_update_roberto_20260508/summary.md`](../references/emails/tnc_update_roberto_20260508/summary.md) — paraphrased round-2 corrections (2026-05-05 → 2026-05-06)

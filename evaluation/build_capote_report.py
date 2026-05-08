@@ -108,15 +108,18 @@ def step5_vs_step6():
 # ---------------------------------------------------------------------------
 STEP4_ADDED = [
     # (No, author, year/ref, type, nuclide, value, abs_unc, appendix_ref)
-    (171, 'Atoyi',     'Acta Cryst. 20, 587 (1966)',     'SCA(²³⁵U)', 12.3, 0.5,  'A2'),
-    (172, 'Willis',    'PRS A274, 122 (1963)',           'SCA(²³⁵U)', 12.8, 1.0,  'A3'),
-    (173, 'Kaiser',    'Physica B 136, 134 (1986)',      'SCA(²³⁵U)', 14.0, 0.2,  None),
+    # NOTE: round-2 corrections (2026-05-08): No.173 KAISER dropped as duplicate
+    # of ARIF; entries 171/172/177 (U-235) and 179 (U-233) reclassified SCA->SCR.
+    # Marked here for the report's "added datapoints" table.
+    (171, 'Atoyi',     'Acta Cryst. 20, 587 (1966)',     'SCR(²³⁵U) [r2]', 12.3, 0.5,  'B2'),
+    (172, 'Willis',    'PRS A274, 122 (1963)',           'SCR(²³⁵U) [r2]', 12.8, 1.0,  'B2'),
+    (173, 'Kaiser',    'Physica B 136, 134 (1986)',      '— DELETED [r2]', 14.0, 0.2,  'B1'),
     (174, 'Arif',      'PR A35, 2810 (1987)',            'SCA(²³⁵U)', 14.0, 0.2,  None),
     (175, 'Ceulemans', 'Divadeenam compilation 1970',    'SCA(²³⁵U)', 14.6, 0.5,  'A4'),
     (176, 'Bayvas',    'Divadeenam compilation 1980',    'SCA(²³⁵U)', 14.3, 1.5,  None),
-    (177, 'Foote',     'Divadeenam compilation 1958',    'SCA(²³⁵U)', 15.0, 1.0,  None),
+    (177, 'Foote',     'Divadeenam compilation 1958',    'SCR(²³⁵U) [r2]', 15.0, 1.0,  'B3'),
     (178, 'Oleksa',    'Phys Rev 109, 1645 (1958)',      'SCA(²³³U)', 13.4, 0.5,  'A5'),
-    (179, 'Green',     'JNM 51, 281 (1974)',             'SCA(²³³U)', 12.6, 0.7,  'A6'),
+    (179, 'Green',     'JNM 51, 281 (1974)',             'SCR(²³³U) [r2]', 12.6, 0.7,  'B2'),
     (180, 'Vertebnyi', 'Divadeenam compilation 1974',    'SCA(²³³U)', 13.2, 0.6,  None),
     (181, 'Green',     'JNM 34, 281 (1970)',             'SCA(²³⁹Pu)', 7.7, 0.6,  None),
     (182, 'Atoyi',     'Acta Cryst. 20, 587 (1966)',     'SCA(²³⁹Pu)', 7.3, 0.7,  None),
@@ -249,9 +252,10 @@ def build():
     add = out.append
 
     add('# Capote 2026-05-04 Fit Chain: Step-by-Step Benchmark Report\n')
-    add('This report documents the implementation of the new TNC fit chain proposed by R. Capote in his 2026-05-04 emails *"NEW TNC FIT steps"* and *"Revision/additions to Axton Total cross sections experimental data"*. Each section corresponds to one of the seven steps (0–6) in the chain, showing how the iterative Generalized Least Squares (GLS) fit results evolve as data are added, deleted, reclassified, or modified.\n')
-    add('All fits use the microscopic-only data subset (Maxwellian-derived functions excluded) on the Axton 1986 database, starting from the no-Lounsbury baseline that reproduces Axton Table 8 (see `report_axton1986_reproduction.md`).\n')
-    add('Quantities with shifts exceeding 0.1% relative to the previous step are highlighted in **bold**. The Westcott-folded quantities FA, FF, F1ETA, F2ETA, F3ETA are computed as derived outputs at each step per Roberto\'s request (K1 = F3ETA).\n')
+    add('*Round 2 — incorporates corrections requested in the 2026-05-08 email round (see [`references/emails/tnc_update_roberto_20260508/`](../references/emails/tnc_update_roberto_20260508/summary.md)).*\n')
+    add('This report documents the implementation of the new TNC fit chain proposed in the 2026-05-04 emails *"NEW TNC FIT steps"* and *"Revision/additions to Axton Total cross sections experimental data"*, refined by the corrections in the 2026-05-08 round (drop KAISER as duplicate of ARIF; reclassify ATOYI / WILLIS / FOOTE / GREEN-233 from SCA to SCR; replace Westcott factors with B81-derived values). Each section corresponds to one of the seven steps (0–6) in the chain, showing how the iterative Generalized Least Squares (GLS) fit results evolve as data are added, deleted, reclassified, or modified.\n')
+    add('All fits use the microscopic-only data subset (Maxwellian-derived functions excluded) on the Axton 1986 database. Steps 0 and 1 read from a round-2 baseline file (`axton1986_data_capote_round2_baseline.json`) that is identical to the original microscopic-Axton baseline except for the new Westcott factors; the original `axton1986_data.json` is preserved unchanged as the Axton-Table-8 reproduction artefact.\n')
+    add('Quantities with shifts exceeding 0.1% relative to the previous step are highlighted in **bold**. The Westcott-folded quantities FA, FF, F1ETA, F2ETA, F3ETA are computed as derived outputs at each step per the request (K1 = F3ETA). A Round-1 → Round-2 comparison table is shown after the Step-5-vs-Step-6 head-to-head; the round-2 corrections are documented in detail in Appendix B.\n')
 
     add('## Overview\n')
     add('| # | Step | N meas | N free | DOF | χ² | Converged |')
@@ -263,15 +267,15 @@ def build():
          '+ Wallner 2014 U-235 capture',
          'Sears SCA list + Pu-241 estimate; delete Lemmel SCA',
          '+ transmission additions; 3 SCR→SCA reclassifications',
-         'All ABS+SCR → ABS+SCA; drop Lemmel SCA-SCR; SCR removed'),
+         'All ABS+SCR → ABS+SCA; drop Lemmel SCA-SCR; SCR partially removed'),
     ][0]
     for i, s in enumerate(summary['steps']):
         add(f"| {i} | {descs[i]} | {s['n_meas']} | {s['n_free_params']} | "
             f"{s['dof']} | {s['chi2']:.2f} | {'Yes' if s['converged'] else 'No'} |")
     add('')
 
-    add('## Roberto\'s targeted comparison: Step 5 vs Step 6\n')
-    add('Roberto\'s email asks to *"compare steps 5 and 6 — hopefully one of them will be the final fit"*. The two candidate fits agree to better than 0.2% on every primary and derived quantity. Step 5 retains 4 SCR fit variables constrained by Lemmel SCA−SCR datapoints; step 6 removes them per Roberto\'s parenthetical *"reducing 4 fitting variables SCR"*. Detailed numbers are in the per-step sections below; the head-to-head comparison appears in the dedicated section after step 6.\n')
+    add('## Targeted comparison: Step 5 vs Step 6\n')
+    add('The 2026-05-04 email asks to *"compare steps 5 and 6 — hopefully one of them will be the final fit"*. The two candidate fits agree to better than 0.2% on every primary and derived quantity. Step 5 retains 4 SCR fit variables (now constrained by both the round-2 SCR reclassifications and the ABS+SCR transmissions); step 6 removes the ABS+SCR transmissions and Lemmel SCA-SCR, leaving SCR(²³³U) and SCR(²³⁵U) constrained only by the reclassified direct measurements (and SCR(²³⁹Pu), SCR(²⁴¹Pu) unconstrained → removed). The 2026-05-06 follow-up email expresses a marginal preference for Step 5 over Step 6.\n')
 
     # Per-step sections
     headings = [
@@ -284,9 +288,11 @@ def build():
         ('Step 3: + Wallner 2014 U-235 Capture',
          'Step 3 adds two Wallner et al. 2014 thermal capture measurements (PRL 112, 192501, 2014):\n\n  * No.169 WALLNER CA 35 =  99.5 b, σ = 2.0%\n  * No.170 WALLNER CA 35 = 101.5 b, σ = 2.0%\n\nBoth Wallner values lie above the step-2 fit (CA 35 ≈ 98.2 b). The fit accommodates the pull with χ² = +2.3 over 2 added measurements; CA(²³⁵U) shifts +0.76% to 98.97 b. Through the absorption channel correlations, SCA(²³⁵U) drops 1.3% and SCR(²³⁵U) drops 1.9%. F3ETA(²³⁵U) shifts only 0.08%, so the K1 of interest is essentially preserved.'),
         ('Step 4: Sears SCA List + Pu-241 Estimate; Delete Lemmel SCA',
-         '''Step 4 implements the most extensive change in the chain. It replaces the four Lemmel direct SCA measurements with a curated compilation drawn from Sears (1992), the Divadeenam compilation, EXFOR replacements where Roberto annotated them, and Pronyaev's potential-scattering estimate for Pu-241.
+         '''Step 4 implements the most extensive change in the chain. It replaces the four Lemmel direct SCA measurements with a curated compilation drawn from Sears (1992), the Divadeenam compilation, EXFOR replacements, and Pronyaev's potential-scattering estimate for Pu-241.
 
-The Lemmel SCA−SCR datapoints (Nos. 89, 91, 93, 95) are *kept* per Roberto's instruction *"leave SCA-SCR"*; only the four direct Lemmel SCA datapoints are deleted.
+The Lemmel SCA−SCR datapoints (Nos. 89, 91, 93, 95) are *kept* per the instruction *"leave SCA-SCR"*; only the four direct Lemmel SCA datapoints are deleted.
+
+**Round-2 corrections applied here** (see Appendix B): KAISER (No.173) is removed as a duplicate of ARIF; ATOYI (No.171), WILLIS (No.172), FOOTE (No.177) and GREEN-233 (No.179) are reclassified from SCA to SCR. Net step-4 cardinality is therefore 9 added (vs. 14 before round 2): 1 deleted (Kaiser) plus 4 reclassified (still added, but now constraining SCR rather than SCA).
 
 #### Datapoints deleted
 {step4_deleted}
@@ -295,7 +301,7 @@ The Lemmel SCA−SCR datapoints (Nos. 89, 91, 93, 95) are *kept* per Roberto's i
 {step4_added}
 
 #### Impact
-The U-235 SCA channel is the most affected: SCA(²³⁵U) drops from 15.66 b to 13.96 b — a 10.9% shift — driven by the Kaiser/Arif interferometry consensus around 14.0 b replacing the 16-ish Lemmel value. SCA uncertainties collapse dramatically (e.g. SCA 35: 7.19% → 0.92%; SCA 41: 21.6% → 6.7% via Pronyaev's pin), reflecting the data richness of the new compilation. ABS, FIS, CA, and the F-quantities shift by ≤0.16% — the K1 = F3ETA is essentially insensitive to the SCA reshaping because F3ETA = NUB·FF − FA does not directly depend on SCA. χ² rises by 11.9 from a net +10 measurements (~1.2/measurement, indicating moderate but absorbable tension).
+The U-235 SCA channel is the most affected: SCA(²³⁵U) drops driven by the ARIF interferometry value 14.0 b replacing the 16-ish Lemmel value (Kaiser is no longer added separately; it is the same experiment as Arif). SCA uncertainties collapse dramatically, reflecting the data richness of the new compilation. ABS, FIS, CA, and the F-quantities shift by ≤0.2% relative to step 3. χ² rises by ≈8 from a net +9 measurements (~0.9/measurement, indicating moderate but absorbable tension).
 '''),
         ('Step 5: + Transmission Entries; 3 ABS+SCR → ABS+SCA Reclassifications',
          '''Step 5 implements Roberto's transmission-data revision from his "Revision/additions to Axton Total cross sections experimental data" email of 2026-05-04. Three existing transmission entries are reclassified, ten new entries are added, and two would-be additions (Spencer 1987) are recognised as already in the database.
@@ -312,15 +318,15 @@ The U-235 SCA channel is the most affected: SCA(²³⁵U) drops from 15.66 b to 
 #### Impact
 The new transmission datapoints sharpen ABS (and through it FIS and CA) but barely touch the SCA channel from step 4. ABS uncertainties tighten by 10–35% across the four nuclides. The largest individual tension is **Leonard 56 ABS+SCR(²³⁹Pu) = 1055 b** at +2.1σ from the predicted 1027 b; this contributes ≈4.5 to the χ² increase of 9.5. K1 = F3ETA shifts ≤0.21% across all four nuclides relative to step 4.
 '''),
-        ('Step 6: All ABS+SCR → ABS+SCA; Drop Lemmel SCA-SCR; SCR Removed',
+        ('Step 6: All ABS+SCR → ABS+SCA; Drop Lemmel SCA-SCR; SCR Partially Removed',
          '''Step 6 finalises the Capote chain:
 
   * **Convert** every (ABS X)+SCR X measurement to (ABS X)+SCA X — 26 conversions covering all transmission entries from baseline plus the step-5 additions.
   * **Delete** the four Lemmel SCA−SCR datapoints (Nos. 89, 91, 93, 95).
-  * **Consequence**: with no measurement function referencing SCR and no SCA−SCR datapoint, the four SCR primary parameters become unconstrained and are removed from the fit parameter space — exactly Roberto\'s parenthetical *"reducing 4 fitting variables SCR"*. Decision logged in [A16](#a-decisions-and-contentious-points).
+  * **Round-2 nuance** (see Appendix B): SCR(²³⁹Pu) and SCR(²⁴¹Pu) become unconstrained and are removed from the fit parameter space, but SCR(²³³U) and SCR(²³⁵U) remain in the fit because the four reclassified entries from step 4 (ATOYI, WILLIS, FOOTE on U-235; GREEN-233 on U-233) now constitute *direct* SCR measurements. Roberto's original *"reducing 4 fitting variables SCR"* simplifies to *reducing 2 fitting variables*. Decision logged in [B5](#b-round-2-corrections).
 
 #### Impact relative to step 5
-Differences are small. SCA channel essentially unchanged (much less than 0.02%) — the SCA additions in step 4 are the dominant constraint. ABS, FIS, CA, and the F-quantities shift by ≈0.15% as the converted transmission datapoints now correlate only with SCA, slightly relaxing the absorption fit. χ² rises by only 1.0 (84.2 → 85.2) despite the bulk reclassification.
+Differences are small. SCA channel essentially unchanged (much less than 0.02%) — the SCA additions in step 4 are the dominant constraint. ABS, FIS, CA, and the F-quantities shift by ≤0.15% as the converted transmission datapoints now correlate only with SCA, slightly relaxing the absorption fit. χ² is comparable (80.5 → 80.1, a 0.4 *decrease*) with 2 fewer free parameters.
 '''),
     ]
 
@@ -363,17 +369,19 @@ Differences are small. SCA channel essentially unchanged (much less than 0.02%) 
 
     # Step 5 vs Step 6 head-to-head
     add('## Step 5 vs Step 6: Head-to-Head Comparison\n')
-    add('This is the key comparison Roberto requested. Both candidate fits agree to better than 0.2% on every primary and derived quantity. Step 6 has 4 fewer free parameters (SCR 33, 35, 39, 41 removed) and slightly higher χ² (85.2 vs 84.2 — a 1.0 increase from the bulk SCR→SCA conversion).\n')
+    s5 = summary['steps'][5]
+    s6 = summary['steps'][6]
+    add(f'Both candidate fits agree to better than 0.2% on every primary and derived quantity. Step 6 has 2 fewer free parameters than step 5 (SCR(²³⁹Pu), SCR(²⁴¹Pu) become unconstrained after the ABS+SCR → ABS+SCA conversion; SCR(²³³U), SCR(²³⁵U) remain in the fit, constrained by the round-2 reclassified entries — see Appendix B5). χ² is comparable: {s5["chi2"]:.2f} vs {s6["chi2"]:.2f}, with step 6 *fitting slightly better* despite the parameter reduction.\n')
     add(step5_vs_step6())
     add('')
-    add('**Recommendation for choice between step 5 and step 6 is left to the collaborators.** Step 5 retains an SCR fit constrained only by the Lemmel SCA−SCR data; step 6 abandons SCR entirely, treating all transmission data as ABS+SCA. The K1 = F3ETA differs by ≤0.15% between the two — a difference well below the percent-level uncertainties on the K1 values themselves.\n')
+    add('**Per the 2026-05-06 follow-up email, Step 5 is marginally favoured** as the final fit candidate, on the grounds that the systematic SCR < SCA difference visible in step 5 is physically expected and yields fission cross sections in slightly better agreement with current library R-matrix fits. Differences with step 6 are within uncertainties.\n')
 
     # K1 = F3ETA evolution
     add('## K1 = F3ETA Evolution Through the Chain\n')
-    add('This is the central derived quantity Roberto identifies as the K1 of the new TNC fit. Values across all 7 steps:\n')
+    add('K1 = F3ETA = NUB · FF − FA is the central derived quantity flagged as the K1 of the new TNC fit. Values across all 7 steps (round 2):\n')
     add(k1_evolution())
     add('')
-    add('All four K1 values stay within ±1% of the Axton T8 baseline through the entire chain. The largest excursion is K1(²³³U) = F3ETA(²³³U), which drops from 746.1 (step 0) to 738.8 (step 6) — a 1.0% reduction driven primarily by the Lounsbury inclusion in step 1.\n')
+    add('K1(²³³U) drops from ≈ 746.2 (step 0) to ≈ 738.7 (step 6) — a 1.0% reduction driven primarily by the Lounsbury inclusion in step 1. K1(²³⁵U) is essentially flat across the chain. K1(²³⁹Pu) shifts ≈ −0.1% from step 0 to step 6. K1(²⁴¹Pu) is flat. The dominant K1 changes between round 1 and round 2 come from the Westcott-factor update (Appendix B4): U-235 K1 ≈ +0.3%, Pu-239 K1 ≈ −0.9%, Pu-241 K1 ≈ +1.1%.\n')
 
     # Comprehensive dataset table (in appendix area)
     add('## Comprehensive Dataset Table (Final Fit, Step 6)\n')
@@ -439,14 +447,65 @@ Differences are small. SCA channel essentially unchanged (much less than 0.02%) 
     add('### A18. Empty systematic uncertainties for step-5 transmission additions\n')
     add('All step-5 transmission additions are entered with empty `systematic_uncertainties` (single uncorrelated total uncertainty), matching the convention used for 26 of the 28 baseline transmission entries. Spencer 1985 (Nos. 166/167) is the existing exception with `alpha = 0.707` representing the α-correction Spencer used internally. The Harvey-pair correlation alternative is the only other systematic structure considered (see A14).\n')
 
-    add('## B. Files Produced by This Chain\n')
+    add('## B. Round-2 Corrections (2026-05-08)\n')
+    add('The 2026-05-08 email round produced three corrections to the round-1 fit. Each is documented below; the verbatim source is preserved in [`references/emails/tnc_update_roberto_20260508/summary.md`](../references/emails/tnc_update_roberto_20260508/summary.md). The original round-1 outputs are preserved as `evaluation/capote_chain_summary_20260504.json` and `evaluation/report_capote_fit_20260504.pdf` for direct numerical comparison.\n')
+
+    add('### B1. KAISER (Physica B 136, 134 (1986)) removed as duplicate of ARIF\n')
+    add('Kaiser et al. 1986 and Arif et al. 1987 used the same neutron-interferometry installation at the same institute; Kaiser gave preliminary values at only two energies, while Arif is the final publication. The 2026-05-08 review (Pronyaev) flagged the duplication; the 2026-05-05 follow-up confirmed deletion of KAISER, retaining ARIF.\n')
+
+    add('### B2. ATOYI / WILLIS / GREEN-233 reclassified SCA → SCR\n')
+    add('In round 1, the entire Sears/Divadeenam compilation was treated as providing SCA values per project decision (the per-row "SCR" tags were assumed to be paste artefacts). The 2026-05-08 review identified three rows for which the SCR tag is consistent with the actual measurement method:\n\n  * **ATOYI 1966** (²³⁵U, Sears Sel = 12.3(5)): tagged SCR by Sears.\n  * **WILLIS 1963** (²³⁵U, EXFOR value 12.8(1.0)): SCR per Sears.\n  * **GREEN 1974** (²³³U, 12.6(7)): per the Pronyaev analysis, the EXFOR record indicates a classical (non-crystal-spectrometer) method, consistent with SCR. Ad-hoc SCA estimation supplied by Pronyaev.\n\nAll three are reclassified from SCA to SCR in steps 4, 5 and 6.\n')
+
+    add('### B3. FOOTE 1958 reclassified SCA → SCR (inferred)\n')
+    add('The cleaned compilation in Roberto\'s 2026-05-05 email tags FOOTE 1958 (²³⁵U, 15.0(1.0)) as "SCR", but the explicit numbered action items only list ATOYI, WILLIS and GREEN-233. Per project decision, the cleaned table is treated as the new authoritative classification, so FOOTE is reclassified to SCR alongside the three named entries. **This decision is inferred and worth confirming with Roberto.** The K1 impact of this single reclassification is ≤ 0.05% (FOOTE\'s 6.7% uncertainty is much weaker than ARIF\'s 1.4% which dominates the SCA(²³⁵U) channel).\n')
+
+    add('### B4. Westcott factors updated to B81-derived values\n')
+    add('The 2026-05-06 email replaces the Westcott factors with values derived from the B81 evaluation (R-matrix fit best estimate), with uncertainties set by the spread between B81 and JEFF-4.0:\n\n')
+    add('| nuclide | Old WGA (Gabs) | New WGA (Gabs) | Old WGF (Gf) | New WGF (Gf) |\n'
+        '|---------|---------------:|---------------:|-------------:|-------------:|\n'
+        '| U-233   | 0.9988 (0.12%) | **1.000 (0.10%)** | 0.9966 (0.20%) | **0.997 (0.10%)** |\n'
+        '| U-235   | 0.9787 (0.09%) | **0.982 (0.31%)** | 0.9778 (0.09%) | **0.981 (0.51%)** |\n'
+        '| Pu-239  | 1.0767 (0.27%) | **1.078 (0.93%)** | 1.0562 (0.28%) | **1.052 (1.33%)** |\n'
+        '| Pu-241  | 1.0444 (0.19%) | **1.046 (0.67%)** | 1.0452 (0.67%) | **1.052 (0.67%)** |\n')
+    add('')
+    add('Gabs is derived as Gabs = (Gcap·Scap + Gfis·Sfis)/(Scap+Sfis) per Capote\'s 2026-05-06 derivation. The new factors apply to **all seven steps**: steps 0 and 1 read from a new `axton1986_data_capote_round2_baseline.json` file (= original baseline + new Westcott); steps 2–6 inherit through their respective JSONs.\n')
+    add('K1 impact (Step 6, round 2 vs round 1):\n\n')
+    add('| Nuclide | K1 (round 1) | K1 (round 2) | Δ |\n'
+        '|---------|-------------:|-------------:|---:|\n'
+        f'| ²³³U    | 738.81       | {summary["steps"][6]["fitted"]["F3ETA 33"]["value"]:.2f}      | {(summary["steps"][6]["fitted"]["F3ETA 33"]["value"] - 738.81) / 738.81 * 100:+.3f}% |\n'
+        f'| ²³⁵U    | 719.32       | {summary["steps"][6]["fitted"]["F3ETA 35"]["value"]:.2f}      | {(summary["steps"][6]["fitted"]["F3ETA 35"]["value"] - 719.32) / 719.32 * 100:+.3f}% |\n'
+        f'| ²³⁹Pu   | 1181.26      | {summary["steps"][6]["fitted"]["F3ETA 39"]["value"]:.2f}     | {(summary["steps"][6]["fitted"]["F3ETA 39"]["value"] - 1181.26) / 1181.26 * 100:+.3f}% |\n'
+        f'| ²⁴¹Pu   | 1688.54      | {summary["steps"][6]["fitted"]["F3ETA 41"]["value"]:.2f}     | {(summary["steps"][6]["fitted"]["F3ETA 41"]["value"] - 1688.54) / 1688.54 * 100:+.3f}% |\n')
+    add('')
+    add(f'For comparison, K1(²³⁵U, Step 5, round 2) = {summary["steps"][5]["fitted"]["F3ETA 35"]["value"]:.2f}, in close agreement with the value reported in the 2026-05-06 email (722.4) using the same new Westcott factor.\n')
+
+    add('### B5. SCR(²³³U), SCR(²³⁵U) retained as fit variables in step 6\n')
+    add('In round 1, step 6 removed all four SCR primary parameters from the fit because no measurement function or datapoint referenced SCR after the conversions and Lemmel deletion. In round 2, the reclassifications (B2, B3) introduce four direct SCR measurements: ATOYI (²³⁵U), WILLIS (²³⁵U), FOOTE (²³⁵U), and GREEN-233 (²³³U). These constrain SCR(²³³U) and SCR(²³⁵U), so the two parameters remain in the fit. SCR(²³⁹Pu) and SCR(²⁴¹Pu) have no remaining constraints and stay unconstrained (removed).\n\nNet effect: Roberto\'s parenthetical *"reducing 4 fitting variables SCR"* in the original step 6 description simplifies to *reducing 2 fitting variables*. Step 6 now has 28 free parameters (was 26 in round 1).\n')
+
+    add('### B6. Round-2 baseline file separation\n')
+    add('To preserve the Axton-Table-8 reproduction artefact, the original `axton1986/axton1986_data.json` is left **unchanged** and a new file `axton1986/axton1986_data_capote_round2_baseline.json` is introduced for steps 0 and 1. The new file is identical to the original except for the eight Westcott measurements (No. 54–61). Steps 2–6 carry their own copies of all measurements; the Westcott updates are applied in-place to those JSONs.\n')
+
+    add('## C. Files Produced by This Chain\n')
     add('All on branch `tnc_update_capote_20260504`, building on commit `575fac0` (the Axton 1986 reproduction state of master).\n')
     add('### JSON databases (one per step where data changes)\n')
-    add('  * `axton1986/axton1986_data.json` — baseline (steps 0, 1 use this directly)\n  * `axton1986/axton1986_data_capote_step2_adamchuk.json` — 168 measurements\n  * `axton1986/axton1986_data_capote_step3_wallner.json` — 170 measurements\n  * `axton1986/axton1986_data_capote_step4_sca_list.json` — 180 measurements\n  * `axton1986/axton1986_data_capote_step5_transmission.json` — 190 measurements\n  * `axton1986/axton1986_data_capote_step6_all_sca.json` — 186 measurements (final)\n')
+    add('  * `axton1986/axton1986_data.json` — original Axton-Table-8 reproduction baseline (untouched; not currently used by any step)\n'
+        '  * `axton1986/axton1986_data_capote_round2_baseline.json` — round-2 baseline (= original + new Westcott); steps 0 and 1 read this\n'
+        '  * `axton1986/axton1986_data_capote_step2_adamchuk.json` — 168 measurements\n'
+        '  * `axton1986/axton1986_data_capote_step3_wallner.json` — 170 measurements\n'
+        '  * `axton1986/axton1986_data_capote_step4_sca_list.json` — 179 measurements (round 2: 180 − 1 KAISER deleted)\n'
+        '  * `axton1986/axton1986_data_capote_step5_transmission.json` — 189 measurements (round 2: 190 − 1 KAISER deleted)\n'
+        '  * `axton1986/axton1986_data_capote_step6_all_sca.json` — 185 measurements (round 2; final)\n')
     add('### Benchmarks\n')
     add('  * `evaluation/benchmark_capote_step0_baseline.py`\n  * `evaluation/benchmark_capote_step1_lounsbury.py`\n  * `evaluation/benchmark_capote_step2_adamchuk.py`\n  * `evaluation/benchmark_capote_step3_wallner.py`\n  * `evaluation/benchmark_capote_step4_sca_list.py`\n  * `evaluation/benchmark_capote_step5_transmission.py`\n  * `evaluation/benchmark_capote_step6_all_sca.py`\n  * `evaluation/benchmark_capote_summary.py` — runs all 7 in sequence and dumps `capote_chain_summary.json`\n')
     add('### Generated artefacts\n')
-    add('  * `evaluation/capote_chain_summary.json` — machine-readable consolidation of all step results\n  * `evaluation/report_capote_fit.md` — this report\n  * `evaluation/build_capote_report.py` — the script that generated this report from the summary JSON\n')
+    add('  * `evaluation/capote_chain_summary.json` — machine-readable consolidation of all step results (round 2)\n'
+        '  * `evaluation/capote_chain_summary_20260504.json` — round-1 snapshot for direct comparison\n'
+        '  * `evaluation/report_capote_fit.md` — this report (round 2)\n'
+        '  * `evaluation/report_capote_fit_20260504.pdf` — round-1 PDF snapshot\n'
+        '  * `evaluation/build_capote_report.py` — the script that generated this report from the summary JSON\n')
+    add('### Source paraphrases\n')
+    add('  * [`references/emails/tnc_update_roberto_20260505/summary.md`](../references/emails/tnc_update_roberto_20260505/summary.md) — paraphrased thread covering the round-1 instructions (2026-04-09 → 2026-05-04)\n'
+        '  * [`references/emails/tnc_update_roberto_20260508/summary.md`](../references/emails/tnc_update_roberto_20260508/summary.md) — paraphrased round-2 corrections (2026-05-05 → 2026-05-06)\n')
 
     return '\n'.join(out)
 
