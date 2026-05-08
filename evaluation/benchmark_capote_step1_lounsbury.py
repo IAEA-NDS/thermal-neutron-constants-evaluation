@@ -134,9 +134,13 @@ def derived_quantity_fn(params_tf, reac_map):
 
 
 def run_benchmark():
+    # 2026-05-08 round 2: switched from axton1986_data.json (the Axton-Table-8
+    # reproduction baseline) to axton1986_data_capote_round2_baseline.json,
+    # which is identical except for the Westcott factors (WGA, WGF for
+    # 233/235/239/241) updated to B81-derived values per Capote 2026-05-06.
     data_path = str(
         __import__('pathlib').Path(__file__).resolve().parent.parent
-        / 'axton1986' / 'axton1986_data.json'
+        / 'axton1986' / 'axton1986_data_capote_round2_baseline.json'
     )
     with open(data_path) as f:
         data = json.load(f)
