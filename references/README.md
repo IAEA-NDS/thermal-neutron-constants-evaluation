@@ -21,3 +21,10 @@ archive and are *not* committed here.
   SCA to SCR and drop KAISER (duplicate of ARIF); (2) replace the Westcott
   factors with new B81-evaluation-derived values; (3) marginally favor Step 5
   over Step 6 and request a sensitivity check at 2× SCA−SCR.
+- [emails/tnc_update_roberto_20260623/](emails/tnc_update_roberto_20260623/summary.md)
+  — Roberto Capote and Ignacio Durán, 2026-05-15 → 2026-06-02. Round-3
+  comprehensive fission and total-cross-section (n,tot) data review: value
+  updates, outlier deletions, and many new fission datapoints across all four
+  fissile nuclides, keeping the SCA/SCR classification. A datapoint-level
+  before→after manifest is in
+  [emails/tnc_update_roberto_20260623/data_change_manifest.md](emails/tnc_update_roberto_20260623/data_change_manifest.md).
