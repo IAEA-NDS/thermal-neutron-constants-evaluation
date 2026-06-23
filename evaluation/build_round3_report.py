@@ -104,6 +104,12 @@ def main():
         data = json.load(f)
     measurements = data['measurements']
 
+    # 3b. Step-5 base (read-only) — source of the deleted entries' details
+    with open(ROOT / 'axton1986'
+              / 'axton1986_data_capote_step5_transmission.json') as f:
+        base = json.load(f)
+    base_by_no = {m['no']: m for m in base['measurements']}
+
     UPDATED = set(UPDATES_ABS) | set(UPDATES_PCT) | {U234_NO}
     NEW = {m['no'] for m in measurements if m['no'] >= 195}
 
@@ -164,6 +170,63 @@ def main():
         f'{", ".join(str(n) for n in sorted(DELETE))} |')
     add(f'| Additions (23 fission + 3 transmission) | {len(NEW)} | '
         f'195–220 |')
+    add('')
+
+    # ---- discarded / excluded datapoints ----
+    DELETE_REASONS = {
+        71:  'Duplicate of the total-XS entry No. 186 (bare ABS is a derived '
+             'quantity from the same experiment).',
+        79:  'U-233 (n,tot): discarded — too much scatter.',
+        86:  'Pu-241 (n,tot): discarded — too large scattering (see plot).',
+        103: 'U-235 fission: outlier.',
+        104: 'Pu-239 fission: outlier.',
+        106: 'U-235 fission: outlier.',
+        107: 'U-235 fission: outlier.',
+        190: 'U-233 (n,tot): second Harvey 79 entry removed; the surviving '
+             'Harvey is No. 189, updated to 588(9) [F10].',
+        191: 'Pu-241 (n,tot): discarded — too large scattering (see plot).',
+        194: 'Pu-239 (n,tot): outlier [F2] (the (n,tot) table showed an '
+             'adjusted 1042(25), but it is flagged an outlier and removed).',
+    }
+    # Candidates considered in the 2026-06-23 review but NOT entered in the DB.
+    NOT_ADDED = [
+        ('Berceanu', 'U-235 fission', '589.3 (0.8%)',
+         'Superseded by Borcea 73 = 586.3 (1.3%), per "replace by Borcea 73" '
+         '(No. 212) [F9].'),
+        ('Bollinger 52', 'U-233 (n,tot)', '592.6 (20 b)',
+         'In the local working notes only; omitted from the consolidated '
+         'U-233 (n,tot) list [F4].'),
+        ('Havens', 'Pu-239 (n,tot)', '~1080 b',
+         'Mis-calibrated experiment / outlier — "do not consider".'),
+        ('Bowman, Melkonian, Schrack, Wagemans 79/88, Mihailescu',
+         'fission', '—',
+         'Shape measurements (relative to the thermal point); not entered as '
+         'absolute datapoints [F12]. (This Melkonian ≠ the U-235 (n,tot) '
+         'No. 63, which is retained.)'),
+    ]
+
+    add('## Discarded and Excluded Datapoints\n')
+    add('Because the input-data list above shows only what remains in the '
+        'database, this section makes the removals explicit. **Part 1** lists '
+        'the entries deleted from the Step-5 base (their pre-deletion values); '
+        '**Part 2** lists candidates that were considered in the 2026-06-23 '
+        'review but not entered.\n')
+    add('### Deleted from the database (10 entries)\n')
+    add('| No. | Author | Reference | Quantity | Value | σ (abs) | σ (%) | Reason |')
+    add('|----:|--------|-----------|----------|------:|--------:|------:|--------|')
+    for no in sorted(DELETE):
+        m = base_by_no[no]
+        val, pct = m['input_value'], m['uncertainty_percent']
+        sig_abs = abs(val) * pct / 100.0
+        add(f"| {no} | {m['author']} | {m['reference']} | "
+            f"{m['measured_function']} | {val:g} | {sig_abs:.3g} | "
+            f"{pct:.3f} | {DELETE_REASONS[no]} |")
+    add('')
+    add('### Considered but not added\n')
+    add('| Author | Channel | Value | Reason |')
+    add('|--------|---------|------:|--------|')
+    for author, channel, value, reason in NOT_ADDED:
+        add(f"| {author} | {channel} | {value} | {reason} |")
     add('')
 
     # ---- fitted quantities + Step-5 comparison ----

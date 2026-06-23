@@ -25,6 +25,34 @@ Full database: 205 measurements (189 base − 10 deletions + 26 additions); 143 
 | Deletions (outliers/duplicates) | 10 | 71, 79, 86, 103, 104, 106, 107, 190, 191, 194 |
 | Additions (23 fission + 3 transmission) | 26 | 195–220 |
 
+## Discarded and Excluded Datapoints
+
+Because the input-data list above shows only what remains in the database, this section makes the removals explicit. **Part 1** lists the entries deleted from the Step-5 base (their pre-deletion values); **Part 2** lists candidates that were considered in the 2026-06-23 review but not entered.
+
+### Deleted from the database (10 entries)
+
+| No. | Author | Reference | Quantity | Value | σ (abs) | σ (%) | Reason |
+|----:|--------|-----------|----------|------:|--------:|------:|--------|
+| 71 | GERASIMOV | 1962(1) | ABS 35 | 670.31 | 14 | 2.089 | Duplicate of the total-XS entry No. 186 (bare ABS is a derived quantity from the same experiment). |
+| 79 | PATTENDEN | 1956(1) | (ABS 33)+SCR 33 | 596.27 | 18 | 3.019 | U-233 (n,tot): discarded — too much scatter. |
+| 86 | CRAIG | 1964(1) | (ABS 41)+SCA 41 | 1380.6 | 40 | 2.897 | Pu-241 (n,tot): discarded — too large scattering (see plot). |
+| 103 | RAFFLE | 1959(1) | FIS 35 | 581.97 | 18 | 3.092 | U-235 fission: outlier. |
+| 104 | RAFFLE | 1959(1) | 39 FH1 39 | 1714.8 | 48.8 | 2.843 | Pu-239 fission: outlier. |
+| 106 | MASLIN | 1965(1) | FIS 35 | 583.71 | 8.46 | 1.449 | U-235 fission: outlier. |
+| 107 | SAPLAKOGLU | 1959(1) | FIS 35 | 593.17 | 13.2 | 2.232 | U-235 fission: outlier. |
+| 190 | HARVEY-2 | Capote 2026-05-04 list (1979) | (ABS 33)+SCR 33 | 592 | 6 | 1.014 | U-233 (n,tot): second Harvey 79 entry removed; the surviving Harvey is No. 189, updated to 588(9) [F10]. |
+| 191 | SCHWARTZ | Capote 2026-05-04 list (1958) | (ABS 41)+SCR 41 | 1410 | 80 | 5.674 | Pu-241 (n,tot): discarded — too large scattering (see plot). |
+| 194 | LEONARD | Capote 2026-05-04 list (1956) | (ABS 39)+SCR 39 | 1055 | 13 | 1.232 | Pu-239 (n,tot): outlier [F2] (the (n,tot) table showed an adjusted 1042(25), but it is flagged an outlier and removed). |
+
+### Considered but not added
+
+| Author | Channel | Value | Reason |
+|--------|---------|------:|--------|
+| Berceanu | U-235 fission | 589.3 (0.8%) | Superseded by Borcea 73 = 586.3 (1.3%), per "replace by Borcea 73" (No. 212) [F9]. |
+| Bollinger 52 | U-233 (n,tot) | 592.6 (20 b) | In the local working notes only; omitted from the consolidated U-233 (n,tot) list [F4]. |
+| Havens | Pu-239 (n,tot) | ~1080 b | Mis-calibrated experiment / outlier — "do not consider". |
+| Bowman, Melkonian, Schrack, Wagemans 79/88, Mihailescu | fission | — | Shape measurements (relative to the thermal point); not entered as absolute datapoints [F12]. (This Melkonian ≠ the U-235 (n,tot) No. 63, which is retained.) |
+
 ## Fitted Quantities (Round 3 vs Step-5 base)
 
 Shifts exceeding 0.1% relative to the Step-5 base are highlighted in **bold**. K1 = F3ETA = NUB·FF − FA is the central derived quantity.
