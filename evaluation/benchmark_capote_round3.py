@@ -119,9 +119,12 @@ def derived_quantity_fn(params_tf, reac_map):
         ABS = get('ABS', n)
         FIS = get('FIS', n)
         NUB = get('NUB', n)
+        SCA = get('SCA', n)
         derived[('CA', n)] = ABS - FIS
         derived[('ALPHA', n)] = (ABS - FIS) / FIS
         derived[('ETA', n)] = NUB * FIS / ABS
+        # Total thermal cross section (Roberto's request): sigma_tot = ABS + SCA
+        derived[('TOT', n)] = ABS + SCA
         if ('WGA', n) in reac_map and ('WGF', n) in reac_map:
             FA = ABS * get('WGA', n)
             FF = FIS * get('WGF', n)
@@ -168,6 +171,33 @@ def run_benchmark():
 
     derived = compute_derived_uncertainties(
         derived_quantity_fn, result, reac_map, free_idx)
+
+    # Per-point diagnostics (for the report): measured, fitted prediction,
+    # experimental uncertainty, normalized residual (pull) and its square
+    # (the per-point chi-square contribution). The GLS works in relative
+    # space, so the normalized residual is (meas-pred)/sigma_exp with
+    # sigma_exp = |meas| * unc_pct/100.
+    preds = result['predictions']
+    per_point = []
+    for i, no in enumerate(meas_ids):
+        m = meas_by_no[no]
+        meas = float(measured[i])
+        pred = float(preds[i])
+        unc_pct = float(m['uncertainty_percent'])
+        sigma_abs = abs(meas) * unc_pct / 100.0
+        pull = (meas - pred) / sigma_abs if sigma_abs > 0 else float('nan')
+        per_point.append({
+            'no': no,
+            'author': m['author'],
+            'measured_function': m['measured_function'],
+            'measured': meas,
+            'predicted': pred,
+            'unc_pct': unc_pct,
+            'sigma_abs': sigma_abs,
+            'pull': pull,
+            'chi2_contrib': pull * pull,
+        })
+    result['per_point'] = per_point
 
     free_keys = list(initial_params.keys())
     all_fitted = {}

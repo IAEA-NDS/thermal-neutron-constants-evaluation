@@ -251,11 +251,28 @@ def main():
             f'{fmt(unc, 3)} | {bold(dstr, sig)} |')
     add('')
 
+    # ---- total cross section (ABS + SCA) ----
+    labels = {33: '²³³U', 35: '²³⁵U', 39: '²³⁹Pu', 41: '²⁴¹Pu'}
+    add('## Total Cross Section (σ_tot = ABS + SCA)\n')
+    add('The fitted total thermal cross section σ_tot = ABS + SCA for each '
+        'fissile nuclide, with its propagated uncertainty. The Step-5 base '
+        'column is computed from that fit’s ABS and SCA values for comparison.\n')
+    add('| Nuclide | ABS | SCA | σ_tot = ABS+SCA | Unc (%) | Step-5 σ_tot | Δ% |')
+    add('|---------|----:|----:|----------------:|--------:|-------------:|---:|')
+    for n in [33, 35, 39, 41]:
+        abs_v = r3_fit[f'ABS {n}']['value']
+        sca_v = r3_fit[f'SCA {n}']['value']
+        tot = r3_fit[f'TOT {n}']
+        s5_tot = s5_fit[f'ABS {n}']['value'] + s5_fit[f'SCA {n}']['value']
+        d = (tot['value'] - s5_tot) / s5_tot * 100
+        add(f"| {labels[n]} | {abs_v:.2f} | {sca_v:.3f} | {tot['value']:.2f} | "
+            f"{tot['unc_pct']:.3f} | {s5_tot:.2f} | {d:+.3f}% |")
+    add('')
+
     # ---- K1 ----
     add('## K1 = F3ETA (Round 3)\n')
     add('| Nuclide | K1 = F3ETA | Unc (%) | Step-5 base | Δ% |')
     add('|---------|-----------:|--------:|------------:|---:|')
-    labels = {33: '²³³U', 35: '²³⁵U', 39: '²³⁹Pu', 41: '²⁴¹Pu'}
     for n in [33, 35, 39, 41]:
         cur = r3_fit[f'F3ETA {n}']
         prv = s5_fit[f'F3ETA {n}']
@@ -291,6 +308,44 @@ def main():
         used = 'yes' if in_fit(m) else ''
         add(f"| {no} | {m['author']} | {ref} | {m['measured_function']} | "
             f"{val:g} | {sig_abs:.3g} | {pct:.3f} | {status} | {used} |")
+    add('')
+
+    # ---- per-point fit diagnostics ----
+    pp = result['per_point']
+    diag_chi2 = sum(p['chi2_contrib'] for p in pp)
+    n_gt2 = sum(1 for p in pp if abs(p['pull']) > 2)
+    n_gt3 = sum(1 for p in pp if abs(p['pull']) > 3)
+    add('## Per-Point Fit Diagnostics (normalized residual & χ²)\n')
+    add('For every experimental point entering the fit: the measured value, '
+        'the fitted (predicted) value, the experimental uncertainty σ_exp '
+        '(absolute), the **normalized residual** (pull) = (measured − '
+        'predicted)/σ_exp, and the per-point **χ²_i = pull²**.\n')
+    add(f'The GLS is performed with the full (correlated) covariance matrix, '
+        f'so the reported total χ² = {result["chi2"]:.2f} includes off-diagonal '
+        f'correlation terms and is not simply the sum of the per-point χ²_i '
+        f'below (the diagonal sum is Σχ²_i = {diag_chi2:.1f} over {len(pp)} '
+        f'points). Points with |pull| > 2 (mild tension) number {n_gt2}; '
+        f'|pull| > 3 number {n_gt3}. A positive pull means the measurement '
+        f'lies above the fit.\n')
+    add('| No. | Author | Quantity | Measured | Fitted | σ_exp | pull = (m−f)/σ | χ²_i |')
+    add('|----:|--------|----------|---------:|-------:|------:|---------------:|----:|')
+    for p in pp:
+        add(f"| {p['no']} | {p['author']} | {p['measured_function']} | "
+            f"{p['measured']:g} | {p['predicted']:.4g} | {p['sigma_abs']:.3g} | "
+            f"{p['pull']:+.2f} | {p['chi2_contrib']:.2f} |")
+    add('')
+    add('### Largest individual tensions (|pull| > 2)\n')
+    top = sorted((p for p in pp if abs(p['pull']) > 2),
+                 key=lambda x: -abs(x['pull']))
+    if top:
+        add('| No. | Author | Quantity | Measured | Fitted | pull | χ²_i |')
+        add('|----:|--------|----------|---------:|-------:|-----:|----:|')
+        for p in top:
+            add(f"| {p['no']} | {p['author']} | {p['measured_function']} | "
+                f"{p['measured']:g} | {p['predicted']:.4g} | {p['pull']:+.2f} | "
+                f"{p['chi2_contrib']:.2f} |")
+    else:
+        add('None — every point lies within 2σ of the fit.')
     add('')
 
     # ---- decisions appendix ----
@@ -388,6 +443,7 @@ def main():
         'fitted': r3_fit,
         'step5_reference': {'chi2': s5['chi2'], 'n_meas': s5['n_meas'],
                             'dof': s5['dof'], 'fitted': s5_fit},
+        'per_point': result['per_point'],
     }
     with open(EVAL_DIR / 'round3_summary.json', 'w') as f:
         json.dump(round3_summary, f, indent=2)
